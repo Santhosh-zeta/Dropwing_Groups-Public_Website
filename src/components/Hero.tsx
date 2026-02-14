@@ -1,78 +1,100 @@
-import { useState } from "react";
-import { Pause, Play } from "lucide-react";
+import { motion } from "framer-motion";
+import HeroBackground from "./HeroBackground";
 
 const Hero = () => {
-  const [motionPaused, setMotionPaused] = useState(false);
-
   return (
-    <section className="relative flex min-h-screen items-center overflow-hidden">
-      {/* Background motion */}
-      <div
-        className={`hero-bg-motion absolute inset-0 ${motionPaused ? "paused" : ""}`}
-        aria-hidden="true"
-      >
-        <svg
-          className="absolute inset-0 h-full w-full opacity-[0.04]"
-          xmlns="http://www.w3.org/2000/svg"
-        >
-          <defs>
-            <pattern
-              id="hero-grid"
-              width="80"
-              height="80"
-              patternUnits="userSpaceOnUse"
-            >
-              <path
-                d="M 80 0 L 0 0 0 80"
-                fill="none"
-                stroke="currentColor"
-                strokeWidth="0.5"
-              />
-            </pattern>
-          </defs>
-          <rect width="120%" height="120%" fill="url(#hero-grid)" x="-10%" y="-10%" />
-        </svg>
-      </div>
+    <section className="relative flex min-h-screen items-center justify-center overflow-hidden bg-structural text-structural-foreground">
+      <HeroBackground />
 
-      {/* Content */}
-      <div className="relative z-10 mx-auto w-full max-w-[1400px] px-6 md:px-12 lg:px-20">
-        <div className="max-w-4xl pt-32 pb-20 md:pt-40 md:pb-32">
-          <h1 className="mb-8 text-4xl font-bold leading-[1.08] tracking-tight text-foreground md:text-6xl lg:text-7xl xl:text-8xl">
-            EXECUTI
-            <span className="inline-block text-primary transition-transform duration-[2000ms]">
-              &gt;
-            </span>
-            N IS
-            <br />
-            OWNERSHIP
-          </h1>
-          <p className="mb-12 max-w-xl text-base leading-relaxed text-muted-foreground md:text-lg">
-            Dropwing Groups operates as a permanent extension of enterprise
-            organizations. We don't advise. We execute. We own outcomes.
-          </p>
-          <a
-            href="#contact"
-            className="group inline-flex items-center gap-3 border border-primary/40 px-8 py-4 text-xs font-medium tracking-[0.2em] text-foreground uppercase transition-colors duration-150 hover:border-primary hover:bg-primary/5"
+      <div className="relative z-10 w-full max-w-[1600px] px-6 md:px-12 lg:px-20 pt-20">
+        <div className="flex flex-col items-start justify-center min-h-[60vh]">
+
+          {/* Label / Overline */}
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8, delay: 0.5 }}
+            className="mb-8 flex items-center gap-4"
           >
-            Initiate Briefing
-            <span className="inline-block text-primary transition-transform duration-150 group-hover:translate-x-1">
-              →
+            <span className="h-[1px] w-12 bg-primary/60"></span>
+            <span className="text-xs font-bold tracking-[0.3em] text-primary/80 uppercase">
+              Operational Sovereignty
             </span>
-          </a>
+          </motion.div>
+
+          {/* Massive Kinetic Typography */}
+          <h1 className="relative font-bold leading-[0.9] tracking-tighter text-white">
+            <div className="overflow-hidden">
+              <motion.div
+                initial={{ y: "100%" }}
+                animate={{ y: 0 }}
+                transition={{ duration: 1, ease: [0.16, 1, 0.3, 1], delay: 0.2 }}
+                className="text-[12vw] md:text-[8vw] xl:text-[7vw] text-transparent [-webkit-text-stroke:1px_rgba(255,255,255,0.8)]"
+              >
+                EXECUTION
+              </motion.div>
+            </div>
+
+            <div className="overflow-hidden">
+              <motion.div
+                initial={{ y: "100%" }}
+                animate={{ y: 0 }}
+                transition={{ duration: 1, ease: [0.16, 1, 0.3, 1], delay: 0.35 }}
+                className="flex items-center gap-4 text-[12vw] md:text-[8vw] xl:text-[7vw] text-white"
+              >
+                <span>IS</span>
+                <span className="h-[2px] w-[1em] bg-primary block mt-4"></span>
+              </motion.div>
+            </div>
+
+            <div className="overflow-hidden">
+              <motion.div
+                initial={{ y: "100%" }}
+                animate={{ y: 0 }}
+                transition={{ duration: 1, ease: [0.16, 1, 0.3, 1], delay: 0.5 }}
+                className="text-[12vw] md:text-[8vw] xl:text-[7vw] text-white"
+              >
+                OWNERSHIP
+              </motion.div>
+            </div>
+          </h1>
+
+          {/* Subtext and CTA */}
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ duration: 1, delay: 1 }}
+            className="mt-12 max-w-xl"
+          >
+            <p className="text-lg md:text-xl leading-relaxed text-gray-300 mb-10 bg-black/20 backdrop-blur-sm p-6 border-l-2 border-primary/40">
+              The era of advisory is over. Dropwing Groups builds, runs, and governs
+              institutional grade operating models. We don't just recommend the path.
+              <span className="text-white font-semibold"> We walk it with you.</span>
+            </p>
+
+            <a
+              href="#contact"
+              className="group relative inline-flex items-center gap-4 px-8 py-4 bg-primary/10 border border-primary/40 backdrop-blur-sm hover:bg-primary/20 hover:border-primary transition-all duration-300"
+            >
+              <span className="text-sm font-bold tracking-[0.2em] text-white uppercase">
+                Initiate Engagement
+              </span>
+              <span className="text-primary group-hover:translate-x-1 transition-transform text-lg">→</span>
+            </a>
+          </motion.div>
         </div>
       </div>
 
-      {/* Pause/Play control — desktop only */}
-      <button
-        onClick={() => setMotionPaused(!motionPaused)}
-        className="absolute right-6 bottom-6 hidden items-center gap-2 text-muted-foreground transition-colors duration-150 hover:text-foreground md:flex"
-        aria-label={motionPaused ? "Play background motion" : "Pause background motion"}
+      {/* Scroll indicator */}
+      <motion.div
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ delay: 2, duration: 1 }}
+        className="absolute bottom-12 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2"
       >
-        {motionPaused ? <Play size={14} /> : <Pause size={14} />}
-        <span className="text-[10px] tracking-[0.15em] uppercase">
-          {motionPaused ? "Play" : "Pause"}
-        </span>
-      </button>
+        <span className="text-[10px] tracking-[0.2em] text-gray-500 uppercase">Scroll</span>
+        <div className="w-[1px] h-12 bg-gradient-to-b from-primary to-transparent"></div>
+      </motion.div>
     </section>
   );
 };

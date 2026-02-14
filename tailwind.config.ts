@@ -60,6 +60,11 @@ export default {
           border: "hsl(var(--sidebar-border))",
           ring: "hsl(var(--sidebar-ring))",
         },
+        structural: {
+          DEFAULT: "hsl(var(--structural))",
+          foreground: "hsl(var(--structural-foreground))",
+        },
+
         "section-border": "hsl(var(--section-border))",
         "text-subdued": "hsl(var(--text-subdued))",
         "violet-accent": "hsl(var(--violet-accent))",

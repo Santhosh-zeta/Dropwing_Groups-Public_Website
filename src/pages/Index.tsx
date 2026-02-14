@@ -12,7 +12,6 @@ import SiteFooter from "@/components/sections/SiteFooter";
 const Index = () => {
   return (
     <main>
-      <Navbar />
       <Hero />
       <FeaturedInsights />
       <LeadershipQuote />
@@ -21,7 +20,6 @@ const Index = () => {
       <Capabilities />
       <GovernanceScale />
       <EngagementGate />
-      <SiteFooter />
     </main>
   );
 };

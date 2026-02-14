@@ -2,12 +2,48 @@ import { Toaster } from "@/components/ui/toaster";
 import { Toaster as Sonner } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { BrowserRouter, Routes, Route, useLocation } from "react-router-dom";
+import { AnimatePresence } from "framer-motion";
+import PageTransition from "./components/PageTransition";
+import MainLayout from "./components/MainLayout";
 import Index from "./pages/Index";
+import WhatWeDo from "./pages/WhatWeDo";
+import WhatWeThink from "./pages/WhatWeThink";
 import WhoWeAre from "./pages/WhoWeAre";
+import Careers from "./pages/Careers";
+import Contact from "./pages/Contact";
 import NotFound from "./pages/NotFound";
+import InsightArticle from "./pages/InsightArticle";
 
 const queryClient = new QueryClient();
+
+const AnimatedRoutes = () => {
+  const location = useLocation();
+
+  return (
+    <Routes location={location} key={location.pathname}>
+      {/* Standard Pages wrapped in MainLayout */}
+      <Route element={<MainLayout />}>
+        <Route path="/" element={<Index />} />
+        <Route path="/what-we-do" element={<WhatWeDo />} />
+        <Route path="/what-we-think" element={<WhatWeThink />} />
+        <Route path="/who-we-are" element={<WhoWeAre />} />
+        <Route path="/careers" element={<Careers />} />
+        <Route path="/contact" element={<Contact />} />
+        <Route path="*" element={<NotFound />} />
+      </Route>
+
+      {/* Pages with Custom Layouts (No persistent Nav/Footer) */}
+      <Route path="/insights/:slug" element={
+        <AnimatePresence mode="wait">
+          <PageTransition key={location.pathname} className="min-h-screen">
+            <InsightArticle />
+          </PageTransition>
+        </AnimatePresence>
+      } />
+    </Routes>
+  );
+};
 
 const App = () => (
   <QueryClientProvider client={queryClient}>
@@ -15,12 +51,7 @@ const App = () => (
       <Toaster />
       <Sonner />
       <BrowserRouter>
-        <Routes>
-          <Route path="/" element={<Index />} />
-          <Route path="/who-we-are" element={<WhoWeAre />} />
-          {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
-          <Route path="*" element={<NotFound />} />
-        </Routes>
+        <AnimatedRoutes />
       </BrowserRouter>
     </TooltipProvider>
   </QueryClientProvider>

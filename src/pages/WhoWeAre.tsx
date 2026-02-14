@@ -1,6 +1,4 @@
 import { useState, useEffect, useRef } from "react";
-import Navbar from "@/components/Navbar";
-import SiteFooter from "@/components/sections/SiteFooter";
 import { useSectionReveal } from "@/hooks/useSectionReveal";
 
 const subNavItems = [
@@ -52,11 +50,10 @@ const SubNav = () => {
     <>
       <div ref={sentinelRef} className="h-0" />
       <nav
-        className={`sticky top-[68px] z-40 transition-colors duration-300 ${
-          stuck
-            ? "bg-background/95 backdrop-blur-sm border-b border-border"
-            : "bg-transparent"
-        }`}
+        className={`sticky top-[68px] z-40 transition-colors duration-300 ${stuck
+          ? "bg-background/95 backdrop-blur-sm border-b border-border"
+          : "bg-transparent"
+          }`}
       >
         <div className="mx-auto max-w-[1400px] overflow-x-auto px-6 md:px-12 lg:px-20">
           <div className="flex items-center gap-8 py-4 min-w-max">
@@ -67,17 +64,15 @@ const SubNav = () => {
                 <button
                   key={id}
                   onClick={() => scrollTo(id)}
-                  className={`relative pb-1 text-xs font-medium tracking-[0.15em] uppercase transition-colors duration-150 ${
-                    isActive
-                      ? "text-foreground"
-                      : "text-muted-foreground hover:text-foreground"
-                  }`}
+                  className={`relative pb-1 text-xs font-medium tracking-[0.15em] uppercase transition-colors duration-150 ${isActive
+                    ? "text-foreground"
+                    : "text-muted-foreground hover:text-foreground"
+                    }`}
                 >
                   {item}
                   <span
-                    className={`absolute bottom-0 left-0 h-[1px] bg-primary transition-transform duration-200 origin-left w-full ${
-                      isActive ? "scale-x-100" : "scale-x-0"
-                    }`}
+                    className={`absolute bottom-0 left-0 h-[1px] bg-primary transition-transform duration-200 origin-left w-full ${isActive ? "scale-x-100" : "scale-x-0"
+                      }`}
                   />
                 </button>
               );
@@ -378,9 +373,8 @@ const Leadership = () => (
 const WhoWeAre = () => {
   return (
     <main>
-      <Navbar />
       {/* Page header */}
-      <div className="pt-32 pb-8 md:pt-40 md:pb-12">
+      <div className="bg-structural text-structural-foreground pt-32 pb-8 md:pt-40 md:pb-12">
         <div className="mx-auto max-w-[1400px] px-6 md:px-12 lg:px-20">
           <h1 className="text-3xl font-bold tracking-tight text-foreground md:text-5xl">
             Who We Are
@@ -394,7 +388,6 @@ const WhoWeAre = () => {
       <Locations />
       <Awards />
       <Leadership />
-      <SiteFooter />
     </main>
   );
 };

@@ -1,6 +1,6 @@
 const SiteFooter = () => {
   return (
-    <footer className="section-divider">
+    <footer className="section-divider bg-structural text-structural-foreground">
       <div className="mx-auto max-w-[1400px] px-6 py-16 md:px-12 lg:px-20">
         <div className="flex flex-col items-start justify-between gap-8 md:flex-row md:items-end">
           <div>
