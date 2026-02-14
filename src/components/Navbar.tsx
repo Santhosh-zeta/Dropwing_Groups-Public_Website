@@ -1,9 +1,12 @@
 import { useState, useEffect } from "react";
+import { Link, useLocation } from "react-router-dom";
 
-const navItems = ["Capabilities", "Model", "Governance", "Contact"];
+const scrollNavItems = ["Capabilities", "Model", "Governance", "Contact"];
 
 const Navbar = () => {
   const [scrolled, setScrolled] = useState(false);
+  const location = useLocation();
+  const isHome = location.pathname === "/";
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 40);
@@ -23,21 +26,28 @@ const Navbar = () => {
       }`}
     >
       <div className="mx-auto flex max-w-[1400px] items-center justify-between px-6 py-5 md:px-12 lg:px-20">
-        <span className="text-sm font-semibold tracking-[0.2em] text-foreground uppercase">
+        <Link to="/" className="text-sm font-semibold tracking-[0.2em] text-foreground uppercase">
           Dropwing Groups
-        </span>
+        </Link>
         <div className="hidden items-center gap-10 md:flex">
-          {navItems.map((item) => (
-            <button
-              key={item}
-              onClick={() =>
-                scrollTo(item.toLowerCase())
-              }
-              className="nav-link text-xs font-medium tracking-[0.15em] text-muted-foreground uppercase transition-colors duration-150 hover:text-foreground"
-            >
-              {item}
-            </button>
-          ))}
+          <Link
+            to="/who-we-are"
+            className={`nav-link text-xs font-medium tracking-[0.15em] uppercase transition-colors duration-150 ${
+              !isHome ? "text-foreground" : "text-muted-foreground hover:text-foreground"
+            }`}
+          >
+            Who We Are
+          </Link>
+          {isHome &&
+            scrollNavItems.map((item) => (
+              <button
+                key={item}
+                onClick={() => scrollTo(item.toLowerCase())}
+                className="nav-link text-xs font-medium tracking-[0.15em] text-muted-foreground uppercase transition-colors duration-150 hover:text-foreground"
+              >
+                {item}
+              </button>
+            ))}
         </div>
       </div>
     </nav>
