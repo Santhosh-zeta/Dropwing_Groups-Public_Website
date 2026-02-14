@@ -1,5 +1,7 @@
 import Navbar from "@/components/Navbar";
 import Hero from "@/components/Hero";
+import FeaturedInsights from "@/components/sections/FeaturedInsights";
+import LeadershipQuote from "@/components/sections/LeadershipQuote";
 import TheReality from "@/components/sections/TheReality";
 import OperatingModel from "@/components/sections/OperatingModel";
 import Capabilities from "@/components/sections/Capabilities";
@@ -12,6 +14,8 @@ const Index = () => {
     <main>
       <Navbar />
       <Hero />
+      <FeaturedInsights />
+      <LeadershipQuote />
       <TheReality />
       <OperatingModel />
       <Capabilities />
