@@ -7,10 +7,10 @@ import { AnimatePresence } from "framer-motion";
 import PageTransition from "./components/PageTransition";
 import MainLayout from "./components/MainLayout";
 import Index from "./pages/Index";
+import IndexV2 from "./pages/IndexV2";
 import WhatWeDo from "./pages/WhatWeDo";
 import WhatWeThink from "./pages/WhatWeThink";
 import WhoWeAre from "./pages/WhoWeAre";
-import Careers from "./pages/Careers";
 import Contact from "./pages/Contact";
 import NotFound from "./pages/NotFound";
 import InsightArticle from "./pages/InsightArticle";
@@ -25,10 +25,10 @@ const AnimatedRoutes = () => {
       {/* Standard Pages wrapped in MainLayout */}
       <Route element={<MainLayout />}>
         <Route path="/" element={<Index />} />
+        <Route path="/v2" element={<IndexV2 />} />
         <Route path="/what-we-do" element={<WhatWeDo />} />
         <Route path="/what-we-think" element={<WhatWeThink />} />
         <Route path="/who-we-are" element={<WhoWeAre />} />
-        <Route path="/careers" element={<Careers />} />
         <Route path="/contact" element={<Contact />} />
         <Route path="*" element={<NotFound />} />
       </Route>

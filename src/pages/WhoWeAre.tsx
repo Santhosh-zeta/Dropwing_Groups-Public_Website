@@ -1,5 +1,6 @@
 import { useState, useEffect, useRef } from "react";
 import { useSectionReveal } from "@/hooks/useSectionReveal";
+import LeadershipQuote from "@/components/sections/LeadershipQuote";
 
 const subNavItems = [
   "Overview",
@@ -387,6 +388,7 @@ const WhoWeAre = () => {
       <Organization />
       <Locations />
       <Awards />
+      <LeadershipQuote />
       <Leadership />
     </main>
   );

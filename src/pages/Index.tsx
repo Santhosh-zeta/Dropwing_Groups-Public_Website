@@ -1,24 +1,24 @@
-import Navbar from "@/components/Navbar";
 import Hero from "@/components/Hero";
 import FeaturedInsights from "@/components/sections/FeaturedInsights";
-import LeadershipQuote from "@/components/sections/LeadershipQuote";
+import PhilosophyStatement from "@/components/sections/PhilosophyStatement";
 import TheReality from "@/components/sections/TheReality";
 import OperatingModel from "@/components/sections/OperatingModel";
 import Capabilities from "@/components/sections/Capabilities";
 import GovernanceScale from "@/components/sections/GovernanceScale";
+import EngagementSteps from "@/components/sections/EngagementSteps";
 import EngagementGate from "@/components/sections/EngagementGate";
-import SiteFooter from "@/components/sections/SiteFooter";
 
 const Index = () => {
   return (
     <main>
       <Hero />
       <FeaturedInsights />
-      <LeadershipQuote />
+      <PhilosophyStatement />
       <TheReality />
       <OperatingModel />
       <Capabilities />
       <GovernanceScale />
+      <EngagementSteps />
       <EngagementGate />
     </main>
   );

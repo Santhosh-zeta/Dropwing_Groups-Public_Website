@@ -1,42 +1,90 @@
-import { useSectionReveal } from "@/hooks/useSectionReveal";
+import React, { useRef, useState } from "react";
+import { motion, useScroll, useTransform, AnimatePresence } from "framer-motion";
+import { ArrowRight, Terminal, Lock } from "lucide-react";
 
 const EngagementGate = () => {
-  const { ref, isVisible } = useSectionReveal();
+  const containerRef = useRef<HTMLDivElement>(null);
+  const { scrollYProgress } = useScroll({
+    target: containerRef,
+    offset: ["start end", "end start"],
+  });
+
+  const [isHovered, setIsHovered] = useState(false);
+
+  const y = useTransform(scrollYProgress, [0, 1], [30, -30]);
 
   return (
-    <section className="section-divider" id="contact">
-      <div
-        ref={ref}
-        className={`section-reveal mx-auto max-w-[1400px] px-6 py-24 md:px-12 md:py-32 lg:px-20 lg:py-40 ${
-          isVisible ? "is-visible" : ""
-        }`}
-      >
-        <div className="max-w-2xl">
-          <p className="mb-6 text-xs font-medium tracking-[0.25em] text-muted-foreground uppercase">
-            Engagement
-          </p>
-          <h2 className="mb-8 text-2xl font-bold leading-tight tracking-tight text-foreground md:text-3xl lg:text-4xl">
-            This is not a sales process.
+    <section
+      ref={containerRef}
+      id="contact"
+      className="section-divider bg-background py-32 md:py-48 lg:py-64 relative overflow-hidden flex flex-col items-center justify-center min-h-[80vh]"
+    >
+      {/* Ambient Void Background */}
+      <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,_var(--tw-gradient-stops))] from-structural/20 via-background to-background" />
+
+      <div className="mx-auto max-w-4xl px-6 relative z-10 text-center">
+
+        <motion.div style={{ y }}>
+          <div className="mb-8 flex items-center justify-center gap-2 text-muted-foreground/60">
+            <Lock className="h-3 w-3" />
+            <span className="text-[10px] font-mono tracking-[0.3em] uppercase">
+              Restricted Access
+            </span>
+          </div>
+
+          <h2 className="text-5xl md:text-7xl lg:text-8xl font-bold tracking-tighter text-white mb-8">
+            Execution <br />
+            <span className="text-primary">begins here.</span>
           </h2>
-          <p className="mb-12 text-base leading-relaxed text-muted-foreground md:text-lg">
-            Dropwing Groups engages selectively with organizations that require
-            long-term operational partnership. If your challenge demands
-            sustained execution, governance, and accountability — not advice —
-            we should speak.
+
+          <p className="text-lg md:text-xl text-muted-foreground leading-relaxed max-w-xl mx-auto mb-16">
+            We engage with five organizations per annum. <br />
+            Partnership requires board-level commitment.
           </p>
+
+          {/* The "Terminal" Button */}
           <a
             href="mailto:contact@dropwinggroups.com"
-            className="group inline-flex items-center gap-3 border border-primary/40 px-8 py-4 text-xs font-medium tracking-[0.2em] text-foreground uppercase transition-colors duration-150 hover:border-primary hover:bg-primary/5"
+            onMouseEnter={() => setIsHovered(true)}
+            onMouseLeave={() => setIsHovered(false)}
+            className="group relative inline-flex items-center justify-center px-12 py-6 overflow-hidden bg-structural border border-white/10 transition-all duration-300 hover:border-primary/50 hover:shadow-[0_0_40px_-10px_rgba(124,58,237,0.3)]"
           >
-            Initiate Briefing
-            <span className="inline-block text-primary transition-transform duration-150 group-hover:translate-x-1">
-              →
-            </span>
+            {/* Scanline Effect */}
+            <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/5 to-transparent translate-x-[-100%] group-hover:translate-x-[100%] transition-transform duration-1000 ease-in-out" />
+
+            {/* Background Fill on Hover */}
+            <div className="absolute inset-0 bg-primary/10 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+
+            <div className="relative flex items-center gap-4">
+              <Terminal className={`h-5 w-5 transition-colors duration-300 ${isHovered ? 'text-primary' : 'text-muted-foreground'}`} />
+              <span className={`font-mono text-sm tracking-[0.2em] font-bold uppercase transition-colors duration-300 ${isHovered ? 'text-white' : 'text-foreground'}`}>
+                Initiate Briefing
+              </span>
+              <ArrowRight className={`h-5 w-5 transition-all duration-300 ${isHovered ? 'text-primary translate-x-1' : 'text-muted-foreground'}`} />
+            </div>
           </a>
-        </div>
+
+          {/* Status Output */}
+          <div className="mt-8 h-6">
+            <AnimatePresence mode="wait">
+              {isHovered && (
+                <motion.p
+                  initial={{ opacity: 0, y: 5 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  exit={{ opacity: 0, y: -5 }}
+                  className="text-[10px] font-mono text-primary tracking-widest uppercase"
+                >
+                  Awaiting Protocol Handshake...
+                </motion.p>
+              )}
+            </AnimatePresence>
+          </div>
+        </motion.div>
+
       </div>
     </section>
   );
 };
 
 export default EngagementGate;
+

@@ -51,7 +51,6 @@ const InsightArticle = () => {
                         <a href="/what-we-do" className="hover:text-[#A100FF] transition-colors">What we do</a>
                         <a href="/what-we-think" className="hover:text-[#A100FF] transition-colors">What we think</a>
                         <a href="/who-we-are" className="hover:text-[#A100FF] transition-colors">Who we are</a>
-                        <a href="/careers" className="hover:text-[#A100FF] transition-colors">Careers</a>
                     </div>
                 </div>
                 <div className="flex items-center gap-6 text-xs font-semibold tracking-wide uppercase">

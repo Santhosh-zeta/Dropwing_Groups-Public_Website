@@ -1,64 +1,128 @@
-import { useSectionReveal } from "@/hooks/useSectionReveal";
-
-const pillars = [
-  {
-    number: "01",
-    title: "Embedded Operations",
-    description:
-      "We operate inside your organization, not beside it. Our teams integrate with your governance, reporting, and decision structures.",
-  },
-  {
-    number: "02",
-    title: "Outcome Ownership",
-    description:
-      "Every engagement is structured around measurable outcomes. We do not bill for effort. We are accountable for results.",
-  },
-  {
-    number: "03",
-    title: "Continuous Governance",
-    description:
-      "Oversight is not periodic. Governance is built into every operational layer — risk, compliance, and performance reviewed continuously.",
-  },
-];
+import React, { useRef } from "react";
+import { motion, useScroll, useTransform } from "framer-motion";
+import { ArrowRight } from "lucide-react";
 
 const OperatingModel = () => {
-  const { ref, isVisible } = useSectionReveal();
+  const containerRef = useRef<HTMLDivElement>(null);
+  const { scrollYProgress } = useScroll({
+    target: containerRef,
+    offset: ["start end", "end start"],
+  });
+
+  const y = useTransform(scrollYProgress, [0, 1], [30, -30]);
 
   return (
-    <section className="section-divider">
-      <div
-        ref={ref}
-        className={`section-reveal mx-auto max-w-[1400px] px-6 py-24 md:px-12 md:py-32 lg:px-20 lg:py-40 ${
-          isVisible ? "is-visible" : ""
-        }`}
-      >
-        <p className="mb-6 text-xs font-medium tracking-[0.25em] text-muted-foreground uppercase">
-          Operating Model
-        </p>
-        <h2 className="mb-16 max-w-2xl text-2xl font-bold leading-tight tracking-tight text-foreground md:text-3xl lg:text-4xl">
-          Ownership is not a value statement. It is the operating model.
-        </h2>
-        <div className="grid gap-px bg-border lg:grid-cols-3">
-          {pillars.map((pillar) => (
-            <div
-              key={pillar.number}
-              className="bg-background p-8 md:p-12"
-            >
-              <span className="mb-4 block text-xs font-medium tracking-[0.2em] text-primary">
-                {pillar.number}
+    <section
+      ref={containerRef}
+      id="operating-model"
+      className="section-divider bg-background py-24 md:py-32 lg:py-40 overflow-hidden text-foreground"
+    >
+      <div className="mx-auto max-w-[1400px] px-6 md:px-12 lg:px-20 relative z-10">
+
+        {/* Section Header */}
+        <div className="mb-16 md:mb-24 flex flex-col md:flex-row md:items-end justify-between gap-8">
+          <motion.div
+            style={{ y }}
+            className="max-w-2xl"
+          >
+            <div className="flex items-center gap-3 mb-6">
+              <div className="h-px w-6 bg-primary"></div>
+              <span className="text-xs font-mono tracking-[0.2em] text-primary uppercase">
+                The Operating Model
               </span>
-              <h3 className="mb-4 text-lg font-semibold text-foreground">
-                {pillar.title}
-              </h3>
-              <p className="text-sm leading-relaxed text-muted-foreground">
-                {pillar.description}
-              </p>
             </div>
-          ))}
+            <h2 className="text-4xl md:text-5xl lg:text-6xl font-light tracking-tight leading-[1.1]">
+              Embedded. <br className="hidden md:block" />
+              Accountable. <br className="hidden md:block" />
+              <span className="font-bold text-white">Continuous.</span>
+            </h2>
+          </motion.div>
+
+          <motion.p
+            style={{ y }}
+            className="max-w-sm text-muted-foreground text-lg leading-relaxed md:text-right"
+          >
+            We do not advise from the outside. We operate from the inside, integrating with your governance to guarantee outcomes.
+          </motion.p>
+        </div>
+
+        {/* The Grid System */}
+        <div className="border-t border-border">
+          <div className="grid grid-cols-1 lg:grid-cols-3 divide-y lg:divide-y-0 lg:divide-x divide-border border-b border-border">
+
+            {/* Column 01 */}
+            <ModelColumn
+              number="01"
+              title="Embedded Operations"
+              description="We operate inside your organization, not beside it. Our teams integrate deeply with your governance, reporting, and decision structures."
+              delay={0.1}
+            />
+
+            {/* Column 02 */}
+            <ModelColumn
+              number="02"
+              title="Outcome Ownership"
+              description="We do not bill for effort. We are accountable for results. Every engagement is structured around measurable, enforced outcomes."
+              delay={0.2}
+            />
+
+            {/* Column 03 */}
+            <ModelColumn
+              number="03"
+              title="Continuous Governance"
+              description="Oversight is not periodic. Governance is built into every operational layer — risk, compliance, and performance reviewed continuously."
+              delay={0.3}
+            />
+
+          </div>
         </div>
       </div>
     </section>
   );
 };
 
+interface ModelColumnProps {
+  number: string;
+  title: string;
+  description: string;
+  delay: number;
+}
+
+const ModelColumn = ({ number, title, description, delay }: ModelColumnProps) => {
+  return (
+    <motion.div
+      initial={{ opacity: 0, y: 20 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true }}
+      transition={{ duration: 0.5, delay }}
+      className="group relative p-8 md:p-10 lg:p-12 hover:bg-white/[0.02] transition-colors duration-500"
+    >
+      {/* Hover highlighting for border (optional, subtle) */}
+      <div className="absolute top-0 left-0 w-full h-[1px] bg-primary scale-x-0 group-hover:scale-x-100 transition-transform duration-500 origin-left lg:hidden" />
+      <div className="absolute top-0 left-0 h-full w-[1px] bg-primary scale-y-0 group-hover:scale-y-100 transition-transform duration-500 origin-top hidden lg:block" />
+
+      <div className="flex flex-col h-full justify-between gap-12">
+        <div>
+          <span className="block font-mono text-sm text-primary/60 mb-4">{number}</span>
+          <h3 className="text-xl md:text-2xl font-bold text-white mb-2 group-hover:text-primary transition-colors duration-300">
+            {title}
+          </h3>
+        </div>
+
+        <div>
+          <p className="text-muted-foreground leading-relaxed text-sm md:text-base">
+            {description}
+          </p>
+
+          <div className="mt-6 flex items-center gap-2 text-xs font-bold uppercase tracking-wider text-primary opacity-0 -translate-x-2 group-hover:opacity-100 group-hover:translate-x-0 transition-all duration-300">
+            <span>Read More</span>
+            <ArrowRight className="h-3 w-3" />
+          </div>
+        </div>
+      </div>
+    </motion.div>
+  )
+}
+
 export default OperatingModel;
+
