@@ -80,7 +80,7 @@ const GovernanceScale = () => {
   return (
     <section
       id="governance"
-      className="section-divider relative py-24 md:py-32 lg:py-40 flex items-center justify-center overflow-hidden bg-structural"
+      className="section-divider relative py-16 md:py-32 lg:py-40 flex items-center justify-center overflow-hidden bg-structural"
       ref={containerRef}
     >
       {/* 1. Background Layers */}
@@ -91,7 +91,7 @@ const GovernanceScale = () => {
 
       {/* 2. Main Content */}
       <motion.div
-        className="relative z-10 mx-auto max-w-6xl px-6 md:px-12 text-center"
+        className="relative z-10 mx-auto max-w-6xl px-4 md:px-12 text-center"
         style={{ y, opacity, scale }}
       >
         {/* Header Badge */}
@@ -116,13 +116,13 @@ const GovernanceScale = () => {
         </div>
 
         {/* Main Statement */}
-        <div className="space-y-12 md:space-y-20">
-          <h2 className="text-4xl md:text-6xl lg:text-8xl font-bold tracking-tighter text-white">
-            <span className="block mb-4 text-transparent bg-clip-text bg-gradient-to-b from-white to-white/40">
+        <div className="space-y-8 md:space-y-20">
+          <h2 className="text-3xl sm:text-4xl md:text-6xl lg:text-8xl font-bold tracking-tighter text-white">
+            <span className="block mb-2 md:mb-4 text-transparent bg-clip-text bg-gradient-to-b from-white to-white/40">
               Trust is not
             </span>
-            <span className="block text-white/20 blur-[2px] transition-all duration-700 hover:text-white hover:blur-0">
-              a promise.
+            <span className="block text-white/20 blur-0 md:blur-[2px] transition-all duration-700 md:hover:text-white md:hover:blur-0">
+              just a promise.
             </span>
           </h2>
 
@@ -132,11 +132,11 @@ const GovernanceScale = () => {
             whileInView={{ height: 80 }}
             viewport={{ once: true }}
             transition={{ duration: 0.8 }}
-            className="w-px mx-auto bg-gradient-to-b from-transparent via-primary/50 to-transparent"
+            className="w-px mx-auto bg-gradient-to-b from-transparent via-primary/50 to-transparent h-12 md:h-20"
           />
 
-          <h2 className="text-4xl md:text-6xl lg:text-8xl font-bold tracking-tighter text-white">
-            <span className="block mb-4 text-transparent bg-clip-text bg-gradient-to-b from-white to-white/40">
+          <h2 className="text-3xl sm:text-4xl md:text-6xl lg:text-8xl font-bold tracking-tighter text-white">
+            <span className="block mb-2 md:mb-4 text-transparent bg-clip-text bg-gradient-to-b from-white to-white/40">
               Trust is
             </span>
             <span className="block text-primary drop-shadow-2xl">
@@ -146,7 +146,7 @@ const GovernanceScale = () => {
         </div>
 
         {/* Secondary Content - "The Manifest" as text list */}
-        <div className="mt-24 md:mt-32 grid grid-cols-1 md:grid-cols-3 gap-8 md:gap-12 border-t border-white/10 pt-12 md:pt-16">
+        <div className="mt-12 md:mt-32 grid grid-cols-1 md:grid-cols-3 gap-8 md:gap-12 border-t border-white/10 pt-8 md:pt-16">
           {/* Item 1 */}
           <div className="text-left group">
             <h3 className="text-lg font-mono text-white mb-2 group-hover:text-primary transition-colors">

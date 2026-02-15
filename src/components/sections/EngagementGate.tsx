@@ -17,7 +17,7 @@ const EngagementGate = () => {
     <section
       ref={containerRef}
       id="contact"
-      className="section-divider bg-background py-32 md:py-48 lg:py-64 relative overflow-hidden flex flex-col items-center justify-center min-h-[80vh]"
+      className="section-divider bg-background py-20 md:py-32 lg:py-40 relative overflow-hidden flex flex-col items-center justify-center min-h-[50vh]"
     >
       {/* Ambient Void Background */}
       <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,_var(--tw-gradient-stops))] from-structural/20 via-background to-background" />
@@ -37,7 +37,7 @@ const EngagementGate = () => {
           </h2>
 
           <p className="text-lg md:text-xl text-muted-foreground leading-relaxed max-w-xl mx-auto mb-16">
-           
+
             Partnership requires board-level commitment.
           </p>
 

@@ -58,12 +58,12 @@ const SiteFooter = () => {
 
 
       <div className="relative z-10 w-full max-w-[1600px] mx-auto">
-        <div className="grid grid-cols-1 md:grid-cols-4 lg:grid-cols-7 border-l border-white/5">
+        <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-7 border-l border-white/5">
           {/* Cell 1: Brand (Double Width) - SOVEREIGN EXECUTION PARTNER */}
-          <div className="md:col-span-2 p-8 md:p-12 border-b border-r border-white/5 bg-black/20 backdrop-blur-sm relative group overflow-hidden">
+          <div className="col-span-2 md:col-span-2 p-6 md:p-12 border-b border-r border-white/5 bg-black/20 backdrop-blur-sm relative group overflow-hidden">
             <div className="absolute inset-0 bg-white/0 group-hover:bg-white/5 transition-colors duration-500" />
-            <div className="relative z-10 flex flex-col justify-between h-full min-h-[160px]">
-              <Link to="/" className="block w-48 mb-8" aria-label="Dropwing Groups Home">
+            <div className="relative z-10 flex flex-col justify-between h-full min-h-[120px] md:min-h-[160px]">
+              <Link to="/" className="block w-40 md:w-48 mb-6 md:mb-8" aria-label="Dropwing Groups Home">
                 <img
                   src={logoImage}
                   alt="Dropwing Groups"
@@ -73,10 +73,10 @@ const SiteFooter = () => {
                 />
               </Link>
               <div>
-                <p className="text-sm font-medium text-white tracking-wide mb-2">
+                <p className="text-xs md:text-sm font-medium text-white tracking-wide mb-1 md:mb-2">
                   Sovereign Execution Partner
                 </p>
-                <p className="text-xs font-mono uppercase tracking-widest text-gray-500 group-hover:text-gray-400 transition-colors">
+                <p className="text-[10px] md:text-xs font-mono uppercase tracking-widest text-gray-500 group-hover:text-gray-400 transition-colors">
                   Ownership of Execution, End to End
                 </p>
               </div>
@@ -88,40 +88,40 @@ const SiteFooter = () => {
             to="/ventures/webforge"
             label="WebForge"
             logo={webforgeLogo}
-            sub="Systems & Infrastructure"
-            desc="Full-stack systems engineering"
+            sub="Systems"
+            desc="Full-stack systems"
             number="01"
           />
           <GridCell
             to="/ventures/design-studio"
             label="Design Studio"
             logo={designStudioLogo}
-            sub="Identity & Experience"
-            desc="Brand & product identity"
+            sub="Identity"
+            desc="Brand identity"
             number="02"
           />
           <GridCell
             to="/ventures/persynix"
             label="PerSyniX"
             logo={persynixLogo}
-            sub="Data, AI & Decisioning"
-            desc="AI & intelligence systems"
+            sub="Intelligence"
+            desc="AI systems"
             number="03"
           />
           <GridCell
             to="/ventures/grovia"
             label="Grovia"
             logo={groviaLogo}
-            sub="Market & Revenue Systems"
-            desc="Growth & market execution"
+            sub="Revenue"
+            desc="Market execution"
             number="04"
           />
           <GridCell
             to="/ventures/elevix-pro"
             label="Elevix Pro"
             logo={elevixLogo}
-            sub="Platforms & Access"
-            desc="Training & capability enablement"
+            sub="Platforms"
+            desc="Capability enablement"
             number="05"
           />
 
@@ -132,7 +132,7 @@ const SiteFooter = () => {
           <GridCell to="/contact" label="Contact" sub="Institution" />
 
           {/* Socials Cell (Span 2) - Reduced Emphasis */}
-          <div className="md:col-span-1 lg:col-span-2 p-8 border-b border-r border-white/5 hover:bg-white/5 transition-colors duration-300 flex flex-col justify-between min-h-[160px] group">
+          <div className="col-span-2 md:col-span-1 lg:col-span-2 p-6 md:p-8 border-b border-r border-white/5 hover:bg-white/5 transition-colors duration-300 flex flex-col justify-between min-h-[120px] md:min-h-[160px] group">
             <span className="text-[10px] font-bold text-gray-700 uppercase tracking-widest group-hover:text-white/40 transition-colors">Connect</span>
             <div className="flex gap-4 opacity-60 group-hover:opacity-100 transition-opacity duration-300">
               <SocialIcon href="https://wa.me/" label="WhatsApp" icon={<WhatsappIcon className="w-5 h-5" />} />
@@ -144,21 +144,21 @@ const SiteFooter = () => {
           </div>
 
           {/* Governance / Legal Cell (Span 2) - Added Trust Signals */}
-          <div className="md:col-span-1 lg:col-span-2 p-8 border-b border-r border-white/5 hover:bg-white/5 transition-colors duration-300 flex flex-col justify-between min-h-[160px] group">
+          <div className="col-span-2 md:col-span-1 lg:col-span-2 p-6 md:p-8 border-b border-r border-white/5 hover:bg-white/5 transition-colors duration-300 flex flex-col justify-between min-h-[120px] md:min-h-[160px] group">
             <span className="text-[10px] font-bold text-gray-700 uppercase tracking-widest group-hover:text-white/40 transition-colors">Governance & Compliance</span>
 
-            <div className="flex flex-col gap-4">
+            <div className="flex flex-col gap-3 md:gap-4">
               {/* Governance Signal Block */}
               <div className="text-[10px] text-gray-500 font-mono leading-relaxed space-y-1">
                 <p>Data Sovereignty</p>
                 <p>Auditability & Reporting Standards</p>
               </div>
 
-              <div className="flex flex-wrap gap-x-6 gap-y-2 pt-2 border-t border-white/5">
-                <Link to="/privacy" className="text-xs text-gray-400 hover:text-white transition-colors">Privacy Policy</Link>
-                <Link to="/terms" className="text-xs text-gray-400 hover:text-white transition-colors">Terms of Service</Link>
-                <span className="text-xs text-gray-600 cursor-default">Accessibility</span>
-                <span className="text-xs text-gray-600 cursor-default">Security</span>
+              <div className="flex flex-wrap gap-x-4 md:gap-x-6 gap-y-2 pt-2 border-t border-white/5">
+                <Link to="/privacy" className="text-[10px] md:text-xs text-gray-400 hover:text-white transition-colors">Privacy Policy</Link>
+                <Link to="/terms" className="text-[10px] md:text-xs text-gray-400 hover:text-white transition-colors">Terms of Service</Link>
+                <Link to="/accessibility" className="text-[10px] md:text-xs text-gray-400 hover:text-white transition-colors">Accessibility</Link>
+                <Link to="/security" className="text-[10px] md:text-xs text-gray-400 hover:text-white transition-colors">Security</Link>
               </div>
             </div>
           </div>
@@ -196,9 +196,9 @@ interface GridCellProps {
 }
 
 const GridCell = ({ to, label, sub, logo, desc, number }: GridCellProps) => (
-  <Link to={to} className="block p-8 border-b border-r border-white/5 bg-transparent hover:bg-white/5 transition-all duration-300 relative group min-h-[160px] flex flex-col justify-between">
+  <Link to={to} className="block p-6 md:p-8 border-b border-r border-white/5 bg-transparent hover:bg-white/5 transition-all duration-300 relative group min-h-[120px] md:min-h-[160px] flex flex-col justify-between">
     <div className="flex justify-between items-start">
-      <span className="text-[10px] font-bold text-gray-700 uppercase tracking-widest group-hover:text-white/40 transition-colors max-w-[120px] leading-relaxed">
+      <span className="text-[9px] md:text-[10px] font-bold text-gray-700 uppercase tracking-widest group-hover:text-white/40 transition-colors max-w-[120px] leading-relaxed truncate">
         {sub}
       </span>
       {number && (
@@ -210,7 +210,7 @@ const GridCell = ({ to, label, sub, logo, desc, number }: GridCellProps) => (
 
     <div className="space-y-4 mt-auto relative z-10">
       {logo && (
-        <div className="h-16 md:h-20 flex items-end mb-2">
+        <div className="h-12 md:h-20 flex items-end mb-2">
           <img
             src={logo}
             alt={`${label} logo`}
@@ -221,12 +221,12 @@ const GridCell = ({ to, label, sub, logo, desc, number }: GridCellProps) => (
       )}
 
       <div>
-        <h3 className="text-lg md:text-xl text-gray-300 font-light group-hover:text-white transition-colors duration-300 flex items-center gap-2">
+        <h3 className="text-base md:text-xl text-gray-300 font-light group-hover:text-white transition-colors duration-300 flex items-center gap-2">
           {label}
-          <ArrowUpRight className="w-4 h-4 opacity-0 -translate-x-2 translate-y-2 group-hover:opacity-100 group-hover:translate-x-0 group-hover:translate-y-0 transition-all duration-300 text-[hsl(var(--violet-accent))]" />
+          <ArrowUpRight className="w-3 h-3 md:w-4 md:h-4 opacity-0 -translate-x-2 translate-y-2 group-hover:opacity-100 group-hover:translate-x-0 group-hover:translate-y-0 transition-all duration-300 text-[hsl(var(--violet-accent))]" />
         </h3>
         {desc && (
-          <p className="text-xs text-gray-600 group-hover:text-gray-500 transition-colors duration-300 font-mono tracking-wide mt-1">
+          <p className="text-[10px] md:text-xs text-gray-600 group-hover:text-gray-500 transition-colors duration-300 font-mono tracking-wide mt-1 line-clamp-2 md:line-clamp-none">
             {desc}
           </p>
         )}

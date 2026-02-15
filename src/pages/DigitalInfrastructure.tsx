@@ -1,239 +1,432 @@
-import React, { useRef } from "react";
-import { motion, useScroll, useTransform } from "framer-motion";
+import React, { useRef, useMemo, useEffect } from "react";
+import { motion, useScroll, useTransform, useInView, useSpring, useAnimationFrame } from "framer-motion";
 import Navbar from "@/components/Navbar";
-import SiteFooter from "@/components/sections/SiteFooter";
-import { ArrowUpRight, ShieldCheck, Server, Network, Database } from "lucide-react";
+import { ArrowUpRight, ShieldCheck, Info } from "lucide-react";
 import { Link } from "react-router-dom";
+import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
+
+// --- WarpField Component ---
+const WarpField = () => {
+    const canvasRef = useRef<HTMLCanvasElement>(null);
+
+    // Configuration
+    const starCount = 600;
+    const speed = 2.5; // Constant Warp Speed
+
+    // Generate Stars (Geometry)
+    // Points are stored as [x, y, z] where z is depth (0 to 1000)
+    const stars = useMemo(() => {
+        const temp = [];
+        for (let i = 0; i < starCount; i++) {
+            temp.push({
+                x: (Math.random() - 0.5) * 2000,
+                y: (Math.random() - 0.5) * 2000,
+                z: Math.random() * 1000,
+                baseSize: Math.random() * 2 + 0.5
+            });
+        }
+        return temp;
+    }, []);
+
+    useAnimationFrame(() => {
+        const canvas = canvasRef.current;
+        if (!canvas) return;
+        const ctx = canvas.getContext("2d");
+        if (!ctx) return;
+
+        // Resize Canvas to Match Parent
+        // In a real optimized system, this would be debounced
+        if (canvas.width !== canvas.clientWidth || canvas.height !== canvas.clientHeight) {
+            canvas.width = canvas.clientWidth;
+            canvas.height = canvas.clientHeight;
+        }
+
+        const width = canvas.width;
+        const height = canvas.height;
+        const centerX = width / 2;
+        const centerY = height / 2;
+
+        ctx.fillStyle = "#000000"; // Clear with strict black to avoid trails stacking poorly
+        ctx.clearRect(0, 0, width, height);
+
+        // Core Warp Logic
+        stars.forEach(star => {
+            // Move Star Towards Camera
+            star.z -= speed;
+
+            // Reset Logic (Loop)
+            if (star.z <= 0) {
+                star.z = 1000;
+                star.x = (Math.random() - 0.5) * 2000;
+                star.y = (Math.random() - 0.5) * 2000;
+            }
+
+            // Projection Math (3D -> 2D)
+            const fov = 400; // Field of View
+            const scale = fov / (fov + star.z);
+
+            const x2d = star.x * scale + centerX;
+            const y2d = star.y * scale + centerY;
+
+            // Size based on depth (get bigger as they get close)
+            const size = star.baseSize * scale * 2;
+
+            // Opacity based on depth (fade in from far, fade out if too close)
+            // Near = 0, Far = 1000.  We want bright at near, dim at far.
+            const opacity = Math.min(1, (1000 - star.z) / 400);
+
+            // Draw Star (Simple Circle or Line for streak)
+            // For Warp Effect, streaks look better than dots
+            const trailLength = (1 - scale) * 20; // Streaks get longer at edges (closer)
+
+            ctx.beginPath();
+            ctx.fillStyle = `rgba(139, 92, 246, ${opacity})`; // Violet-500 tint
+            ctx.arc(x2d, y2d, size, 0, Math.PI * 2);
+            ctx.fill();
+        });
+    });
+
+    return <canvas ref={canvasRef} className="absolute inset-0 w-full h-full opacity-60" />;
+};
+
 
 const DigitalInfrastructure = () => {
     const containerRef = useRef<HTMLDivElement>(null);
+
+    // Custom Smooth Scroll for "System Depth" feel
     const { scrollYProgress } = useScroll({
         target: containerRef,
-        offset: ["start end", "end start"],
+        offset: ["start start", "end end"]
     });
 
-    const y = useTransform(scrollYProgress, [0, 1], [0, -50]);
-    const opacity = useTransform(scrollYProgress, [0, 0.2], [0, 1]);
+    // System State Variables
+    const backgroundOpacity = useTransform(scrollYProgress, [0.8, 1], [1, 0.2]); // Fade to black at end
+    const gridDensity = useTransform(scrollYProgress, [0, 1], [0.5, 1.5]); // TIGHTER grid deeper down
 
     return (
-        <div className="min-h-screen bg-background text-foreground selection:bg-violet-500/30 selection:text-white">
+        <div ref={containerRef} className="min-h-screen bg-background text-foreground selection:bg-violet-500/30 selection:text-white font-sans overflow-x-hidden">
             <Navbar />
 
-            {/* 1. HERO SECTION — Infrastructure as Sovereignty */}
-            <section className="relative min-h-screen flex items-center pt-32 pb-20 overflow-hidden">
-                {/* Abstract 3D/Network Background */}
+            {/* GLOBAL SYSTEM BACKGROUND */}
+            <motion.div style={{ opacity: backgroundOpacity }} className="fixed inset-0 z-0 pointer-events-none">
+                {/* Base Grid */}
+                <div className="absolute inset-0 bg-[linear-gradient(to_right,#80808008_1px,transparent_1px),linear-gradient(to_bottom,#80808008_1px,transparent_1px)] bg-[size:24px_24px]" />
+
+                {/* Deep System Grid Layer - Reacts to Scroll Density */}
+                <motion.div
+                    style={{ scale: gridDensity, opacity: 0.1 }}
+                    className="absolute inset-0 bg-[radial-gradient(circle_800px_at_50%_200px,#3b0764,transparent)]"
+                />
+            </motion.div>
+
+
+            {/* 1. HERO SECTION — Infrastructure as Sovereignty (Now WarpField) */}
+            <section className="relative h-screen flex items-center pt-20 overflow-hidden">
+                {/* Visual System - Warp Field */}
                 <div className="absolute inset-0 z-0">
-                    <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,_var(--tw-gradient-stops))] from-structural/20 via-background to-background" />
+                    <WarpField />
 
-                    {/* Grid Overlay for "Engineered" feel */}
-                    <div className="absolute inset-0 bg-[linear-gradient(to_right,#80808012_1px,transparent_1px),linear-gradient(to_bottom,#80808012_1px,transparent_1px)] bg-[size:24px_24px]" />
-
-                    {/* Animated Gradient Orb (Subtle Parallax) */}
-                    <div className="absolute top-1/4 right-1/4 w-[600px] h-[600px] bg-violet-900/10 rounded-full blur-3xl opacity-30 animate-pulse" />
+                    {/* Gradient Overlay for Text Readability */}
+                    <div className="absolute inset-0 bg-gradient-to-r from-background via-background/80 to-transparent pointer-events-none" />
+                    <div className="absolute inset-0 bg-gradient-to-t from-background via-transparent to-transparent pointer-events-none" />
                 </div>
 
-                <div className="container mx-auto px-6 relative z-10">
-                    <div className="max-w-4xl">
-                        <h1 className="text-6xl md:text-7xl lg:text-8xl font-bold tracking-tighter text-white mb-8">
+                <div className="container mx-auto px-6 relative z-10 pointer-events-none"> {/* Text non-interactive to let mouse move camera */}
+                    <div className="max-w-4xl pointer-events-auto"> {/* Re-enable events for text selection */}
+                        <motion.h1
+                            initial={{ opacity: 0, y: 20 }}
+                            animate={{ opacity: 1, y: 0 }}
+                            transition={{ duration: 1, ease: [0.2, 0.8, 0.2, 1] }}
+                            className="text-6xl md:text-7xl lg:text-8xl font-bold tracking-tighter text-white mb-8"
+                        >
                             Infrastructure <br />
-                            <span className="text-gray-500">as Sovereignty</span>
-                        </h1>
+                            <span className="text-muted-foreground">as Sovereignty</span>
+                        </motion.h1>
 
-                        <h2 className="text-xl md:text-2xl text-gray-400 font-light leading-relaxed max-w-2xl mb-12">
+                        <motion.div
+                            initial={{ width: 0 }}
+                            animate={{ width: 60 }}
+                            transition={{ duration: 1.5, delay: 0.5, ease: [0.2, 0.8, 0.2, 1] }}
+                            className="h-px bg-violet-500/40 mb-8"
+                        />
+
+                        <motion.h2
+                            initial={{ opacity: 0 }}
+                            animate={{ opacity: 1 }}
+                            transition={{ duration: 1, delay: 0.8 }}
+                            className="text-xl md:text-2xl text-gray-400 font-light leading-relaxed max-w-2xl mb-12"
+                        >
                             Owning the infrastructure, the network, and the data that power mission-critical systems.
-                        </h2>
+                        </motion.h2>
+                    </div>
+                </div>
+            </section>
 
-                        <p className="text-sm font-mono text-gray-600 uppercase tracking-widest border-l border-violet-900/50 pl-4">
-                            Designed for institutions where resilience, control, and continuity matter more than speed.
+            {/* 2. WHY IT MATTERS — THE WEIGHT MOMENT */}
+            <WhyItMatters />
+
+            {/* 3. CAPABILITY GRID — SYSTEM MODULES */}
+            <section className="py-32 relative z-10">
+                <div className="container mx-auto px-6">
+                    <div className="mb-16 border-l-2 border-white/10 pl-6">
+                        <p className="text-xs text-gray-500 font-mono mb-2 uppercase tracking-widest">
+                            System Capabilities
                         </p>
-                    </div>
-                </div>
-            </section>
-
-            {/* 2. WHY IT MATTERS — The Silent Engine */}
-            <section className="py-24 md:py-32 border-t border-white/5 bg-background relative">
-                <div className="container mx-auto px-6">
-                    <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-start">
-                        <div>
-                            <h2 className="text-4xl md:text-5xl font-bold text-white mb-8 tracking-tight">
-                                Why Infrastructure <br />
-                                <span className="text-violet-500/80">Determines Power</span>
-                            </h2>
-                        </div>
-                        <div className="space-y-8 text-lg md:text-xl text-gray-400 font-light leading-relaxed">
-                            <p>
-                                Infrastructure is invisible when it works — and catastrophic when it doesn’t.
-                            </p>
-                            <p>
-                                Decisions made at the infrastructure layer define an organization’s ability to scale, adapt, and survive disruption.
-                            </p>
-                            <p className="text-white font-medium border-l-2 border-violet-500 pl-6">
-                                Digital infrastructure is not an IT concern. It is an institutional one.
-                            </p>
-                        </div>
-                    </div>
-                </div>
-            </section>
-
-            {/* 3. CAPABILITY GRID — The Stack */}
-            <section className="py-24 bg-black/20 border-t border-white/5">
-                <div className="container mx-auto px-6">
-                    <div className="mb-16">
                         <h2 className="text-3xl font-bold text-white mb-4">Core Infrastructure Domains</h2>
                     </div>
 
-                    <div className="grid grid-cols-1 md:grid-cols-2 gap-px bg-white/10 border border-white/10 overflow-hidden">
-                        {/* Card 1: HPC */}
-                        <CapabilityCard
-                            title="High-Performance Compute"
-                            desc="Architecting compute environments for simulation, analytics, and intensive workloads where performance ceilings matter."
-                        />
+                    <TooltipProvider delayDuration={0}>
+                        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                            <SystemModule
+                                title="High-Performance Compute"
+                                desc="Architecting compute environments for simulation, analytics, and intensive workloads where performance ceilings matter."
+                            />
 
-                        {/* Card 2: Private Cloud */}
-                        <CapabilityCard
-                            title="Private & Hybrid Cloud"
-                            desc="Designing cloud environments optimized for control, cost governance, and regulatory alignment across public and private infrastructure."
-                        />
+                            <SystemModule
+                                title="Private & Hybrid Cloud"
+                                desc="Designing cloud environments optimized for control, cost governance, and regulatory alignment across public and private infrastructure."
+                            />
 
-                        {/* Card 3: Edge */}
-                        <CapabilityCard
-                            title="Edge & Distributed Systems"
-                            desc="Infrastructure designed to operate closer to data sources, enabling low-latency execution and regional autonomy."
-                        />
+                            <SystemModule
+                                title="Edge & Distributed Systems"
+                                desc="Infrastructure designed to operate closer to data sources, enabling low-latency execution and regional autonomy."
+                            />
 
-                        {/* Card 4: Cyber-Physical */}
-                        <CapabilityCard
-                            title="Secure & Cyber-Physical Infrastructure"
-                            desc="Infrastructure that bridges digital systems with physical operations, designed for safety, observability, and resilience."
-                        />
-                    </div>
+                            <SystemModule
+                                title="Secure & Cyber-Physical"
+                                desc="Infrastructure that bridges digital systems with physical operations, designed for safety, observability, and resilience."
+                            />
+                        </div>
+                    </TooltipProvider>
                 </div>
             </section>
 
-            {/* 4. OPERATING PRINCIPLES — How We Build */}
-            <section className="py-32 border-t border-white/5">
-                <div className="container mx-auto px-6">
-                    <h2 className="text-3xl font-bold text-white mb-16">How We Operate</h2>
+            {/* 4. OPERATING PRINCIPLES — EXECUTION LAW */}
+            <OperatingPrinciples />
 
-                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12">
-                        <Principle
-                            title="Ownership First"
-                            desc="Infrastructure is provisioned in the client’s name. Control is never abstracted away."
-                        />
-                        <Principle
-                            title="Audit-Ready by Design"
-                            desc="Systems are designed to be inspected, explained, and reviewed at any point in time."
-                        />
-                        <Principle
-                            title="Continuity Over Deployment"
-                            desc="Infrastructure is maintained as a living system, not delivered and abandoned."
-                        />
-                        <Principle
-                            title="Exit Without Risk"
-                            desc="Clients retain full ownership and operational continuity even if Dropwing steps away."
-                        />
-                    </div>
-                </div>
-            </section>
-
-            {/* 5. INTEGRATION — WebForge */}
-            <section className="py-24 bg-[hsl(var(--structural))] relative overflow-hidden">
-                <div className="absolute inset-0 bg-[radial-gradient(circle_at_right,_var(--tw-gradient-stops))] from-violet-900/20 via-transparent to-transparent" />
+            {/* 5. INTEGRATION — HANDOFF MOMENT */}
+            <section className="py-32 relative overflow-hidden group">
+                {/* Background Handoff Shift */}
+                <div className="absolute inset-0 bg-violet-950/10 skew-x-12 translate-x-1/2 group-hover:translate-x-1/3 transition-transform duration-1000 ease-[cubic-bezier(0.2,0.8,0.2,1)]" />
 
                 <div className="container mx-auto px-6 relative z-10 flex flex-col md:flex-row items-center justify-between gap-12">
                     <div className="max-w-xl">
                         <div className="flex items-center gap-2 mb-6">
-                            <span className="h-px w-8 bg-violet-400"></span>
-                            <span className="text-xs font-mono text-violet-300 uppercase tracking-widest">Execution Engine</span>
+                            <span className="text-xs font-mono text-violet-300 uppercase tracking-widest">Execution Partner</span>
                         </div>
                         <h2 className="text-3xl font-bold text-white mb-6">Execution Through WebForge Engineering</h2>
-                        <p className="text-gray-300 leading-relaxed max-w-lg mb-8">
-                            Digital Infrastructure at Dropwing Groups is delivered through WebForge — our engineering division responsible for building and operating large-scale systems.
-                        </p>
-                        <p className="text-sm text-gray-400 italic">
-                            This ensures infrastructure decisions are executed by the same teams that architect and maintain them.
+                        <p className="text-gray-400 leading-relaxed max-w-lg mb-8">
+                            Strategy hands off to execution. Digital Infrastructure is delivered through WebForge — our engineering division responsible for building and operating large-scale systems.
                         </p>
                     </div>
 
                     <div className="flex-shrink-0">
-                        <Link to="/ventures/webforge" className="group flex items-center gap-4 text-white border border-white/20 px-8 py-4 bg-white/5 hover:bg-white/10 transition-all duration-300">
-                            <span className="font-mono tracking-widest uppercase text-sm">Explore WebForge</span>
-                            <ArrowUpRight className="w-5 h-5 text-violet-400 group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform" />
+                        <Link to="/ventures/webforge" className="group/btn flex items-center gap-4 text-white border border-white/20 px-8 py-4 bg-white/5 hover:bg-white/10 transition-all duration-300 relative overflow-hidden">
+                            <span className="font-mono tracking-widest uppercase text-sm relative z-10">
+                                Explore WebForge
+                            </span>
+                            <ArrowUpRight className="w-5 h-5 text-violet-400 group-hover/btn:translate-x-1 group-hover/btn:-translate-y-1 transition-transform relative z-10" />
                         </Link>
                     </div>
                 </div>
             </section>
 
-            {/* 6. GOVERNANCE & RISK */}
-            <section className="py-24">
-                <div className="container mx-auto px-6 max-w-4xl">
+            {/* 6. GOVERNANCE — THE LEDGER */}
+            <section className="py-32 bg-black/40 relative">
+                <div className="absolute inset-0 flex justify-between px-6 md:px-20 opacity-10 pointer-events-none">
+                    <div className="w-px h-full bg-white border-l border-dashed border-gray-500" />
+                    <div className="w-px h-full bg-white border-l border-dashed border-gray-500" />
+                    <div className="w-px h-full bg-white border-l border-dashed border-gray-500" />
+                </div>
+
+                {/* Floating Ledger Text */}
+                <div className="absolute inset-0 overflow-hidden pointer-events-none select-none">
+                    <div className="absolute top-10 right-10 text-[10px] font-mono text-gray-700 space-y-2 opacity-20 text-right">
+                        <p>decision.logged: true</p>
+                        <p>access.granted: system_root</p>
+                        <p>audit.hash: 0x8F2...C9A</p>
+                    </div>
+                </div>
+
+                <div className="container mx-auto px-6 max-w-4xl relative z-10">
                     <div className="border-l-2 border-gray-800 pl-8 md:pl-12">
                         <h2 className="text-3xl font-bold text-white mb-6">Governance & Risk Alignment</h2>
-                        <p className="text-xl text-gray-400 leading-relaxed mb-10">
+                        <p className="text-xl text-gray-400 leading-relaxed mb-6">
                             Infrastructure is designed to withstand audits, regulatory review, personnel changes, and operational stress without loss of control or visibility.
+                        </p>
+                        <p className="text-sm text-gray-500 mb-10 border-l border-violet-500/30 pl-4 italic">
+                            Designed to meet procurement, compliance, and audit expectations without modification.
                         </p>
 
                         <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
                             <GovernanceItem label="Data Sovereignty" />
-                            <GovernanceItem label="Access Control & RBAC" />
+                            <GovernanceItem label="Access Control" />
                             <GovernanceItem label="System Documentation" />
-                            <GovernanceItem label="Operational Resilience" />
+                            <GovernanceItem label="Op Resilience" />
                         </div>
                     </div>
                 </div>
             </section>
 
-            {/* 7. CTA */}
-            <section className="py-32 border-t border-white/5 bg-black">
-                <div className="container mx-auto px-6 text-center">
+            {/* 7. CTA — THE EXIT GATE */}
+            <section className="py-40 bg-black relative overflow-hidden">
+                {/* Deep Exit Gradient */}
+                <div className="absolute inset-0 bg-gradient-to-b from-transparent to-violet-950/10 pointer-events-none" />
+
+                <div className="container mx-auto px-6 text-center relative z-10">
                     <a
                         href="mailto:contact@dropwinggroups.com"
-                        className="group inline-flex flex-col items-center gap-4"
+                        className="group inline-flex flex-col items-center gap-6 focus:outline-none"
                     >
-                        <div className="flex items-center gap-3 text-2xl md:text-4xl font-light text-white group-hover:text-violet-400 transition-colors duration-300">
-                            <span>Discuss Infrastructure Architecture</span>
-                            <ArrowUpRight className="w-6 h-6 md:w-8 md:h-8 opacity-50 group-hover:opacity-100 group-hover:translate-x-1 group-hover:-translate-y-1 transition-all duration-300" />
+                        <div className="flex items-center gap-4 text-3xl md:text-5xl font-extralight text-white group-hover:text-violet-200 transition-colors duration-500">
+                            <span>Discuss Infrastructure</span>
+                            <ArrowUpRight className="w-8 h-8 md:w-10 md:h-10 opacity-30 group-hover:opacity-100 group-hover:translate-x-2 group-hover:-translate-y-2 transition-all duration-500 ease-[cubic-bezier(0.2,0.8,0.2,1)]" />
                         </div>
-                        <p className="text-sm font-mono text-gray-600 uppercase tracking-widest">
-                            For organizations evaluating long-term infrastructure strategy
+                        <p className="text-xs font-mono text-gray-700 uppercase tracking-[0.3em] group-hover:text-gray-500 transition-colors">
+                            You are now leaving the system
                         </p>
                     </a>
                 </div>
             </section>
-
-            <SiteFooter />
         </div>
     );
 };
 
 // --- Subcomponents ---
 
-const CapabilityCard = ({ title, desc }: { title: string; desc: string }) => (
-    <div className="bg-background/80 backdrop-blur-sm p-8 md:p-12 hover:bg-white/5 transition-colors duration-500 group relative">
-        <div className="absolute top-8 right-8 w-2 h-2 rounded-full bg-emerald-500/80 shadow-[0_0_8px_rgba(16,185,129,0.4)]" />
+const WhyItMatters = () => {
+    const ref = useRef(null);
+    const { scrollYProgress } = useScroll({
+        target: ref,
+        offset: ["start center", "center center"],
+    });
 
-        <h3 className="text-xl font-bold text-white mb-4 group-hover:text-violet-300 transition-colors">{title}</h3>
-        <p className="text-gray-400 leading-relaxed text-sm md:text-base">
-            {desc}
-        </p>
-    </div>
-);
+    const opacity = useTransform(scrollYProgress, [0.6, 1], [0.3, 1]); // Locks to 100%
+    const lineHeight = useTransform(scrollYProgress, [0.6, 1], ["1.8", "1.5"]); // Tightens
 
-const Principle = ({ title, desc }: { title: string; desc: string }) => (
-    <div className="space-y-4">
-        <h4 className="text-lg font-bold text-white border-b border-white/10 pb-2 inline-block">
-            {title}
-        </h4>
-        <p className="text-gray-400 text-sm leading-relaxed">
-            {desc}
-        </p>
-    </div>
-);
+    return (
+        <section ref={ref} className="py-32 bg-background relative z-10">
+            <div className="container mx-auto px-6">
+                <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-start">
+                    <div>
+                        <h2 className="text-4xl md:text-5xl font-bold text-white mb-8 tracking-tight">
+                            Why Infrastructure <br />
+                            <span className="text-violet-500/80">Determines Power</span>
+                        </h2>
+                    </div>
+                    <div className="space-y-8 text-lg md:text-xl text-gray-400 font-light leading-relaxed">
+                        <p>
+                            Infrastructure is invisible when it works — and catastrophic when it doesn’t.
+                        </p>
+                        <p>
+                            Decisions made at the infrastructure layer define an organization’s ability to scale, adapt, and survive disruption.
+                        </p>
+
+                        {/* THE WEIGHT MOMENT */}
+                        <motion.p
+                            style={{ opacity, lineHeight }}
+                            className="text-white font-medium pl-6 border-l-2 border-violet-500"
+                        >
+                            Digital infrastructure is not an IT concern. It is an institutional one.
+                        </motion.p>
+                    </div>
+                </div>
+            </div>
+        </section>
+    );
+}
+
+const SystemModule = ({ title, desc }: { title: string; desc: string }) => {
+    return (
+        <div className="bg-white/5 backdrop-blur-sm p-10 border border-white/5 hover:border-violet-500/30 transition-all duration-500 group relative">
+            {/* Corner Marker */}
+            <div className="absolute top-0 left-0 w-2 h-2 border-t border-l border-white/20 group-hover:border-violet-400 transition-colors" />
+
+            {/* Subtle Status Light (No Text) */}
+            <div className="absolute top-6 right-6">
+                <div className="w-1.5 h-1.5 rounded-full bg-white/20 group-hover:bg-emerald-400 transition-colors duration-500 shadow-[0_0_0_1px_rgba(255,255,255,0.05)] group-hover:shadow-[0_0_10px_rgba(16,185,129,0.4)]" />
+            </div>
+
+            <h3 className="text-lg font-mono uppercase tracking-wider text-white mb-4 group-hover:text-violet-200 transition-colors">{title}</h3>
+            <p className="text-gray-500 leading-relaxed text-sm group-hover:text-gray-300 transition-colors">
+                {desc}
+            </p>
+        </div>
+    );
+};
+
+const OperatingPrinciples = () => {
+    return (
+        <section className="py-32 relative z-10">
+            <div className="container mx-auto px-6">
+                <h2 className="text-3xl font-bold text-white mb-16 px-4 md:px-0">How We Operate</h2>
+
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+                    <Principle
+                        index={0}
+                        title="Ownership First"
+                        shortDesc="Control never abstracted."
+                        elaborated="We reject black-box abstractions. Every node, gateway, and key is provisioned directly in your institution's name, ensuring legal and technical sovereignty from day one."
+                    />
+                    <Principle
+                        index={1}
+                        title="Audit-Ready"
+                        shortDesc="Inspected at any time."
+                        elaborated="Our architecture is self-documenting. Auditors can trace every permission, change, and data flow without requiring provider intervention or translation layers."
+                    />
+                    <Principle
+                        index={2}
+                        title="Continuity"
+                        shortDesc="A living system."
+                        elaborated="Deployment is just the beginning. We install 'The Silent Engine'—automated drift checks and self-healing protocols that keep infrastructure aligned with policy forever."
+                    />
+                    <Principle
+                        index={3}
+                        title="Risk-Free Exit"
+                        shortDesc="You keep the keys."
+                        elaborated="No vendor lock-in. We build with standard primitives. If you leave, you keep the keys, the code, and the data. We just hand over the administration rights."
+                    />
+                </div>
+            </div>
+        </section>
+    );
+}
+
+const Principle = ({ title, shortDesc, elaborated, index }: { title: string; shortDesc: string; elaborated: string, index: number }) => {
+    const ref = useRef(null);
+    const isInView = useInView(ref, { once: true, margin: "-50px" });
+
+    return (
+        <motion.div
+            ref={ref}
+            initial={{ opacity: 0, scale: 0.95 }}
+            animate={isInView ? { opacity: 1, scale: 1 } : { opacity: 0, scale: 0.95 }}
+            transition={{ duration: 0.4, delay: index * 0.1, ease: [0.2, 0.8, 0.2, 1] }}
+            className="group relative border-t border-white/10 pt-6 hover:border-violet-500/50 transition-colors cursor-default min-h-[180px]"
+        >
+            <h4 className="text-lg font-bold text-white mb-2 group-hover:text-violet-300 transition-colors">
+                {title}
+            </h4>
+
+            {/* Short Description (Visible by default, fades out on hover) */}
+            <p className="text-gray-500 text-sm leading-relaxed absolute top-14 left-0 transition-opacity duration-300 group-hover:opacity-0">
+                {shortDesc}
+            </p>
+
+            {/* Elaborated Text (Hidden by default, fades in and slides up on hover) */}
+            <div className="absolute top-14 left-0 opacity-0 translate-y-4 group-hover:opacity-100 group-hover:translate-y-0 transition-all duration-500 ease-[cubic-bezier(0.2,0.8,0.2,1)]">
+                <p className="text-gray-400 text-sm leading-relaxed border-l-2 border-violet-500/50 pl-3">
+                    {elaborated}
+                </p>
+            </div>
+        </motion.div>
+    );
+};
 
 const GovernanceItem = ({ label }: { label: string }) => (
-    <div className="flex items-center gap-3 text-sm font-mono text-gray-500">
-        <div className="w-1.5 h-1.5 bg-gray-700 rotate-45" />
-        {label}
+    <div className="group flex items-center gap-3 text-xs font-mono text-gray-600 cursor-default py-2 border-b border-white/5 hover:border-white/20 transition-colors">
+        <span className="w-1.5 h-1.5 bg-gray-800 rotate-45 group-hover:rotate-0 group-hover:bg-violet-500 transition-all duration-300" />
+        <span className="group-hover:text-gray-300 transition-colors duration-300">{label}</span>
     </div>
 );
 

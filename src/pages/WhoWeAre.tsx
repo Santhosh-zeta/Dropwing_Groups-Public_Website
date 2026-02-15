@@ -135,6 +135,31 @@ const Overview = () => (
   </Section>
 );
 
+/* ── Brand Reveal Video ── */
+import brandRevealVideo from "@/assets/Cinematic_Brand_Reveal_Dropwing_Groups.mp4";
+
+const BrandReveal = () => (
+  <section className="w-full bg-black py-0">
+    <div className="relative w-full aspect-video md:h-[80vh] md:aspect-auto overflow-hidden group">
+      <video
+        className="w-full h-full object-cover opacity-80 group-hover:opacity-100 transition-opacity duration-700"
+        autoPlay
+        loop
+        muted
+        playsInline
+      >
+        <source src={brandRevealVideo} type="video/mp4" />
+      </video>
+      <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent pointer-events-none" />
+
+      <div className="absolute bottom-12 left-6 md:left-20">
+        <p className="text-white/60 text-xs font-mono uppercase tracking-widest mb-2">The Silent Engine</p>
+        <h3 className="text-white text-2xl md:text-4xl font-light tracking-tight">System Identity</h3>
+      </div>
+    </div>
+  </section>
+);
+
 /* ── Commitments ── */
 const commitments = [
   {
@@ -245,6 +270,8 @@ const Organization = () => (
     </div>
   </Section>
 );
+
+
 
 /* ── Locations ── */
 const regions = [
@@ -384,6 +411,7 @@ const WhoWeAre = () => {
       </div>
       <SubNav />
       <Overview />
+      <BrandReveal />
       <Commitments />
       <Organization />
       <Locations />
