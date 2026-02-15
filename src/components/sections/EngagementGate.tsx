@@ -28,7 +28,6 @@ const EngagementGate = () => {
           <div className="mb-8 flex items-center justify-center gap-2 text-muted-foreground/60">
             <Lock className="h-3 w-3" />
             <span className="text-[10px] font-mono tracking-[0.3em] uppercase">
-              Restricted Access
             </span>
           </div>
 
@@ -38,7 +37,7 @@ const EngagementGate = () => {
           </h2>
 
           <p className="text-lg md:text-xl text-muted-foreground leading-relaxed max-w-xl mx-auto mb-16">
-            We engage with five organizations per annum. <br />
+           
             Partnership requires board-level commitment.
           </p>
 

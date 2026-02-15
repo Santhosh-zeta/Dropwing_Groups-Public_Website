@@ -13,7 +13,9 @@ import WhatWeThink from "./pages/WhatWeThink";
 import WhoWeAre from "./pages/WhoWeAre";
 import Contact from "./pages/Contact";
 import NotFound from "./pages/NotFound";
+import NotFound from "./pages/NotFound";
 import InsightArticle from "./pages/InsightArticle";
+import DigitalInfrastructure from "./pages/DigitalInfrastructure";
 
 const queryClient = new QueryClient();
 
@@ -27,6 +29,8 @@ const AnimatedRoutes = () => {
         <Route path="/" element={<Index />} />
         <Route path="/v2" element={<IndexV2 />} />
         <Route path="/what-we-do" element={<WhatWeDo />} />
+        <Route path="/what-we-do" element={<WhatWeDo />} />
+        <Route path="/capabilities/digital-infrastructure" element={<DigitalInfrastructure />} />
         <Route path="/what-we-think" element={<WhatWeThink />} />
         <Route path="/who-we-are" element={<WhoWeAre />} />
         <Route path="/contact" element={<Contact />} />

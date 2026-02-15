@@ -1,6 +1,12 @@
 import React, { useRef } from "react";
 import { Link } from "react-router-dom";
 import logoImage from "@/assets/DG_Logo_Dark (1).png";
+import webforgeLogo from "@/assets/logo/webforge logo.png";
+import designStudioLogo from "@/assets/logo/design-studio logo.png";
+import persynixLogo from "@/assets/logo/persynix logo.png";
+import groviaLogo from "@/assets/logo/grovia logo.png";
+import elevixLogo from "@/assets/logo/elevix-pro logo.png";
+
 import { ArrowUpRight, Facebook, Github, Instagram, Linkedin } from "lucide-react";
 
 const SiteFooter = () => {
@@ -57,10 +63,12 @@ const SiteFooter = () => {
           <div className="md:col-span-2 p-8 md:p-12 border-b border-r border-white/5 bg-black/20 backdrop-blur-sm relative group overflow-hidden">
             <div className="absolute inset-0 bg-white/0 group-hover:bg-white/5 transition-colors duration-500" />
             <div className="relative z-10 flex flex-col justify-between h-full min-h-[160px]">
-              <Link to="/" className="block w-48 mb-8">
+              <Link to="/" className="block w-48 mb-8" aria-label="Dropwing Groups Home">
                 <img
                   src={logoImage}
                   alt="Dropwing Groups"
+                  width="200"
+                  height="50"
                   className="w-full h-auto object-contain brightness-0 invert opacity-80 group-hover:opacity-100 transition-opacity duration-500"
                 />
               </Link>
@@ -75,10 +83,11 @@ const SiteFooter = () => {
             </div>
           </div>
 
-          {/* Ventures Cells (Row 1) - With Descriptors */}
+          {/* Ventures Cells (Row 1) - With Logos & Descriptors */}
           <GridCell
             to="/ventures/webforge"
             label="WebForge"
+            logo={webforgeLogo}
             sub="Systems & Infrastructure"
             desc="Full-stack systems engineering"
             number="01"
@@ -86,6 +95,7 @@ const SiteFooter = () => {
           <GridCell
             to="/ventures/design-studio"
             label="Design Studio"
+            logo={designStudioLogo}
             sub="Identity & Experience"
             desc="Brand & product identity"
             number="02"
@@ -93,6 +103,7 @@ const SiteFooter = () => {
           <GridCell
             to="/ventures/persynix"
             label="PerSyniX"
+            logo={persynixLogo}
             sub="Data, AI & Decisioning"
             desc="AI & intelligence systems"
             number="03"
@@ -100,6 +111,7 @@ const SiteFooter = () => {
           <GridCell
             to="/ventures/grovia"
             label="Grovia"
+            logo={groviaLogo}
             sub="Market & Revenue Systems"
             desc="Growth & market execution"
             number="04"
@@ -107,6 +119,7 @@ const SiteFooter = () => {
           <GridCell
             to="/ventures/elevix-pro"
             label="Elevix Pro"
+            logo={elevixLogo}
             sub="Platforms & Access"
             desc="Training & capability enablement"
             number="05"
@@ -122,11 +135,11 @@ const SiteFooter = () => {
           <div className="md:col-span-1 lg:col-span-2 p-8 border-b border-r border-white/5 hover:bg-white/5 transition-colors duration-300 flex flex-col justify-between min-h-[160px] group">
             <span className="text-[10px] font-bold text-gray-700 uppercase tracking-widest group-hover:text-white/40 transition-colors">Connect</span>
             <div className="flex gap-4 opacity-60 group-hover:opacity-100 transition-opacity duration-300">
-              <SocialIcon icon={<WhatsappIcon className="w-5 h-5" />} />
-              <SocialIcon icon={<Linkedin className="w-5 h-5" />} />
-              <SocialIcon icon={<Instagram className="w-5 h-5" />} />
-              <SocialIcon icon={<Github className="w-5 h-5" />} />
-              <SocialIcon icon={<Facebook className="w-5 h-5" />} />
+              <SocialIcon href="https://wa.me/" label="WhatsApp" icon={<WhatsappIcon className="w-5 h-5" />} />
+              <SocialIcon href="https://linkedin.com/" label="LinkedIn" icon={<Linkedin className="w-5 h-5" />} />
+              <SocialIcon href="https://instagram.com/" label="Instagram" icon={<Instagram className="w-5 h-5" />} />
+              <SocialIcon href="https://github.com/" label="GitHub" icon={<Github className="w-5 h-5" />} />
+              <SocialIcon href="https://facebook.com/" label="Facebook" icon={<Facebook className="w-5 h-5" />} />
             </div>
           </div>
 
@@ -161,8 +174,8 @@ const SiteFooter = () => {
           <span className="hidden md:block text-gray-500">Est. 2024</span>
         </div>
 
-        
-          <span className="text-gray-500">Chennai • Operational</span>
+
+        <span className="text-gray-500">Chennai • Operational</span>
       </div>
 
       {/* Mobile-only fallback */}
@@ -177,11 +190,12 @@ interface GridCellProps {
   to: string;
   label: string;
   sub: string;
+  logo?: string;
   desc?: string;
   number?: string;
 }
 
-const GridCell = ({ to, label, sub, desc, number }: GridCellProps) => (
+const GridCell = ({ to, label, sub, logo, desc, number }: GridCellProps) => (
   <Link to={to} className="block p-8 border-b border-r border-white/5 bg-transparent hover:bg-white/5 transition-all duration-300 relative group min-h-[160px] flex flex-col justify-between">
     <div className="flex justify-between items-start">
       <span className="text-[10px] font-bold text-gray-700 uppercase tracking-widest group-hover:text-white/40 transition-colors max-w-[120px] leading-relaxed">
@@ -194,23 +208,46 @@ const GridCell = ({ to, label, sub, desc, number }: GridCellProps) => (
       )}
     </div>
 
-    <div className="space-y-1 mt-auto">
-      <h3 className="text-lg md:text-xl text-gray-300 font-light group-hover:text-white transition-colors duration-300 flex items-center gap-2">
-        {label}
-        <ArrowUpRight className="w-4 h-4 opacity-0 -translate-x-2 translate-y-2 group-hover:opacity-100 group-hover:translate-x-0 group-hover:translate-y-0 transition-all duration-300 text-[hsl(var(--violet-accent))]" />
-      </h3>
-      {desc && (
-        <p className="text-xs text-gray-600 group-hover:text-gray-500 transition-colors duration-300 font-mono tracking-wide">
-          {desc}
-        </p>
+    <div className="space-y-4 mt-auto relative z-10">
+      {logo && (
+        <div className="h-16 md:h-20 flex items-end mb-2">
+          <img
+            src={logo}
+            alt={`${label} logo`}
+            className="h-full w-auto object-contain object-left-bottom brightness-0 invert opacity-60 group-hover:opacity-100 transition-opacity duration-500"
+            height="80"
+          />
+        </div>
       )}
-      <div className="h-0.5 w-0 bg-[hsl(var(--violet-accent))] group-hover:w-8 transition-all duration-500 ease-out mt-3" />
+
+      <div>
+        <h3 className="text-lg md:text-xl text-gray-300 font-light group-hover:text-white transition-colors duration-300 flex items-center gap-2">
+          {label}
+          <ArrowUpRight className="w-4 h-4 opacity-0 -translate-x-2 translate-y-2 group-hover:opacity-100 group-hover:translate-x-0 group-hover:translate-y-0 transition-all duration-300 text-[hsl(var(--violet-accent))]" />
+        </h3>
+        {desc && (
+          <p className="text-xs text-gray-600 group-hover:text-gray-500 transition-colors duration-300 font-mono tracking-wide mt-1">
+            {desc}
+          </p>
+        )}
+      </div>
+
+      {/* 
+        Performance Optimization: 
+        Use scale-x instead of width to avoid layout thrashing.
+        Origin-left ensures it grows from the left side.
+      */}
+      <div className="h-0.5 w-8 bg-[hsl(var(--violet-accent))] scale-x-0 origin-left group-hover:scale-x-100 transition-transform duration-500 ease-out" />
     </div>
   </Link>
 )
 
-const SocialIcon = ({ icon }: { icon: React.ReactNode }) => (
-  <a href="#" className="flex items-center justify-center p-2 rounded-full border border-white/5 text-gray-500 hover:text-white hover:border-white/20 hover:bg-white/5 transition-all duration-300">
+const SocialIcon = ({ icon, href, label }: { icon: React.ReactNode; href?: string; label: string }) => (
+  <a
+    href={href || "#"}
+    aria-label={label}
+    className="flex items-center justify-center p-2 rounded-full border border-white/5 text-gray-500 hover:text-white hover:border-white/20 hover:bg-white/5 transition-all duration-300"
+  >
     {icon}
   </a>
 )

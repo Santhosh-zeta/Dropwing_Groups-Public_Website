@@ -56,6 +56,8 @@ const Navbar = () => {
             <img
               src={logoImage}
               alt="Dropwing Groups"
+              width="32"
+              height="32"
               className="h-8 w-auto object-contain opacity-90 group-hover:opacity-100 transition-opacity"
             />
           </Link>
