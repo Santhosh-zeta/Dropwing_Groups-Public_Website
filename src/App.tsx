@@ -13,6 +13,7 @@ import Capabilities from "./pages/Capabilities";
 import WhatWeThink from "./pages/WhatWeThink";
 import WhoWeAre from "./pages/WhoWeAre";
 import Contact from "./pages/Contact";
+import Contact1 from "./pages/Contact";
 import NotFound from "./pages/NotFound";
 import InsightArticle from "./pages/InsightArticle";
 import DigitalInfrastructure from "./pages/DigitalInfrastructure";
@@ -55,6 +56,7 @@ const AnimatedRoutes = () => {
         <Route path="/what-we-think" element={<WhatWeThink />} />
         <Route path="/who-we-are" element={<WhoWeAre />} />
         <Route path="/contact" element={<Contact />} />
+        <Route path="/contact1" element={<Contact1 />} />
         <Route path="/privacy" element={<PrivacyPolicy />} />
         <Route path="/terms" element={<TermsOfService />} />
         <Route path="/accessibility" element={<Accessibility />} />

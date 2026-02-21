@@ -3,7 +3,6 @@ import FeaturedInsights from "@/components/sections/FeaturedInsights";
 import PhilosophyStatement from "@/components/sections/PhilosophyStatement";
 import TheReality from "@/components/sections/TheReality";
 import OperatingModel from "@/components/sections/OperatingModel";
-import Capabilities from "@/components/sections/Capabilities";
 import GovernanceScale from "@/components/sections/GovernanceScale";
 import EngagementSteps from "@/components/sections/EngagementSteps";
 import EngagementGate from "@/components/sections/EngagementGate";
@@ -16,7 +15,6 @@ const Index = () => {
       <PhilosophyStatement />
       <TheReality />
       <OperatingModel />
-      <Capabilities />
       <GovernanceScale />
       <EngagementSteps />
       <EngagementGate />

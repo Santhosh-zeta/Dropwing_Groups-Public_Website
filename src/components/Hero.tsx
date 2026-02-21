@@ -1,4 +1,5 @@
 import { motion } from "framer-motion";
+import { Link } from "react-router-dom";
 import HeroBackgroundV2 from "./HeroBackgroundV2";
 import HeroBackground from "./HeroBackground";
 import logoImage from "@/assets/DG_Logo_Dark (1).png";
@@ -88,15 +89,15 @@ const Hero = () => {
                 <span className="text-white font-semibold"> We walk it with you.</span>
               </p>
 
-              <a
-                href="#contact"
+              <Link
+                to="/contact"
                 className="group relative inline-flex items-center gap-4 px-8 py-4 bg-primary/10 border border-primary/40 backdrop-blur-sm hover:bg-primary/20 hover:border-primary transition-all duration-300"
               >
                 <span className="text-sm font-bold tracking-[0.2em] text-white uppercase">
                   Initiate Engagement
                 </span>
                 <span className="text-primary group-hover:translate-x-1 transition-transform text-lg">→</span>
-              </a>
+              </Link>
             </motion.div>
           </div>
         </div>
@@ -173,15 +174,15 @@ const Hero = () => {
                 <span className="text-white font-semibold"> We walk it with you.</span>
               </p>
 
-              <a
-                href="#contact"
+              <Link
+                to="/contact"
                 className="group relative inline-flex items-center gap-4 px-8 py-4 bg-primary/10 border border-primary/40 backdrop-blur-sm hover:bg-primary/20 hover:border-primary transition-all duration-300"
               >
                 <span className="text-sm font-bold tracking-[0.2em] text-white uppercase">
                   Initiate Engagement
                 </span>
                 <span className="text-primary group-hover:translate-x-1 transition-transform text-lg">→</span>
-              </a>
+              </Link>
             </motion.div>
           </div>
 

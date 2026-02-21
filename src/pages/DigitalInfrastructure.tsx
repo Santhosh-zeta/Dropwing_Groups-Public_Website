@@ -176,23 +176,24 @@ const DigitalInfrastructure = () => {
                     </div>
 
                     <TooltipProvider delayDuration={0}>
-                        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
                             <SystemModule
+                                icon={<ShieldCheck className="w-6 h-6 text-violet-500/80 group-hover:text-violet-400 transition-colors" />}
                                 title="High-Performance Compute"
                                 desc="Architecting compute environments for simulation, analytics, and intensive workloads where performance ceilings matter."
                             />
-
                             <SystemModule
+                                icon={<ArrowUpRight className="w-6 h-6 text-violet-500/80 group-hover:text-violet-400 transition-colors" />}
                                 title="Private & Hybrid Cloud"
                                 desc="Designing cloud environments optimized for control, cost governance, and regulatory alignment across public and private infrastructure."
                             />
-
                             <SystemModule
+                                icon={<Info className="w-6 h-6 text-violet-500/80 group-hover:text-violet-400 transition-colors" />}
                                 title="Edge & Distributed Systems"
                                 desc="Infrastructure designed to operate closer to data sources, enabling low-latency execution and regional autonomy."
                             />
-
                             <SystemModule
+                                icon={<ShieldCheck className="w-6 h-6 text-violet-500/80 group-hover:text-violet-400 transition-colors" />}
                                 title="Secure & Cyber-Physical"
                                 desc="Infrastructure that bridges digital systems with physical operations, designed for safety, observability, and resilience."
                             />
@@ -274,8 +275,8 @@ const DigitalInfrastructure = () => {
                 <div className="absolute inset-0 bg-gradient-to-b from-transparent to-violet-950/10 pointer-events-none" />
 
                 <div className="container mx-auto px-6 text-center relative z-10">
-                    <a
-                        href="mailto:contact@dropwinggroups.com"
+                    <Link
+                        to="/contact"
                         className="group inline-flex flex-col items-center gap-6 focus:outline-none"
                     >
                         <div className="flex items-center gap-4 text-3xl md:text-5xl font-extralight text-white group-hover:text-violet-200 transition-colors duration-500">
@@ -285,7 +286,7 @@ const DigitalInfrastructure = () => {
                         <p className="text-xs font-mono text-gray-700 uppercase tracking-[0.3em] group-hover:text-gray-500 transition-colors">
                             You are now leaving the system
                         </p>
-                    </a>
+                    </Link>
                 </div>
             </section>
         </div>
@@ -336,21 +337,22 @@ const WhyItMatters = () => {
     );
 }
 
-const SystemModule = ({ title, desc }: { title: string; desc: string }) => {
+const SystemModule = ({ icon, title, desc }: { icon: React.ReactNode; title: string; desc: string }) => {
     return (
         <div className="bg-white/5 backdrop-blur-sm p-10 border border-white/5 hover:border-violet-500/30 transition-all duration-500 group relative">
-            {/* Corner Marker */}
             <div className="absolute top-0 left-0 w-2 h-2 border-t border-l border-white/20 group-hover:border-violet-400 transition-colors" />
 
-            {/* Subtle Status Light (No Text) */}
-            <div className="absolute top-6 right-6">
-                <div className="w-1.5 h-1.5 rounded-full bg-white/20 group-hover:bg-emerald-400 transition-colors duration-500 shadow-[0_0_0_1px_rgba(255,255,255,0.05)] group-hover:shadow-[0_0_10px_rgba(16,185,129,0.4)]" />
+            <div className="mb-6 opacity-80 group-hover:opacity-100 transition-opacity duration-500">
+                {icon}
             </div>
 
             <h3 className="text-lg font-mono uppercase tracking-wider text-white mb-4 group-hover:text-violet-200 transition-colors">{title}</h3>
             <p className="text-gray-500 leading-relaxed text-sm group-hover:text-gray-300 transition-colors">
                 {desc}
             </p>
+            <div className="absolute bottom-6 right-6 opacity-0 group-hover:opacity-100 transition-opacity duration-500">
+                <div className="w-1.5 h-1.5 rounded-full bg-violet-400 shadow-[0_0_10px_rgba(139,92,246,0.4)]" />
+            </div>
         </div>
     );
 };

@@ -6,8 +6,6 @@ const subNavItems = [
   "Overview",
   "Commitments",
   "Organization",
-  "Locations",
-  "Awards",
   "Leadership",
 ];
 
@@ -273,95 +271,6 @@ const Organization = () => (
 
 
 
-/* ── Locations ── */
-const regions = [
-  {
-    region: "North America",
-    cities: ["New York", "Washington, D.C.", "Toronto"],
-  },
-  {
-    region: "Europe",
-    cities: ["London", "Berlin", "Zurich"],
-  },
-  {
-    region: "Middle East & Africa",
-    cities: ["Dubai", "Riyadh", "Nairobi"],
-  },
-  {
-    region: "Asia-Pacific",
-    cities: ["Singapore", "Sydney", "Tokyo"],
-  },
-];
-
-const Locations = () => (
-  <Section id="locations">
-    <p className="mb-4 text-xs font-medium tracking-[0.2em] text-muted-foreground uppercase">
-      Locations
-    </p>
-    <h3 className="mb-4 max-w-2xl text-2xl font-bold leading-tight tracking-tight text-foreground md:text-3xl">
-      Operationally present, not just represented.
-    </h3>
-    <p className="mb-12 max-w-xl text-sm leading-relaxed text-muted-foreground">
-      Dropwing Groups maintains operational presence across key institutional
-      markets. Each location supports direct execution capacity — not advisory
-      outposts.
-    </p>
-    <div className="grid gap-10 sm:grid-cols-2 md:grid-cols-4">
-      {regions.map((r) => (
-        <div key={r.region}>
-          <h4 className="mb-4 text-xs font-semibold tracking-[0.15em] text-foreground uppercase">
-            {r.region}
-          </h4>
-          <ul className="space-y-2">
-            {r.cities.map((city) => (
-              <li
-                key={city}
-                className="text-sm text-muted-foreground"
-              >
-                {city}
-              </li>
-            ))}
-          </ul>
-        </div>
-      ))}
-    </div>
-  </Section>
-);
-
-/* ── Awards ── */
-const awards = [
-  { year: "2025", body: "Global Governance Institute", recognition: "Excellence in Institutional Execution" },
-  { year: "2024", body: "Enterprise Strategy Forum", recognition: "Best-in-Class Operational Continuity" },
-  { year: "2024", body: "World Economic Council", recognition: "Responsible AI Deployment Award" },
-  { year: "2023", body: "International Standards Board", recognition: "Governance Framework of the Year" },
-  { year: "2023", body: "Digital Infrastructure Alliance", recognition: "Sustained Systems Delivery Recognition" },
-];
-
-const Awards = () => (
-  <Section id="awards">
-    <p className="mb-4 text-xs font-medium tracking-[0.2em] text-muted-foreground uppercase">
-      Awards
-    </p>
-    <h3 className="mb-12 max-w-2xl text-2xl font-bold leading-tight tracking-tight text-foreground md:text-3xl">
-      Independent recognition of delivered value.
-    </h3>
-    <div className="divide-y divide-border">
-      {awards.map((a, i) => (
-        <div
-          key={i}
-          className="grid gap-2 py-5 md:grid-cols-[80px_1fr_1fr] md:gap-8"
-        >
-          <span className="text-sm font-semibold text-foreground">
-            {a.year}
-          </span>
-          <span className="text-sm text-muted-foreground">{a.body}</span>
-          <span className="text-sm text-foreground">{a.recognition}</span>
-        </div>
-      ))}
-    </div>
-  </Section>
-);
-
 /* ── Leadership ── */
 const leaders = [
   { name: "R. Kessler", role: "Chief Executive Officer", region: "Global" },
@@ -414,8 +323,6 @@ const WhoWeAre = () => {
       <BrandReveal />
       <Commitments />
       <Organization />
-      <Locations />
-      <Awards />
       <LeadershipQuote />
       <Leadership />
     </main>
