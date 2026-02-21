@@ -100,10 +100,10 @@ const Navbar = () => {
                           Architecting the autonomous operating systems of the future. We bridge strategy and execution.
                         </p>
                         <Link
-                          to="/about"
+                          to="/who-we-are"
                           className="inline-flex items-center text-xs font-bold tracking-[0.15em] text-white uppercase group/link"
                         >
-                          About Us
+                          Who we are
                           <span className="ml-2 group-hover/link:translate-x-1 transition-transform">→</span>
                         </Link>
                       </div>

@@ -127,7 +127,7 @@ const SiteFooter = () => {
 
           {/* Row 2: Institution | Institution | Institution | Connect | Governance */}
 
-          <GridCell to="/about" label="About Us" sub="Institution" />
+          <GridCell to="/who-we-are" label="Who we are" sub="Institution" />
           <GridCell to="/philosophy" label="Philosophy" sub="Institution" />
           <GridCell to="/contact" label="Contact" sub="Institution" />
 

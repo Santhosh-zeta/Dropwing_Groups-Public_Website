@@ -271,14 +271,27 @@ const Organization = () => (
 
 
 
+import { Linkedin } from "lucide-react";
+import santhoshImg from "@/assets/Leadership-photos/Santhosh.jpg";
+import johanImg from "@/assets/Leadership-photos/johan.jpg";
+import yakssendraImg from "@/assets/Leadership-photos/yakssendra.jpg";
+import ashwinImg from "@/assets/Leadership-photos/Ashwin-kumaran.jpg";
+import dakshaImg from "@/assets/Leadership-photos/Daksha.jpg";
+import dhanasekaranImg from "@/assets/Leadership-photos/Dhanasekaran.jpg";
+import melvinImg from "@/assets/Leadership-photos/Melvin.jpg";
+import yazhiniImg from "@/assets/Leadership-photos/yazhini.jpeg";
+
 /* ── Leadership ── */
 const leaders = [
-  { name: "R. Kessler", role: "Chief Executive Officer", region: "Global" },
-  { name: "S. Narayanan", role: "Chief Operating Officer", region: "Asia-Pacific" },
-  { name: "M. Hoffmann", role: "Chief Governance Officer", region: "Europe" },
-  { name: "A. Diouf", role: "Chief Strategy Officer", region: "Middle East & Africa" },
-  { name: "J. Whitmore", role: "Chief Technology Officer", region: "North America" },
-  { name: "L. Tanaka", role: "General Counsel", region: "Global" },
+  { name: "Santhosh V", role: "Co-founder and Managing Director of Dropwing Groups", linkedin: "https://www.linkedin.com/in/santhosh---v", image: santhoshImg, imagePosition: "object-[center_10%]" },
+  { name: "Johan J Anil", role: "Board Member & CEO of Dropwing Design Studio", linkedin: "https://www.linkedin.com/in/johan-j-anil/", image: johanImg },
+  { name: "Yakssendra Kishorekumar", role: "Board Member & Chief Editing Officer", linkedin: "https://www.linkedin.com/in/yakssendra-kishorekumar-4a4507323/", image: yakssendraImg },
+  { name: "Yazhini Phalanivel", role: "Board Member & CEO of Grovia", linkedin: "https://www.linkedin.com/in/yazhini-phalanivel-2403b433a/", image: yazhiniImg },
+  { name: "Ashwin Kumaran", role: "CEO of WebForge", linkedin: "https://www.linkedin.com/in/ashwin-kumaran-92b6b831b/", image: ashwinImg },
+  { name: "Daksha Bordekar", role: "CEO of PerSyniX", linkedin: "https://www.linkedin.com/in/daksha-bordekar-630a46303/", image: dakshaImg },
+  { name: "Mohd Shaan", role: "CTO of WebForge", linkedin: "https://www.linkedin.com/in/mohd-shaan-9785a631b/", image: "https://placehold.co/400x500/111111/444444?text=PHOTO" },
+  { name: "Dhanasekaran Srinivasan", role: "Advisor and CSO of Dropwing Groups", linkedin: "https://www.linkedin.com/in/dhanasekaran-srinivasan/", image: dhanasekaranImg },
+  { name: "Melvin", role: "Advisor", linkedin: "https://www.linkedin.com/in/melvin-cyberops/", image: melvinImg },
 ];
 
 const Leadership = () => (
@@ -289,17 +302,48 @@ const Leadership = () => (
     <h3 className="mb-12 max-w-2xl text-2xl font-bold leading-tight tracking-tight text-foreground md:text-3xl">
       Accountable leadership.
     </h3>
-    <div className="grid gap-px bg-border sm:grid-cols-2 md:grid-cols-3">
+    <div className="grid gap-px bg-border sm:grid-cols-2 lg:grid-cols-3">
       {leaders.map((l) => (
         <div
           key={l.name}
-          className="bg-background p-6 md:p-8"
+          className="bg-background hover:bg-white/[0.02] transition-colors duration-500 p-6 md:p-8 flex flex-col justify-between group relative overflow-hidden min-h-[300px]"
         >
-          <h4 className="text-sm font-semibold text-foreground">{l.name}</h4>
-          <p className="mt-1 text-xs text-muted-foreground">{l.role}</p>
-          <p className="mt-3 text-[11px] tracking-[0.1em] text-muted-foreground uppercase">
-            {l.region}
-          </p>
+          {/* Background Ambient Glow on Hover */}
+          <div className="absolute top-0 right-0 w-64 h-64 bg-primary/5 rounded-full blur-3xl opacity-0 group-hover:opacity-100 transition-opacity duration-700 pointer-events-none -translate-y-1/2 translate-x-1/4 z-0" />
+
+          {/* Card Content (Foreground) */}
+          <div className="flex flex-col justify-between flex-1 w-[60%] sm:w-[55%] z-20 relative">
+            <div>
+              <h4 className="text-sm font-semibold text-foreground group-hover:text-primary transition-colors duration-300">{l.name}</h4>
+              <p className="mt-2 text-xs text-muted-foreground leading-relaxed drop-shadow-md pb-4">{l.role}</p>
+            </div>
+            <div className="mt-4 pt-4 border-t border-border/50">
+              <a
+                href={l.linkedin}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center gap-2 text-[10px] md:text-xs font-mono tracking-widest text-muted-foreground hover:text-primary transition-colors uppercase drop-shadow-md"
+              >
+                <Linkedin className="w-3.5 h-3.5" />
+                <span>Connect</span>
+              </a>
+            </div>
+          </div>
+
+          {/* Floor-Anchored Portrait Placeholder (Background) */}
+          <div className="absolute bottom-0 right-0 w-[50%] h-[85%] md:h-[95%] pointer-events-none z-10 origin-bottom flex items-end justify-end">
+            {/* Color Overlay */}
+            <div className="absolute inset-0 bg-primary/10 mix-blend-overlay opacity-0 group-hover:opacity-100 transition-opacity duration-500 z-10 pointer-events-none" />
+
+            {/* Left fade so the image fades smoothly into the card's dark background */}
+            <div className="absolute inset-y-0 left-0 w-12 bg-gradient-to-r from-background to-transparent z-10 pointer-events-none" />
+
+            <img
+              src={l.image}
+              alt={l.name}
+              className={`w-full h-full object-cover grayscale opacity-70 group-hover:opacity-100 group-hover:scale-105 transition-all duration-700 ease-[cubic-bezier(0.2,0.8,0.2,1)] transform-gpu origin-bottom ${l.imagePosition || 'object-bottom'}`}
+            />
+          </div>
         </div>
       ))}
     </div>

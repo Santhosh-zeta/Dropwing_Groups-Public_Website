@@ -80,7 +80,7 @@ const WarpField = () => {
             const trailLength = (1 - scale) * 20; // Streaks get longer at edges (closer)
 
             ctx.beginPath();
-            ctx.fillStyle = `rgba(139, 92, 246, ${opacity})`; // Violet-500 tint
+            ctx.fillStyle = `rgba(59, 130, 246, ${opacity})`; // Blue-500 tint
             ctx.arc(x2d, y2d, size, 0, Math.PI * 2);
             ctx.fill();
         });
@@ -115,7 +115,7 @@ const DigitalInfrastructure = () => {
                 {/* Deep System Grid Layer - Reacts to Scroll Density */}
                 <motion.div
                     style={{ scale: gridDensity, opacity: 0.1 }}
-                    className="absolute inset-0 bg-[radial-gradient(circle_800px_at_50%_200px,#3b0764,transparent)]"
+                    className="absolute inset-0 bg-[radial-gradient(circle_800px_at_50%_200px,#172554,transparent)]"
                 />
             </motion.div>
 
@@ -147,7 +147,7 @@ const DigitalInfrastructure = () => {
                             initial={{ width: 0 }}
                             animate={{ width: 60 }}
                             transition={{ duration: 1.5, delay: 0.5, ease: [0.2, 0.8, 0.2, 1] }}
-                            className="h-px bg-violet-500/40 mb-8"
+                            className="h-px bg-blue-500/40 mb-8"
                         />
 
                         <motion.h2
@@ -178,22 +178,22 @@ const DigitalInfrastructure = () => {
                     <TooltipProvider delayDuration={0}>
                         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
                             <SystemModule
-                                icon={<ShieldCheck className="w-6 h-6 text-violet-500/80 group-hover:text-violet-400 transition-colors" />}
+                                icon={<ShieldCheck className="w-6 h-6 text-blue-500/80 group-hover:text-blue-400 transition-colors" />}
                                 title="High-Performance Compute"
                                 desc="Architecting compute environments for simulation, analytics, and intensive workloads where performance ceilings matter."
                             />
                             <SystemModule
-                                icon={<ArrowUpRight className="w-6 h-6 text-violet-500/80 group-hover:text-violet-400 transition-colors" />}
+                                icon={<ArrowUpRight className="w-6 h-6 text-blue-500/80 group-hover:text-blue-400 transition-colors" />}
                                 title="Private & Hybrid Cloud"
                                 desc="Designing cloud environments optimized for control, cost governance, and regulatory alignment across public and private infrastructure."
                             />
                             <SystemModule
-                                icon={<Info className="w-6 h-6 text-violet-500/80 group-hover:text-violet-400 transition-colors" />}
+                                icon={<Info className="w-6 h-6 text-blue-500/80 group-hover:text-blue-400 transition-colors" />}
                                 title="Edge & Distributed Systems"
                                 desc="Infrastructure designed to operate closer to data sources, enabling low-latency execution and regional autonomy."
                             />
                             <SystemModule
-                                icon={<ShieldCheck className="w-6 h-6 text-violet-500/80 group-hover:text-violet-400 transition-colors" />}
+                                icon={<ShieldCheck className="w-6 h-6 text-blue-500/80 group-hover:text-blue-400 transition-colors" />}
                                 title="Secure & Cyber-Physical"
                                 desc="Infrastructure that bridges digital systems with physical operations, designed for safety, observability, and resilience."
                             />
@@ -208,12 +208,12 @@ const DigitalInfrastructure = () => {
             {/* 5. INTEGRATION — HANDOFF MOMENT */}
             <section className="py-32 relative overflow-hidden group">
                 {/* Background Handoff Shift */}
-                <div className="absolute inset-0 bg-violet-950/10 skew-x-12 translate-x-1/2 group-hover:translate-x-1/3 transition-transform duration-1000 ease-[cubic-bezier(0.2,0.8,0.2,1)]" />
+                <div className="absolute inset-0 bg-blue-950/10 skew-x-12 translate-x-1/2 group-hover:translate-x-1/3 transition-transform duration-1000 ease-[cubic-bezier(0.2,0.8,0.2,1)]" />
 
                 <div className="container mx-auto px-6 relative z-10 flex flex-col md:flex-row items-center justify-between gap-12">
                     <div className="max-w-xl">
                         <div className="flex items-center gap-2 mb-6">
-                            <span className="text-xs font-mono text-violet-300 uppercase tracking-widest">Execution Partner</span>
+                            <span className="text-xs font-mono text-blue-300 uppercase tracking-widest">Execution Partner</span>
                         </div>
                         <h2 className="text-3xl font-bold text-white mb-6">Execution Through WebForge Engineering</h2>
                         <p className="text-gray-400 leading-relaxed max-w-lg mb-8">
@@ -226,60 +226,25 @@ const DigitalInfrastructure = () => {
                             <span className="font-mono tracking-widest uppercase text-sm relative z-10">
                                 Explore WebForge
                             </span>
-                            <ArrowUpRight className="w-5 h-5 text-violet-400 group-hover/btn:translate-x-1 group-hover/btn:-translate-y-1 transition-transform relative z-10" />
+                            <ArrowUpRight className="w-5 h-5 text-blue-400 group-hover/btn:translate-x-1 group-hover/btn:-translate-y-1 transition-transform relative z-10" />
                         </Link>
                     </div>
                 </div>
             </section>
 
-            {/* 6. GOVERNANCE — THE LEDGER */}
-            <section className="py-32 bg-black/40 relative">
-                <div className="absolute inset-0 flex justify-between px-6 md:px-20 opacity-10 pointer-events-none">
-                    <div className="w-px h-full bg-white border-l border-dashed border-gray-500" />
-                    <div className="w-px h-full bg-white border-l border-dashed border-gray-500" />
-                    <div className="w-px h-full bg-white border-l border-dashed border-gray-500" />
-                </div>
 
-                {/* Floating Ledger Text */}
-                <div className="absolute inset-0 overflow-hidden pointer-events-none select-none">
-                    <div className="absolute top-10 right-10 text-[10px] font-mono text-gray-700 space-y-2 opacity-20 text-right">
-                        <p>decision.logged: true</p>
-                        <p>access.granted: system_root</p>
-                        <p>audit.hash: 0x8F2...C9A</p>
-                    </div>
-                </div>
-
-                <div className="container mx-auto px-6 max-w-4xl relative z-10">
-                    <div className="border-l-2 border-gray-800 pl-8 md:pl-12">
-                        <h2 className="text-3xl font-bold text-white mb-6">Governance & Risk Alignment</h2>
-                        <p className="text-xl text-gray-400 leading-relaxed mb-6">
-                            Infrastructure is designed to withstand audits, regulatory review, personnel changes, and operational stress without loss of control or visibility.
-                        </p>
-                        <p className="text-sm text-gray-500 mb-10 border-l border-violet-500/30 pl-4 italic">
-                            Designed to meet procurement, compliance, and audit expectations without modification.
-                        </p>
-
-                        <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
-                            <GovernanceItem label="Data Sovereignty" />
-                            <GovernanceItem label="Access Control" />
-                            <GovernanceItem label="System Documentation" />
-                            <GovernanceItem label="Op Resilience" />
-                        </div>
-                    </div>
-                </div>
-            </section>
 
             {/* 7. CTA — THE EXIT GATE */}
             <section className="py-40 bg-black relative overflow-hidden">
                 {/* Deep Exit Gradient */}
-                <div className="absolute inset-0 bg-gradient-to-b from-transparent to-violet-950/10 pointer-events-none" />
+                <div className="absolute inset-0 bg-gradient-to-b from-transparent to-blue-950/10 pointer-events-none" />
 
                 <div className="container mx-auto px-6 text-center relative z-10">
                     <Link
                         to="/contact"
                         className="group inline-flex flex-col items-center gap-6 focus:outline-none"
                     >
-                        <div className="flex items-center gap-4 text-3xl md:text-5xl font-extralight text-white group-hover:text-violet-200 transition-colors duration-500">
+                        <div className="flex items-center gap-4 text-3xl md:text-5xl font-extralight text-white group-hover:text-blue-200 transition-colors duration-500">
                             <span>Discuss Infrastructure</span>
                             <ArrowUpRight className="w-8 h-8 md:w-10 md:h-10 opacity-30 group-hover:opacity-100 group-hover:translate-x-2 group-hover:-translate-y-2 transition-all duration-500 ease-[cubic-bezier(0.2,0.8,0.2,1)]" />
                         </div>
@@ -312,7 +277,7 @@ const WhyItMatters = () => {
                     <div>
                         <h2 className="text-4xl md:text-5xl font-bold text-white mb-8 tracking-tight">
                             Why Infrastructure <br />
-                            <span className="text-violet-500/80">Determines Power</span>
+                            <span className="text-blue-500/80">Determines Power</span>
                         </h2>
                     </div>
                     <div className="space-y-8 text-lg md:text-xl text-gray-400 font-light leading-relaxed">
@@ -326,7 +291,7 @@ const WhyItMatters = () => {
                         {/* THE WEIGHT MOMENT */}
                         <motion.p
                             style={{ opacity, lineHeight }}
-                            className="text-white font-medium pl-6 border-l-2 border-violet-500"
+                            className="text-white font-medium pl-6 border-l-2 border-blue-500"
                         >
                             Digital infrastructure is not an IT concern. It is an institutional one.
                         </motion.p>
@@ -339,19 +304,19 @@ const WhyItMatters = () => {
 
 const SystemModule = ({ icon, title, desc }: { icon: React.ReactNode; title: string; desc: string }) => {
     return (
-        <div className="bg-white/5 backdrop-blur-sm p-10 border border-white/5 hover:border-violet-500/30 transition-all duration-500 group relative">
-            <div className="absolute top-0 left-0 w-2 h-2 border-t border-l border-white/20 group-hover:border-violet-400 transition-colors" />
+        <div className="bg-white/5 backdrop-blur-sm p-10 border border-white/5 hover:border-blue-500/30 transition-all duration-500 group relative">
+            <div className="absolute top-0 left-0 w-2 h-2 border-t border-l border-white/20 group-hover:border-blue-400 transition-colors" />
 
             <div className="mb-6 opacity-80 group-hover:opacity-100 transition-opacity duration-500">
                 {icon}
             </div>
 
-            <h3 className="text-lg font-mono uppercase tracking-wider text-white mb-4 group-hover:text-violet-200 transition-colors">{title}</h3>
+            <h3 className="text-lg font-mono uppercase tracking-wider text-white mb-4 group-hover:text-blue-200 transition-colors">{title}</h3>
             <p className="text-gray-500 leading-relaxed text-sm group-hover:text-gray-300 transition-colors">
                 {desc}
             </p>
             <div className="absolute bottom-6 right-6 opacity-0 group-hover:opacity-100 transition-opacity duration-500">
-                <div className="w-1.5 h-1.5 rounded-full bg-violet-400 shadow-[0_0_10px_rgba(139,92,246,0.4)]" />
+                <div className="w-1.5 h-1.5 rounded-full bg-blue-400 shadow-[0_0_10px_rgba(59,130,246,0.4)]" />
             </div>
         </div>
     );
@@ -404,9 +369,9 @@ const Principle = ({ title, shortDesc, elaborated, index }: { title: string; sho
             initial={{ opacity: 0, scale: 0.95 }}
             animate={isInView ? { opacity: 1, scale: 1 } : { opacity: 0, scale: 0.95 }}
             transition={{ duration: 0.4, delay: index * 0.1, ease: [0.2, 0.8, 0.2, 1] }}
-            className="group relative border-t border-white/10 pt-6 hover:border-violet-500/50 transition-colors cursor-default min-h-[180px]"
+            className="group relative border-t border-white/10 pt-6 hover:border-blue-500/50 transition-colors cursor-default min-h-[180px]"
         >
-            <h4 className="text-lg font-bold text-white mb-2 group-hover:text-violet-300 transition-colors">
+            <h4 className="text-lg font-bold text-white mb-2 group-hover:text-blue-300 transition-colors">
                 {title}
             </h4>
 
@@ -417,7 +382,7 @@ const Principle = ({ title, shortDesc, elaborated, index }: { title: string; sho
 
             {/* Elaborated Text (Hidden by default, fades in and slides up on hover) */}
             <div className="absolute top-14 left-0 opacity-0 translate-y-4 group-hover:opacity-100 group-hover:translate-y-0 transition-all duration-500 ease-[cubic-bezier(0.2,0.8,0.2,1)]">
-                <p className="text-gray-400 text-sm leading-relaxed border-l-2 border-violet-500/50 pl-3">
+                <p className="text-gray-400 text-sm leading-relaxed border-l-2 border-blue-500/50 pl-3">
                     {elaborated}
                 </p>
             </div>
@@ -425,11 +390,6 @@ const Principle = ({ title, shortDesc, elaborated, index }: { title: string; sho
     );
 };
 
-const GovernanceItem = ({ label }: { label: string }) => (
-    <div className="group flex items-center gap-3 text-xs font-mono text-gray-600 cursor-default py-2 border-b border-white/5 hover:border-white/20 transition-colors">
-        <span className="w-1.5 h-1.5 bg-gray-800 rotate-45 group-hover:rotate-0 group-hover:bg-violet-500 transition-all duration-300" />
-        <span className="group-hover:text-gray-300 transition-colors duration-300">{label}</span>
-    </div>
-);
+
 
 export default DigitalInfrastructure;

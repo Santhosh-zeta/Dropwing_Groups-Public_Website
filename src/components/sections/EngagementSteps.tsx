@@ -24,7 +24,7 @@ const EngagementSteps = () => {
     return (
         <section
             id="engagement-process"
-            className="section-divider bg-black py-24 md:py-32 relative overflow-hidden"
+            className="section-divider bg-black pt-24 md:pt-32 pb-12 md:pb-16 relative overflow-hidden"
         >
             {/* Functional Grid Overlay - Very subtle */}
             <div className="absolute inset-0 bg-[linear-gradient(rgba(124,58,237,0.03)_1px,transparent_1px),linear-gradient(90deg,rgba(124,58,237,0.03)_1px,transparent_1px)] bg-[size:4rem_4rem] [mask-image:radial-gradient(ellipse_60%_50%_at_50%_50%,#000_70%,transparent_100%)] pointer-events-none" />

@@ -16,7 +16,7 @@ const EngagementGate = () => {
     <section
       ref={containerRef}
       id="contact"
-      className="py-40 md:py-60 bg-black relative overflow-hidden flex flex-col items-center justify-center border-t border-white/5"
+      className="pt-16 md:pt-20 pb-20 md:pb-28 bg-black relative overflow-hidden flex flex-col items-center justify-center border-t border-white/5"
     >
       {/* Deep Exit Gradient */}
       <div className="absolute inset-0 bg-gradient-to-t from-violet-950/20 via-black to-black pointer-events-none" />
@@ -30,7 +30,7 @@ const EngagementGate = () => {
           <div className="mb-6 flex items-center justify-center gap-3">
             <div className="h-px w-12 bg-violet-500/50" />
             <span className="text-[10px] font-mono text-violet-400 tracking-[0.3em] uppercase">
-              System Entry
+              
             </span>
             <div className="h-px w-12 bg-violet-500/50" />
           </div>
