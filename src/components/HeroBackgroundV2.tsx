@@ -5,12 +5,24 @@ const HeroBackgroundV2 = () => {
     const containerRef = useRef<HTMLDivElement>(null);
 
     useEffect(() => {
+        // Respect prefers-reduced-motion OS setting
+        const prefersReduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
         const canvas = canvasRef.current;
         const container = containerRef.current;
         if (!canvas || !container) return;
 
         const ctx = canvas.getContext('2d');
         if (!ctx) return;
+
+        // If reduced motion: paint a static dark background and bail out
+        if (prefersReduced) {
+            canvas.width = container.offsetWidth;
+            canvas.height = container.offsetHeight;
+            ctx.fillStyle = '#000000';
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
+            return;
+        }
 
         let width = container.offsetWidth;
         let height = container.offsetHeight;
@@ -36,13 +48,12 @@ const HeroBackgroundV2 = () => {
         const eventHorizonRadius = 80;
         const particleCount = 150;
 
-        // Service Particles Configuration
+        // Service Particles Configuration — philosophy-aligned execution words
         const services = [
-            "Designing", "Web Development", "AI Solutions", "Cloud Architecture",
-            "Cybersecurity", "Blockchain", "IoT Systems", "Data Science",
-            "DevOps", "Mobile Apps", "System Operations", "Quality Engineering",
-            "Consulting", "Strategy", "Automation", "FinTech", "HealthTech",
-            "Enterprise"
+            "Embedded", "Delivered", "Governed", "Transferred", "Owned",
+            "Executed", "Sovereign", "Operational", "Accountable", "Institutional",
+            "Structured", "Deliberate", "Permanent", "Inevitable", "Committed",
+            "Built", "Operated", "Sustained", "Architected", "Deployed"
         ];
 
         class TextParticle {

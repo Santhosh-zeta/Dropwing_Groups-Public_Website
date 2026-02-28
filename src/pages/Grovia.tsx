@@ -2,6 +2,7 @@ import React, { useRef, useMemo } from "react";
 import { motion, useScroll, useTransform, useAnimationFrame } from "framer-motion";
 import Navbar from "@/components/Navbar";
 import { ArrowRight, BarChart3, Target, Megaphone, Zap, Layers, Network } from "lucide-react";
+import VentureEcosystem from "@/components/VentureEcosystem";
 
 // --- The Turbine Field Component ---
 const TurbineField = () => {
@@ -242,6 +243,9 @@ const Grovia = () => {
                     </div>
                 </div>
             </section>
+
+            {/* Venture Ecosystem cross-links */}
+            <VentureEcosystem currentVenture="Grovia" />
 
             {/* 8. THE GATE */}
             <section className="py-40 bg-black flex items-center justify-center">

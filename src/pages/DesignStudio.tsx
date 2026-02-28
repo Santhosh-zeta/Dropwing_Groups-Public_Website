@@ -3,6 +3,7 @@ import { motion, useScroll, useTransform, useSpring } from 'framer-motion';
 import MainLayout from '@/components/MainLayout';
 import { cn } from '@/lib/utils';
 import { ArrowRight } from 'lucide-react';
+import VentureEcosystem from '@/components/VentureEcosystem';
 
 const DesignStudio = () => {
     const containerRef = useRef<HTMLDivElement>(null);
@@ -236,6 +237,9 @@ const DesignStudio = () => {
                         className="w-px bg-primary mx-auto mt-12 mb-24"
                     />
                 </section>
+
+                {/* Venture Ecosystem cross-links */}
+                <VentureEcosystem currentVenture="Design Studio" />
 
                 {/* SECTION 8 — THE GATE */}
                 <section className="py-32 px-6 md:px-12 lg:px-24 max-w-screen-2xl mx-auto flex flex-col items-center text-center">

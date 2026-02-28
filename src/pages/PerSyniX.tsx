@@ -2,6 +2,7 @@ import React, { useRef, useMemo } from "react";
 import { motion, useScroll, useTransform, useAnimationFrame } from "framer-motion";
 import Navbar from "@/components/Navbar";
 import { Eye, ShieldCheck, Scale, FileText, Lock, AlertTriangle, ArrowRight, BrainCircuit } from "lucide-react";
+import VentureEcosystem from "@/components/VentureEcosystem";
 
 // --- The Radar Sweep Component ---
 const RadarField = () => {
@@ -273,6 +274,9 @@ const PerSyniX = () => {
                     </div>
                 </div>
             </section>
+
+            {/* Venture Ecosystem cross-links */}
+            <VentureEcosystem currentVenture="PerSyniX" />
 
             {/* 8. THE GATE */}
             <section className="py-40 bg-black flex items-center justify-center">

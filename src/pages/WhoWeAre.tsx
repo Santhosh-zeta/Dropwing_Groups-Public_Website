@@ -1,4 +1,5 @@
 import { useState, useEffect, useRef } from "react";
+import { motion } from "framer-motion";
 import { useSectionReveal } from "@/hooks/useSectionReveal";
 import LeadershipQuote from "@/components/sections/LeadershipQuote";
 
@@ -30,7 +31,7 @@ const SubNav = () => {
       const sections = subNavItems.map((s) => s.toLowerCase());
       for (let i = sections.length - 1; i >= 0; i--) {
         const el = document.getElementById(sections[i]);
-        if (el && el.getBoundingClientRect().top <= 140) {
+        if (el && el.getBoundingClientRect().top <= 130) {
           setActive(sections[i]);
           break;
         }
@@ -40,9 +41,14 @@ const SubNav = () => {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
+  const SCROLL_OFFSET = 125; // main navbar (~68px) + subnav (~52px) + 5px breathing room
+
   const scrollTo = (id: string) => {
     const el = document.getElementById(id);
-    if (el) el.scrollIntoView({ behavior: "smooth" });
+    if (el) {
+      const top = el.getBoundingClientRect().top + window.scrollY - SCROLL_OFFSET;
+      window.scrollTo({ top, behavior: "smooth" });
+    }
   };
 
   return (
@@ -278,7 +284,7 @@ import yakssendraImg from "@/assets/Leadership-photos/yakssendra.jpg";
 import ashwinImg from "@/assets/Leadership-photos/Ashwin-kumaran.jpg";
 import dakshaImg from "@/assets/Leadership-photos/Daksha.jpg";
 import dhanasekaranImg from "@/assets/Leadership-photos/Dhanasekaran.jpg";
-import melvinImg from "@/assets/Leadership-photos/Melvin.jpg";
+// import melvinImg from "@/assets/Leadership-photos/Melvin.jpg";
 import yazhiniImg from "@/assets/Leadership-photos/yazhini.jpeg";
 
 /* ── Leadership ── */
@@ -291,7 +297,7 @@ const leaders = [
   { name: "Daksha Bordekar", role: "CEO of PerSyniX", linkedin: "https://www.linkedin.com/in/daksha-bordekar-630a46303/", image: dakshaImg },
   { name: "Mohd Shaan", role: "CTO of WebForge", linkedin: "https://www.linkedin.com/in/mohd-shaan-9785a631b/", image: "https://placehold.co/400x500/111111/444444?text=PHOTO" },
   { name: "Dhanasekaran Srinivasan", role: "Advisor and CSO of Dropwing Groups", linkedin: "https://www.linkedin.com/in/dhanasekaran-srinivasan/", image: dhanasekaranImg },
-  { name: "Melvin", role: "Advisor", linkedin: "https://www.linkedin.com/in/melvin-cyberops/", image: melvinImg },
+  // { name: "Melvin", role: "Advisor", linkedin: "https://www.linkedin.com/in/melvin-cyberops/", image: melvinImg },
 ];
 
 const Leadership = () => (
@@ -354,12 +360,69 @@ const Leadership = () => (
 const WhoWeAre = () => {
   return (
     <main>
-      {/* Page header */}
-      <div className="bg-structural text-structural-foreground pt-32 pb-8 md:pt-40 md:pb-12">
-        <div className="mx-auto max-w-[1400px] px-6 md:px-12 lg:px-20">
-          <h1 className="text-3xl font-bold tracking-tight text-foreground md:text-5xl">
-            Who We Are
-          </h1>
+      {/* Page header — Rich typographic hero */}
+      <div className="relative bg-structural text-structural-foreground pt-32 pb-16 md:pt-44 md:pb-20 overflow-hidden border-b border-white/5">
+        {/* Subtle animated grid */}
+        <div className="absolute inset-0 bg-[linear-gradient(to_right,#80808008_1px,transparent_1px),linear-gradient(to_bottom,#80808008_1px,transparent_1px)] bg-[size:64px_64px] pointer-events-none" />
+        {/* Violet glow accent */}
+        <div className="absolute top-0 left-1/3 w-96 h-96 bg-primary/10 blur-[100px] rounded-full pointer-events-none" />
+
+        <div className="mx-auto max-w-[1400px] px-6 md:px-12 lg:px-20 relative z-10">
+          <div className="grid lg:grid-cols-2 gap-12 items-end">
+            {/* Left: Headline */}
+            <div>
+              <motion.div
+                initial={{ opacity: 0, y: 10 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.6 }}
+                className="flex items-center gap-3 mb-8"
+              >
+                <div className="h-px w-8 bg-primary" />
+                <span className="text-xs font-mono text-primary uppercase tracking-widest">The Institution</span>
+              </motion.div>
+
+              <motion.h1
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.8, delay: 0.1 }}
+                className="text-5xl md:text-7xl lg:text-8xl font-bold tracking-tighter text-white leading-[0.9] mb-8"
+              >
+                Who We<br />
+                <span className="text-white/40">Are.</span>
+              </motion.h1>
+
+              <motion.p
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                transition={{ duration: 0.8, delay: 0.3 }}
+                className="text-lg md:text-xl text-white/60 max-w-lg leading-relaxed border-l-2 border-primary/30 pl-5"
+              >
+                Execution ownership is central to how we operate. We embed, deliver, and transfer — permanently.
+              </motion.p>
+            </div>
+
+            {/* Right: Stats */}
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ duration: 0.8, delay: 0.4 }}
+              className="flex flex-col gap-6 lg:items-end"
+            >
+              <div className="flex flex-wrap gap-8 lg:justify-end">
+                {[
+                  { val: "2024", label: "Est." },
+                  { val: "Chennai", label: "HQ" },
+                  { val: "5+", label: "Ventures" },
+                  { val: "3", label: "Capabilities" },
+                ].map(stat => (
+                  <div key={stat.label} className="text-center lg:text-right">
+                    <div className="text-2xl md:text-3xl font-bold text-white">{stat.val}</div>
+                    <div className="text-[10px] font-mono uppercase tracking-widest text-white/40 mt-1">{stat.label}</div>
+                  </div>
+                ))}
+              </div>
+            </motion.div>
+          </div>
         </div>
       </div>
       <SubNav />

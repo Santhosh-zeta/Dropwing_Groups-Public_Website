@@ -1,7 +1,8 @@
 import React, { useRef, useMemo } from "react";
 import { motion, useScroll, useTransform, useAnimationFrame } from "framer-motion";
 import Navbar from "@/components/Navbar";
-import { ArrowDown, Check, Terminal, Shield, Cpu, Activity, Server, Lock } from "lucide-react";
+import { ArrowDown, Check, Terminal, Shield, Cpu, Activity, Server, Lock, Eye, Code2 } from "lucide-react";
+import VentureEcosystem from "@/components/VentureEcosystem";
 
 // --- The Engine Room Component ---
 const EngineRoom = () => {
@@ -162,21 +163,27 @@ const WebForge = () => {
                         </div>
                     </div>
 
-                    <div className="grid grid-cols-1 md:grid-cols-3 gap-12">
+                    <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
                         <Principle
                             num="01"
                             title="No Black Boxes"
                             text="Every line of code is owned, documented, and transferable. We do not build dependencies on proprietary magic."
+                            icon={<Code2 className="w-4 h-4" />}
+                            accentColor="border-blue-500/60"
                         />
                         <Principle
                             num="02"
                             title="Reproducibility"
                             text="Infrastructure is defined as code. Environments can be destroyed and rebuilt in minutes, not days."
+                            icon={<Terminal className="w-4 h-4" />}
+                            accentColor="border-violet-500/60"
                         />
                         <Principle
                             num="03"
                             title="Observability"
                             text="Systems are born with telemetry. We do not guess why a failure occurred; the system tells us."
+                            icon={<Eye className="w-4 h-4" />}
+                            accentColor="border-emerald-500/60"
                         />
                     </div>
                 </div>
@@ -221,6 +228,9 @@ const WebForge = () => {
                 </div>
             </section>
 
+            {/* Venture Ecosystem cross-links */}
+            <VentureEcosystem currentVenture="WebForge" />
+
             {/* 7. THE GATE — DECISION */}
             <section className="py-40 bg-black flex items-center justify-center border-t border-white/5">
                 <a href="mailto:engineering@dropwinggroups.com" className="group text-center">
@@ -250,11 +260,20 @@ const DomainRow = ({ title, desc, icon }: { title: string; desc: string; icon: R
     </div>
 );
 
-const Principle = ({ num, title, text }: { num: string; title: string; text: string }) => (
-    <div className="border-t border-white/20 pt-6">
-        <span className="text-xs font-mono text-gray-600 mb-2 block">0{num}</span>
-        <h4 className="text-lg font-bold text-white mb-4">{title}</h4>
-        <p className="text-sm text-gray-400 leading-relaxed font-light">
+const Principle = ({ num, title, text, icon, accentColor }: { num: string; title: string; text: string; icon: React.ReactNode; accentColor: string }) => (
+    <div className={`border-t-2 ${accentColor} pt-8 pb-6 px-6 bg-white/[0.02] hover:bg-white/[0.04] transition-all duration-300 rounded-sm group relative overflow-hidden`}>
+        {/* Subtle ambient glow from top */}
+        <div className={`absolute top-0 left-0 right-0 h-16 opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none`}
+            style={{ background: `linear-gradient(to bottom, ${accentColor.includes('blue') ? 'rgba(59,130,246,0.06)' : accentColor.includes('violet') ? 'rgba(124,58,237,0.06)' : 'rgba(16,185,129,0.06)'}, transparent)` }}
+        />
+        <div className="flex items-center gap-3 mb-5">
+            <div className={`p-2 rounded-md ${accentColor.includes('blue') ? 'bg-blue-500/10 text-blue-400' : accentColor.includes('violet') ? 'bg-violet-500/10 text-violet-400' : 'bg-emerald-500/10 text-emerald-400'}`}>
+                {icon}
+            </div>
+            <span className="text-xs font-mono text-gray-600">{num}</span>
+        </div>
+        <h4 className="text-lg font-bold text-white mb-4 group-hover:tracking-wide transition-all duration-300">{title}</h4>
+        <p className="text-sm text-gray-400 leading-relaxed font-light group-hover:text-gray-300 transition-colors duration-300">
             {text}
         </p>
     </div>

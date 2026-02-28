@@ -30,7 +30,7 @@ const EngagementGate = () => {
           <div className="mb-6 flex items-center justify-center gap-3">
             <div className="h-px w-12 bg-violet-500/50" />
             <span className="text-[10px] font-mono text-violet-400 tracking-[0.3em] uppercase">
-              
+              Engagement Threshold
             </span>
             <div className="h-px w-12 bg-violet-500/50" />
           </div>

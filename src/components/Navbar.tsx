@@ -63,10 +63,17 @@ const Navbar = () => {
           </Link>
         </div>
 
-        {/* Logo Area - Desktop: Text */}
+        {/* Logo Area - Desktop: Logo + Wordmark */}
         <div className="absolute left-6 md:left-12 lg:left-20 hidden lg:flex items-center">
-          <Link to="/" className="group">
-            <span className="text-[15px] font-bold tracking-[0.2em] uppercase text-foreground transition-colors hover:text-primary">
+          <Link to="/" className="flex items-center gap-3 group" aria-label="Dropwing Groups Home">
+            <img
+              src={logoImage}
+              alt="Dropwing Groups"
+              width="28"
+              height="28"
+              className="h-7 w-auto object-contain opacity-80 group-hover:opacity-100 transition-opacity duration-200"
+            />
+            <span className="text-[13px] font-bold tracking-[0.18em] uppercase text-foreground/80 group-hover:text-foreground transition-colors duration-200">
               Dropwing Groups
             </span>
           </Link>

@@ -3,6 +3,7 @@ import Navbar from "./Navbar";
 import SiteFooter from "./sections/SiteFooter";
 import { AnimatePresence } from "framer-motion";
 import PageTransition from "./PageTransition";
+import BackToTop from "./BackToTop";
 
 const MainLayout = () => {
     const location = useLocation();
@@ -16,6 +17,7 @@ const MainLayout = () => {
                 </PageTransition>
             </AnimatePresence>
             <SiteFooter />
+            <BackToTop />
         </>
     );
 };

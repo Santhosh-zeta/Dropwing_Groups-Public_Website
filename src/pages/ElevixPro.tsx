@@ -1,6 +1,7 @@
 import React, { useRef } from 'react';
 import { motion, useScroll, useTransform } from 'framer-motion';
 import { ArrowRight, Check } from 'lucide-react';
+import VentureEcosystem from '@/components/VentureEcosystem';
 
 const ElevixPro = () => {
     const containerRef = useRef<HTMLDivElement>(null);
@@ -165,6 +166,9 @@ const ElevixPro = () => {
                         <p className="font-mono text-zinc-500 text-sm">NOT FOR: Quick certification seekers.</p>
                     </div>
                 </section>
+
+                {/* Venture Ecosystem cross-links */}
+                <VentureEcosystem currentVenture="Elevix Pro" />
 
                 {/* SECTION 8 — THE GATE */}
                 <section className="py-32 px-6 md:px-12 lg:px-24 max-w-screen-2xl mx-auto flex flex-col items-center text-center">

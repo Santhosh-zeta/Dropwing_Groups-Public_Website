@@ -317,13 +317,11 @@ export default function Contact1() {
         }, 2000);
     };
 
-    const heroOpacity = useTransform(scrollYProgress, [0, 0.2], [1, 0]);
-    const heroFilter = useTransform(scrollYProgress, [0, 0.2], ["blur(0px)", "blur(10px)"]);
-    const formY = useTransform(scrollYProgress, [0.1, 0.4], [100, 0]);
-    const formOpacity = useTransform(scrollYProgress, [0.1, 0.4], [0, 1]);
+    const heroOpacity = useTransform(scrollYProgress, [0, 0.15], [1, 0]);
+    const heroFilter = useTransform(scrollYProgress, [0, 0.15], ["blur(0px)", "blur(8px)"]);
 
     return (
-        <main className="bg-[#0E0F12] min-h-[200vh] text-white relative selection:bg-[#7C3AED]/30">
+        <main className="bg-[#0E0F12] min-h-screen text-white relative selection:bg-[#7C3AED]/30">
             <Helmet>
                 <title>Contact — Dropwing Groups</title>
             </Helmet>
@@ -352,7 +350,7 @@ export default function Contact1() {
             <AnimatePresence>
                 {formState !== "success" && (
                     <div className="relative z-10 block">
-                        {/* HERO SECTION */}
+                        {/* HERO SECTION — sticky, fades out on scroll */}
                         <motion.section
                             style={{ opacity: heroOpacity, filter: heroFilter }}
                             className="h-screen flex flex-col items-center justify-center text-center px-6 sticky top-0"
@@ -382,32 +380,50 @@ export default function Contact1() {
                             </motion.div>
                         </motion.section>
 
-                        {/* FORM SECTION */}
-                        <section className="min-h-screen flex flex-col justify-center py-32 px-6 bg-[#0E0F12]/40 backdrop-blur-sm mt-[-100vh] translate-y-[100vh]">
-                            <motion.div
-                                style={{ y: formY, opacity: formOpacity }}
-                                className="w-full max-w-[720px] mx-auto"
-                            >
-                                <form onSubmit={handleSubmit} className="space-y-4">
-                                    <CustomInput label="Full Name" id="name" value={formData.name} onChange={(e: any) => setFormData({ ...formData, name: e.target.value })} />
-                                    <CustomInput label="Organization" id="org" value={formData.org} onChange={(e: any) => setFormData({ ...formData, org: e.target.value })} />
-                                    <CustomInput type="email" label="Work Email" id="email" value={formData.email} onChange={(e: any) => setFormData({ ...formData, email: e.target.value })} />
+                        {/* BRIDGE — pulls form content up so it overlays the sticky hero */}
+                        <div className="relative z-20 mt-[-100vh]">
+                            {/* Spacer: first 100vh is transparent, form appears below */}
+                            <div className="h-screen pointer-events-none" />
 
-                                    <CustomDropdown
-                                        label="Scope of Engagement"
-                                        options={["Strategic Partnership", "Digital Infrastructure", "Synthetic Intelligence", "Brand Sovereignty", "General Inquiry"]}
-                                        value={formData.scope}
-                                        onChange={(val: string) => setFormData({ ...formData, scope: val })}
-                                    />
-
-                                    <CustomTextarea label="Strategic Objective" id="objective" value={formData.objective} onChange={(e: any) => setFormData({ ...formData, objective: e.target.value })} />
-
-                                    <div className="pt-12 flex justify-end">
-                                        <SubmitButton isProcessing={formState === "processing"} isSuccess={formState === "success"} />
+                            {/* FORM SECTION — always reachable, no opacity tricks */}
+                            <section className="min-h-screen flex flex-col justify-center py-24 md:py-32 px-6 bg-[#0E0F12] border-t border-[#1f1f28]">
+                                <motion.div
+                                    initial={{ opacity: 0, y: 40 }}
+                                    whileInView={{ opacity: 1, y: 0 }}
+                                    viewport={{ once: true, amount: 0.1 }}
+                                    transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
+                                    className="w-full max-w-[720px] mx-auto"
+                                >
+                                    {/* Form Header */}
+                                    <div className="mb-16">
+                                        <p className="text-[10px] font-mono uppercase tracking-[0.3em] text-[#7C3AED] mb-4">Engagement Protocol</p>
+                                        <h2 className="text-3xl md:text-4xl font-bold text-white tracking-tight">Submit your briefing.</h2>
+                                        <p className="mt-4 text-[#A1A1AA] text-sm leading-relaxed max-w-md">
+                                            Our team reviews every submission. Expect a response within 48 hours of submission.
+                                        </p>
                                     </div>
-                                </form>
-                            </motion.div>
-                        </section>
+
+                                    <form onSubmit={handleSubmit} className="space-y-4">
+                                        <CustomInput label="Full Name" id="name" value={formData.name} onChange={(e: any) => setFormData({ ...formData, name: e.target.value })} />
+                                        <CustomInput label="Organization" id="org" value={formData.org} onChange={(e: any) => setFormData({ ...formData, org: e.target.value })} />
+                                        <CustomInput type="email" label="Work Email" id="email" value={formData.email} onChange={(e: any) => setFormData({ ...formData, email: e.target.value })} />
+
+                                        <CustomDropdown
+                                            label="Scope of Engagement"
+                                            options={["Strategic Partnership", "Digital Infrastructure", "Synthetic Intelligence", "Brand Sovereignty", "General Inquiry"]}
+                                            value={formData.scope}
+                                            onChange={(val: string) => setFormData({ ...formData, scope: val })}
+                                        />
+
+                                        <CustomTextarea label="Strategic Objective" id="objective" value={formData.objective} onChange={(e: any) => setFormData({ ...formData, objective: e.target.value })} />
+
+                                        <div className="pt-12 flex justify-end">
+                                            <SubmitButton isProcessing={formState === "processing"} isSuccess={formState === "success"} />
+                                        </div>
+                                    </form>
+                                </motion.div>
+                            </section>
+                        </div>
                     </div>
                 )}
             </AnimatePresence>

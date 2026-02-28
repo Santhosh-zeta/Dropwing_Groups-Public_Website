@@ -1,6 +1,8 @@
 import insight1 from "@/assets/insight-1.jpg";
 import insight2 from "@/assets/insight-2.jpg";
+import insight3 from "@/assets/insight-3.jpg";
 import insight4 from "@/assets/insight-4.jpg";
+import insight5 from "@/assets/insight-5.jpg";
 import insight6 from "@/assets/insight-6.jpg";
 
 export interface Insight {
@@ -181,13 +183,13 @@ export const insights: Insight[] = [
         slug: "governance-trends-2026",
         title: "Governance trends across regulated industries for 2026",
         category: "Research Report",
-        date: "March 10, 2026",
+        date: "February 20, 2026",
         readTime: "10-Minute Read",
         authors: [
             { name: "Sarah Jenkins", role: "Regulatory Affairs Lead" },
             { name: "David Chen", role: "Risk Management Director" }
         ],
-        heroImage: insight6,
+        heroImage: insight5,
         summary: `
             Regulatory fragmentation is increasing, requiring more sophisticated compliance engines.
             Data sovereignty and privacy laws are reshaping how global companies handle information.
@@ -237,7 +239,7 @@ export const insights: Insight[] = [
         authors: [
             { name: "Michael Vance", role: "Chief Strategy Officer" }
         ],
-        heroImage: insight1,
+        heroImage: insight3,
         summary: `
             Traditional consulting models often fail to deliver lasting impact because they end at the recommendation.
             Embedded execution aligns incentives: partners have 'skin in the game' and are accountable for results.
@@ -282,12 +284,12 @@ export const insights: Insight[] = [
         slug: "operational-continuity",
         title: "Accelerating operational continuity through structured knowledge transfer",
         category: "Research Report",
-        date: "March 5, 2026",
+        date: "February 23, 2026",
         readTime: "9-Minute Read",
         authors: [
             { name: "Elena Rodriguez", role: "Knowledge Management Lead" }
         ],
-        heroImage: insight2,
+        heroImage: insight5,
         summary: `
             Brain drain is a major risk as baby boomers retire and tenure decreases.
             Structured knowledge transfer ensures that critical institutional wisdom is captured and codified.
@@ -332,12 +334,12 @@ export const insights: Insight[] = [
         slug: "excellence-in-execution",
         title: "Dropwing Groups recognized for excellence in enterprise execution frameworks",
         category: "Announcement",
-        date: "April 1, 2026",
+        date: "February 12, 2026",
         readTime: "3-Minute Read",
         authors: [
             { name: "PR Team", role: "Corporate Communications" }
         ],
-        heroImage: insight4,
+        heroImage: insight6,
         summary: `
             We are proud to announce that Dropwing Groups has been named a leader in Enterprise Execution by Industry Monthly.
             This recognition validates our commitment to delivering measurable value through our "embedded execution" model.

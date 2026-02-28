@@ -57,8 +57,8 @@ const SiteFooter = () => {
       />
 
 
-      <div className="relative z-10 w-full max-w-[1600px] mx-auto">
-        <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-7 border-l border-white/5">
+      <div className="relative z-10 w-full">
+        <div className="grid grid-cols-2 md:grid-cols-3 xl:grid-cols-[minmax(220px,2fr)_1fr_1fr_1fr_1fr_1fr_1fr] border-l border-white/5 overflow-hidden">
           {/* Cell 1: Brand (Double Width) - SOVEREIGN EXECUTION PARTNER */}
           <div className="col-span-2 md:col-span-2 p-6 md:p-12 border-b border-r border-white/5 bg-black/20 backdrop-blur-sm relative group overflow-hidden">
             <div className="absolute inset-0 bg-white/0 group-hover:bg-white/5 transition-colors duration-500" />
@@ -145,20 +145,21 @@ const SiteFooter = () => {
 
           {/* Governance / Legal Cell (Span 2) - Added Trust Signals */}
           <div className="col-span-2 md:col-span-1 lg:col-span-2 p-6 md:p-8 border-b border-r border-white/5 hover:bg-white/5 transition-colors duration-300 flex flex-col justify-between min-h-[120px] md:min-h-[160px] group">
-            <span className="text-[10px] font-bold text-gray-700 uppercase tracking-widest group-hover:text-white/40 transition-colors">Governance & Compliance</span>
+            <span className="text-[10px] font-bold text-gray-500 uppercase tracking-widest group-hover:text-white/40 transition-colors">Governance &amp; Compliance</span>
 
             <div className="flex flex-col gap-3 md:gap-4">
               {/* Governance Signal Block */}
-              <div className="text-[10px] text-gray-500 font-mono leading-relaxed space-y-1">
+              <div className="text-[10px] text-gray-400 font-mono leading-relaxed space-y-1">
                 <p>Data Sovereignty</p>
-                <p>Auditability & Reporting Standards</p>
+                <p>Auditability &amp; Reporting Standards</p>
               </div>
 
               <div className="flex flex-wrap gap-x-4 md:gap-x-6 gap-y-2 pt-2 border-t border-white/5">
-                <Link to="/privacy" className="text-[10px] md:text-xs text-gray-400 hover:text-white transition-colors">Privacy Policy</Link>
-                <Link to="/terms" className="text-[10px] md:text-xs text-gray-400 hover:text-white transition-colors">Terms of Service</Link>
-                <Link to="/accessibility" className="text-[10px] md:text-xs text-gray-400 hover:text-white transition-colors">Accessibility</Link>
-                <Link to="/security" className="text-[10px] md:text-xs text-gray-400 hover:text-white transition-colors">Security</Link>
+                <Link to="/privacy" className="text-[10px] md:text-xs text-gray-300 hover:text-white transition-colors">Privacy Policy</Link>
+                <Link to="/terms" className="text-[10px] md:text-xs text-gray-300 hover:text-white transition-colors">Terms of Service</Link>
+                <Link to="/accessibility" className="text-[10px] md:text-xs text-gray-300 hover:text-white transition-colors">Accessibility</Link>
+                <Link to="/security" className="text-[10px] md:text-xs text-gray-300 hover:text-white transition-colors">Security</Link>
+                <Link to="/careers" className="text-[10px] md:text-xs text-gray-300 hover:text-white transition-colors">Careers</Link>
               </div>
             </div>
           </div>
@@ -167,7 +168,7 @@ const SiteFooter = () => {
       </div>
 
       {/* Very Bottom - Copyright & Status */}
-      <div className="w-full max-w-[1600px] mx-auto px-8 py-6 flex flex-col md:flex-row justify-between items-center gap-4 text-[10px] text-gray-600 font-mono tracking-widest uppercase">
+      <div className="w-full px-8 py-6 flex flex-col md:flex-row justify-between items-center gap-4 text-[10px] text-gray-600 font-mono tracking-widest uppercase border-t border-white/5">
         <div className="flex items-center gap-4">
           <span>© {currentYear} Dropwing Groups</span>
           <span className="w-px h-3 bg-white/10 hidden md:block" />
