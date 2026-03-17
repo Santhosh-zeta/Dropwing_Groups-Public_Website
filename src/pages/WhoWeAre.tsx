@@ -286,6 +286,8 @@ import dakshaImg from "@/assets/Leadership-photos/Daksha.jpg";
 import dhanasekaranImg from "@/assets/Leadership-photos/Dhanasekaran.jpg";
 // import melvinImg from "@/assets/Leadership-photos/Melvin.jpg";
 import yazhiniImg from "@/assets/Leadership-photos/yazhini.jpeg";
+import shaanImg from "@/assets/Leadership-photos/shaanjpeg.jpeg";
+
 
 /* ── Leadership ── */
 const leaders = [
@@ -295,7 +297,7 @@ const leaders = [
   { name: "Yazhini Phalanivel", role: "Board Member & CEO of Grovia", linkedin: "https://www.linkedin.com/in/yazhini-phalanivel-2403b433a/", image: yazhiniImg },
   { name: "Ashwin Kumaran", role: "CEO of WebForge", linkedin: "https://www.linkedin.com/in/ashwin-kumaran-92b6b831b/", image: ashwinImg },
   { name: "Daksha Bordekar", role: "CEO of PerSyniX", linkedin: "https://www.linkedin.com/in/daksha-bordekar-630a46303/", image: dakshaImg },
-  { name: "Mohd Shaan", role: "CTO of WebForge", linkedin: "https://www.linkedin.com/in/mohd-shaan-9785a631b/", image: "https://placehold.co/400x500/111111/444444?text=PHOTO" },
+  { name: "Mohd Shaan", role: "CTO of WebForge", linkedin: "https://www.linkedin.com/in/mohd-shaan-9785a631b/", image: shaanImg },
   { name: "Dhanasekaran Srinivasan", role: "Advisor and CSO of Dropwing Groups", linkedin: "https://www.linkedin.com/in/dhanasekaran-srinivasan/", image: dhanasekaranImg },
   // { name: "Melvin", role: "Advisor", linkedin: "https://www.linkedin.com/in/melvin-cyberops/", image: melvinImg },
 ];
