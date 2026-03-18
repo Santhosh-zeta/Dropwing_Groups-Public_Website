@@ -297,7 +297,7 @@ const leaders = [
   { name: "Yazhini Phalanivel", role: "Board Member & CEO of Grovia", linkedin: "https://www.linkedin.com/in/yazhini-phalanivel-2403b433a/", image: yazhiniImg },
   { name: "Ashwin Kumaran", role: "CEO of WebForge", linkedin: "https://www.linkedin.com/in/ashwin-kumaran-92b6b831b/", image: ashwinImg },
   { name: "Daksha Bordekar", role: "CEO of PerSyniX", linkedin: "https://www.linkedin.com/in/daksha-bordekar-630a46303/", image: dakshaImg },
-  { name: "Mohd Shaan", role: "CTO of WebForge", linkedin: "https://www.linkedin.com/in/mohd-shaan-9785a631b/", image: shaanImg },
+  { name: "Mohd Shaan", role: "CTO of WebForge", linkedin: "https://www.linkedin.com/in/mohd-shaan-9785a631b/", image: shaanImg, imagePosition: "object-[center_35%]", imageScale: "scale-125" },
   { name: "Dhanasekaran Srinivasan", role: "Advisor and CSO of Dropwing Groups", linkedin: "https://www.linkedin.com/in/dhanasekaran-srinivasan/", image: dhanasekaranImg },
   // { name: "Melvin", role: "Advisor", linkedin: "https://www.linkedin.com/in/melvin-cyberops/", image: melvinImg },
 ];
@@ -349,7 +349,7 @@ const Leadership = () => (
             <img
               src={l.image}
               alt={l.name}
-              className={`w-full h-full object-cover grayscale opacity-70 group-hover:opacity-100 group-hover:scale-105 transition-all duration-700 ease-[cubic-bezier(0.2,0.8,0.2,1)] transform-gpu origin-bottom ${l.imagePosition || 'object-bottom'}`}
+              className={`w-full h-full object-cover grayscale opacity-70 group-hover:opacity-100 group-hover:scale-110 transition-all duration-700 ease-[cubic-bezier(0.2,0.8,0.2,1)] transform-gpu origin-bottom ${l.imagePosition || 'object-bottom'} ${l.imageScale || ''}`}
             />
           </div>
         </div>

@@ -7,7 +7,7 @@ import persynixLogo from "@/assets/logo/persynix logo.png";
 import groviaLogo from "@/assets/logo/grovia logo.png";
 import elevixLogo from "@/assets/logo/elevix-pro logo.png";
 
-import { ArrowUpRight, Facebook, Github, Instagram, Linkedin } from "lucide-react";
+import { ArrowUpRight, Facebook, Github, Instagram, Linkedin, Mail } from "lucide-react";
 
 const SiteFooter = () => {
   const currentYear = new Date().getFullYear();
@@ -135,11 +135,12 @@ const SiteFooter = () => {
           <div className="col-span-2 md:col-span-1 lg:col-span-2 p-6 md:p-8 border-b border-r border-white/5 hover:bg-white/5 transition-colors duration-300 flex flex-col justify-between min-h-[120px] md:min-h-[160px] group">
             <span className="text-[10px] font-bold text-gray-700 uppercase tracking-widest group-hover:text-white/40 transition-colors">Connect</span>
             <div className="flex gap-4 opacity-60 group-hover:opacity-100 transition-opacity duration-300">
-              <SocialIcon href="https://wa.me/" label="WhatsApp" icon={<WhatsappIcon className="w-5 h-5" />} />
-              <SocialIcon href="https://linkedin.com/" label="LinkedIn" icon={<Linkedin className="w-5 h-5" />} />
-              <SocialIcon href="https://instagram.com/" label="Instagram" icon={<Instagram className="w-5 h-5" />} />
-              <SocialIcon href="https://github.com/" label="GitHub" icon={<Github className="w-5 h-5" />} />
-              <SocialIcon href="https://facebook.com/" label="Facebook" icon={<Facebook className="w-5 h-5" />} />
+              <SocialIcon href="mailto:contact@dropwinggroups.com" label="Email" icon={<Mail className="w-5 h-5" />} />
+              <SocialIcon href="https://wa.me/919363900110" label="WhatsApp" icon={<WhatsappIcon className="w-5 h-5" />} />
+              <SocialIcon href="https://linkedin.com/company/dropwinggroups" label="LinkedIn" icon={<Linkedin className="w-5 h-5" />} />
+              <SocialIcon href="https://instagram.com/dropwinggroups" label="Instagram" icon={<Instagram className="w-5 h-5" />} />
+              <SocialIcon href="https://github.com/dropwinggroups" label="GitHub" icon={<Github className="w-5 h-5" />} />
+              <SocialIcon href="https://facebook.com/dropwinggroups" label="Facebook" icon={<Facebook className="w-5 h-5" />} />
             </div>
           </div>
 
