@@ -75,6 +75,10 @@ This repository contains the frontend application for the public-facing enterpri
 
 ## 📸 Screenshots
 
+### 📖 Comprehensive Visual Documentation
+
+For a complete, screen-by-screen visual guide of all pages, features, and workflows, please refer to the **[Visual Documentation](docs/VISUAL_DOCUMENTATION.md)**.
+
 ### Desktop
 > *Placeholder for desktop view*
 > `<img src="docs/images/desktop.png" alt="Desktop View" width="800"/>`
