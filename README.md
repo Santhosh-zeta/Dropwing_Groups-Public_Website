@@ -1,5 +1,6 @@
+![Dropwing Groups Banner](./docs/images/banner.png)
+
 <div align="center">
-  <img src="docs/images/banner.png" alt="Dropwing Groups Banner" width="100%" />
 
   <h1>Dropwing Groups</h1>
 
