@@ -1,267 +1,261 @@
-![Dropwing Groups Banner](./docs/images/banner.png)
-
 <div align="center">
 
-  <h1>Dropwing Groups</h1>
+<br />
 
-  <p><strong>Enterprise-grade platform for Operational Sovereignty.</strong></p>
+# Dropwing Groups — Public Website
 
-  <p>
-    The era of advisory is over. Dropwing Groups builds, runs, and governs institutional-grade operating models. We don't just recommend the path. We walk it with you.
-  </p>
+**Four studios. One group. Built to last.**
 
-  <p>
-    <a href="#key-features">Features</a> •
-    <a href="#tech-stack">Tech Stack</a> •
-    <a href="#getting-started">Getting Started</a> •
-    <a href="#architecture">Architecture</a>
-  </p>
+[![React](https://img.shields.io/badge/React_18-20232A?style=flat-square&logo=react&logoColor=61DAFB)](https://react.dev)
+[![TypeScript](https://img.shields.io/badge/TypeScript-3178C6?style=flat-square&logo=typescript&logoColor=white)](https://www.typescriptlang.org)
+[![Vite](https://img.shields.io/badge/Vite-646CFF?style=flat-square&logo=vite&logoColor=white)](https://vitejs.dev)
+[![Tailwind CSS](https://img.shields.io/badge/Tailwind_CSS-38B2AC?style=flat-square&logo=tailwind-css&logoColor=white)](https://tailwindcss.com)
+[![Framer Motion](https://img.shields.io/badge/Framer_Motion-0055FF?style=flat-square&logo=framer&logoColor=white)](https://www.framer.com/motion)
 
-  <p>
-    <img src="https://img.shields.io/badge/version-1.0.0-blue.svg?style=for-the-badge" alt="Version" />
-    <img src="https://img.shields.io/badge/React-18-61DAFB.svg?style=for-the-badge&logo=react&logoColor=black" alt="React" />
-    <img src="https://img.shields.io/badge/TypeScript-5.0-3178C6.svg?style=for-the-badge&logo=typescript&logoColor=white" alt="TypeScript" />
-    <img src="https://img.shields.io/badge/Vite-5.0-646CFF.svg?style=for-the-badge&logo=vite&logoColor=white" alt="Vite" />
-    <img src="https://img.shields.io/badge/License-MIT-green.svg?style=for-the-badge" alt="License" />
-  </p>
+[dropwinggroups.com](https://dropwinggroups.com) · [Design Studio](#-dropwing-design-studio) · [Fenixa](#-fenixa-solutions) · [Persynix](#-persynix) · [Grovia](#-grovia)
+
 </div>
 
 ---
 
-## 📑 Table of Contents
+## What This Is
 
-- [Overview](#overview)
-- [Key Features](#key-features)
-- [Screenshots](#screenshots)
-- [Architecture](#architecture)
-- [Tech Stack](#tech-stack)
-- [Project Structure](#project-structure)
-- [Getting Started](#getting-started)
-- [Configuration](#configuration)
-- [Scripts](#scripts)
-- [Deployment](#deployment)
-- [Code Style](#code-style)
-- [License](#license)
+This is the public-facing website codebase for **Dropwing Groups** — a mother company operating four specialized studios across design, software, AI automation, and digital marketing. The V2 redesign lives on the `v2` branch, and each studio also has its own standalone website on a dedicated branch.
+
+Built for performance, built to inspire.
 
 ---
 
-## 🚀 Overview
+## The Four Studios
 
-**Dropwing Groups** is the premier digital presence and operational hub for enterprise clients seeking unparalleled digital infrastructure, synthetic intelligence integration, and brand sovereignty. 
+<table>
+<tr>
+<td width="25%" valign="top">
 
-This repository contains the frontend application for the public-facing enterprise platform. Designed with performance, accessibility, and high-end aesthetic appeal in mind, it utilizes kinetic typography, dynamic 3D elements, and smooth page transitions to deliver a premium user experience.
+### 🎨 Dropwing Design Studio
+**Creative & Branding**
 
-### **Ventures Ecosystem**
-- **WebForge:** Next-generation web experiences.
-- **Design Studio:** World-class digital design.
-- **Elevix Pro:** Advanced operational tools.
-- **PerSyniX:** Intelligent synthetic integrations.
-- **Grovia:** Growth and scaling engines.
+Visual identity, brand strategy, social media creatives, print design, and everything in between.
+
+`/ventures/design-studio`
+
+Branch: `design-studio`
+
+</td>
+<td width="25%" valign="top">
+
+### 💻 Fenixa Solutions
+**Software & Technology**
+
+Web apps, mobile apps, product development, DevOps/cloud infrastructure, and cybersecurity.
+
+`/ventures/fenixa`
+
+Branch: `fenixa-solutions`
+
+</td>
+<td width="25%" valign="top">
+
+### 🤖 Persynix
+**AI & Automation**
+
+n8n, Make, Zapier workflows, AI/ML models, chatbots, business process automation, and data intelligence.
+
+`/ventures/persynix`
+
+Branch: `persynix`
+
+</td>
+<td width="25%" valign="top">
+
+### 📈 Grovia
+**Digital Marketing**
+
+Social media management, Google Ads, Meta Ads, SEO, video script writing, and email marketing.
+
+`/ventures/grovia`
+
+Branch: `grovia`
+
+</td>
+</tr>
+</table>
 
 ---
 
-## ✨ Key Features
+## Branch Structure
 
-| Feature | Description |
-| ------- | ----------- |
-| **Immersive UI/UX** | Framer Motion animations and React Three Fiber 3D backgrounds. |
-| **Enterprise Routing** | Complex nested routing with `react-router-dom` and page transitions. |
-| **Design System** | Fully customized Tailwind CSS and `shadcn/ui` integration. |
-| **Performant** | Built on Vite for lightning-fast HMR and optimized production builds. |
-| **Type-Safe** | End-to-end type safety with TypeScript and Zod. |
-| **Responsive** | Flawless execution across mobile, tablet, and desktop viewports. |
-| **SEO Optimized** | `react-helmet-async` for dynamic metadata and search engine visibility. |
-
----
-
-## 📸 Screenshots
-
-### 📖 Comprehensive Visual Documentation
-
-For a complete, screen-by-screen visual guide of all pages, features, and workflows, please refer to the **[Visual Documentation](docs/VISUAL_DOCUMENTATION.md)**.
-
-### Desktop
-> *Placeholder for desktop view*
-> `<img src="docs/images/desktop.png" alt="Desktop View" width="800"/>`
-
-### Mobile
-> *Placeholder for mobile view*
-> `<img src="docs/images/mobile.png" alt="Mobile View" width="300"/>`
-
-### Dark Mode
-> *Placeholder for dark mode view*
-> `<img src="docs/images/dark_mode.png" alt="Dark Mode View" width="800"/>`
-
----
-
-## 🏗 Architecture
-
-### Component Architecture
-
-```mermaid
-graph TD
-    App[App.tsx] --> Providers[Providers Context]
-    Providers --> Router[BrowserRouter]
-    Router --> Routes[Animated Routes]
-    Routes --> MainLayout[Main Layout]
-    MainLayout --> Navbar[Navbar]
-    MainLayout --> Pages[Pages Context]
-    MainLayout --> Footer[Footer]
-    
-    Pages --> Index[Index / Home]
-    Pages --> Capabilities[Capabilities]
-    Pages --> Ventures[Ventures]
-    Pages --> Philosophy[Philosophy]
-    
-    Index --> Hero[Hero 3D Component]
-    Index --> Features[Feature Sections]
+```
+main                  → Production-stable baseline
+v2                    → V2 redesign (all four studios, updated homepage & navigation)
+design-studio         → Standalone site for Dropwing Design Studio
+fenixa-solutions      → Standalone site for Fenixa Solutions
+persynix              → Standalone site for Persynix
+grovia                → Standalone site for Grovia
 ```
 
----
-
-## 💻 Tech Stack
-
-| Category | Technology |
-| :--- | :--- |
-| **Frontend Framework** | React 18 |
-| **Build Tool** | Vite |
-| **Language** | TypeScript |
-| **Styling** | Tailwind CSS, PostCSS |
-| **UI Components** | shadcn/ui (Radix UI) |
-| **Animations** | Framer Motion, Tailwind Animate |
-| **3D Rendering** | Three.js, React Three Fiber, Drei |
-| **Routing** | React Router DOM |
-| **Data Fetching** | React Query (@tanstack/react-query) |
-| **Form Handling** | React Hook Form, Zod |
-| **Icons** | Lucide React |
+Each standalone branch is a fully self-contained React app — no shared routing, no shared providers. Drop it on Vercel and it works independently.
 
 ---
 
-## 📂 Project Structure
+## Tech Stack
 
-```text
+| Layer | Technology |
+|---|---|
+| Framework | React 18 |
+| Language | TypeScript 5 |
+| Build | Vite |
+| Styling | Tailwind CSS + CSS custom properties |
+| Animations | Framer Motion (`whileInView`, canvas `useAnimationFrame`) |
+| Components | shadcn/ui (Radix UI primitives) |
+| Icons | Lucide React |
+| Routing | React Router DOM v6 |
+| Data fetching | TanStack React Query |
+| Forms | React Hook Form + Zod |
+| SEO | react-helmet-async |
+| Package manager | Bun (also works with npm) |
+
+---
+
+## Project Structure
+
+```
 src/
-├── assets/           # Static assets, images, and brand files
-├── components/       # Reusable React components
-│   ├── 3d/           # Three.js & R3F components
-│   ├── sections/     # Page-specific modular sections
-│   └── ui/           # shadcn UI core components
-├── data/             # Mock data and static content configurations
-├── hooks/            # Custom React hooks
-├── lib/              # Utility functions and configurations
-├── pages/            # Top-level route components
-├── test/             # Vitest test files and setup
-└── types/            # Global TypeScript definitions
+├── assets/
+│   └── logo/               # Studio logos (design-studio, persynix, grovia, webforge)
+├── components/
+│   ├── ui/                 # shadcn/ui primitives
+│   ├── sections/           # SiteFooter, shared section components
+│   ├── Navbar.tsx          # Four-studio dropdown navigation
+│   ├── VentureEcosystem.tsx # Cross-studio navigation strip
+│   └── PageTransition.tsx
+├── pages/
+│   ├── Index.tsx           # Homepage
+│   ├── DesignStudio.tsx    # Design Studio venture page
+│   ├── Fenixa.tsx          # Fenixa Solutions venture page
+│   ├── PerSyniX.tsx        # Persynix venture page
+│   ├── Grovia.tsx          # Grovia venture page
+│   ├── WhoWeAre.tsx
+│   ├── WhatWeThink.tsx
+│   ├── Contact.tsx
+│   └── ...
+├── data/                   # Static content and blog data
+├── hooks/                  # Custom React hooks
+├── lib/                    # Utility functions
+└── types/                  # Global TypeScript types
 ```
 
 ---
 
-## 🏁 Getting Started
-
-### Prerequisites
-- [Node.js](https://nodejs.org/en/) (v18 or higher recommended)
-- [npm](https://www.npmjs.com/) or [bun](https://bun.sh/)
-
-### Installation
-
-1. **Clone the repository:**
-   ```bash
-   git clone https://github.com/your-org/dropwing-groups.git
-   cd dropwing-groups
-   ```
-
-2. **Install dependencies:**
-   ```bash
-   npm install
-   # or
-   bun install
-   ```
-
-### Configuration
-
-### Environment Variables
-
-| Variable | Description | Required | Example |
-| :--- | :--- | :---: | :--- |
-| `VITE_API_URL` | Backend API endpoint (if applicable) | No | `https://api.dropwing.com` |
-| `VITE_APP_ENV` | Application environment state | No | `development` |
-
-*Never expose secrets in the frontend environment variables.*
-
-### Running the Application
-
-**Development Mode:**
-```bash
-npm run dev
-```
-*The app will be available at `http://localhost:5173`*
-
-**Production Build:**
-```bash
-npm run build
-npm run preview
-```
-
----
-
-## 🚀 Deployment
-
-This project is optimized for modern deployment platforms. 
-
-### Vercel / Netlify
-1. Connect your GitHub repository.
-2. Build Command: `npm run build`
-3. Output Directory: `dist`
-4. Node Version: `18.x`
-
-### Docker (Optional)
-```dockerfile
-# docs/Dockerfile.example
-FROM node:18-alpine AS builder
-WORKDIR /app
-COPY package*.json ./
-RUN npm ci
-COPY . .
-RUN npm run build
-
-FROM nginx:alpine
-COPY --from=builder /app/dist /usr/share/nginx/html
-EXPOSE 80
-CMD ["nginx", "-g", "daemon off;"]
-```
-
----
-
-## 🧪 Testing
-
-The repository uses `vitest` and `@testing-library/react` for unit and component testing.
+## Getting Started
 
 ```bash
-# Run tests
-npm run test
+# Clone the repo
+git clone https://github.com/Santhosh-zeta/Dropwing_Groups-Public_Website.git
+cd Dropwing_Groups-Public_Website
 
-# Run tests in watch mode
-npm run test:watch
+# Switch to the V2 branch
+git checkout v2
+
+# Install dependencies
+bun install
+# or: npm install
+
+# Start the dev server
+bun run dev
+# or: npm run dev
+```
+
+The app runs at `http://localhost:5173`.
+
+### Working on a standalone studio site
+
+Each studio has its own branch that is a self-contained app:
+
+```bash
+git checkout fenixa-solutions
+bun install
+bun run dev
+```
+
+Same pattern for `design-studio`, `persynix`, and `grovia`.
+
+---
+
+## Scripts
+
+```bash
+bun run dev        # Start development server with HMR
+bun run build      # Production build (outputs to /dist)
+bun run preview    # Preview production build locally
+bun run lint       # Run ESLint
+bun run test       # Run Vitest unit tests
 ```
 
 ---
 
-## 📏 Code Style
+## Deployment
 
-- **Formatting & Linting:** ESLint and Prettier (integrated).
-- **Component Structure:** Functional components with React Hooks.
-- **Styling:** Utility-first Tailwind classes merged via `tailwind-merge` and `clsx`.
-- **Absolute Imports:** Configured via `tsconfig.paths` (e.g., `@/components/...`).
+This project deploys as a static site. Any platform works:
+
+**Vercel / Netlify**
+- Build command: `npm run build` or `bun run build`
+- Output directory: `dist`
+- Node version: 18+
+
+**Self-hosted**
+```bash
+bun run build
+# Serve the /dist folder with any static file server (nginx, caddy, etc.)
+```
+
+For standalone studio sites — check out the specific branch and deploy it the same way. Each branch is an independent Vite app.
 
 ---
 
-## 📄 License
+## Design Decisions
 
-Copyright © 2026 Dropwing Groups. All rights reserved. 
-*(If this transitions to Open Source, standard MIT or Apache 2.0 terms apply).*
+A few intentional choices worth noting if you're reading the source:
+
+**Canvas animations over CSS-only** — Each studio venture page uses a `useAnimationFrame` canvas component for its hero background (wave lines, circuit nodes, particle field, scan grid). These are lightweight, GPU-composited, and give each studio a distinct visual character without importing heavy WebGL libraries.
+
+**Per-studio color tokens** — Each studio owns one accent color (purple / blue / emerald / orange). These are applied consistently across the hero, cards, hover states, and the `VentureEcosystem` component.
+
+**Dark-first, never pure black** — Background colors are `#08060f`, `#050a08`, `#070b12`, `#0a0702` rather than `#000000`. This avoids harsh OLED contrast while reading as intentionally dark.
+
+**No premature abstraction** — Studio pages share no component logic. Each is written as a standalone page. Shared patterns (hero layout, service cards, process steps) are copy-adapted rather than component-abstracted, which makes each page independently editable without fear of breaking another.
+
+---
+
+## Studio Color Reference
+
+| Studio | Primary | Background |
+|---|---|---|
+| Dropwing Design Studio | `#a855f7` (purple) | `#08060f` |
+| Fenixa Solutions | `#3b82f6` (blue) | `#070b12` |
+| Persynix | `#10b981` (emerald) | `#050a08` |
+| Grovia | `#f97316` (orange) | `#0a0702` |
+
+---
+
+## Contact
+
+**Dropwing Groups**
+- Website: [dropwinggroups.com](https://dropwinggroups.com)
+- Email: [hello@dropwinggroups.com](mailto:hello@dropwinggroups.com)
+- Instagram: [@dropwinggroups](https://instagram.com/dropwinggroups)
+- LinkedIn: [Dropwing Groups](https://linkedin.com/company/dropwinggroups)
+
+For design projects: [design@dropwinggroups.com](mailto:design@dropwinggroups.com)  
+For software projects: [hello@dropwinggroups.com](mailto:hello@dropwinggroups.com)  
+For automation: [automation@dropwinggroups.com](mailto:automation@dropwinggroups.com)  
+For marketing: [marketing@dropwinggroups.com](mailto:marketing@dropwinggroups.com)
 
 ---
 
 <div align="center">
-  <p>Built with precision by <strong>Dropwing Groups</strong>.</p>
+
+© 2024–2026 Dropwing Groups · Chennai, India  
+Design · Software · Automation · Marketing
+
 </div>
