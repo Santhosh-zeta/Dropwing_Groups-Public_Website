@@ -9,11 +9,10 @@ import {
   NavigationMenuLink,
   NavigationMenuList,
   NavigationMenuTrigger,
-  navigationMenuTriggerStyle,
 } from "@/components/ui/navigation-menu";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
 import { Button } from "@/components/ui/button";
-import { Menu } from "lucide-react";
+import { Menu, Paintbrush, Layers, Cpu, TrendingUp } from "lucide-react";
 import {
   Accordion,
   AccordionContent,
@@ -22,10 +21,56 @@ import {
 } from "@/components/ui/accordion";
 import logoImage from "@/assets/DG_Logo_Dark (1).png";
 
+const studios = [
+  {
+    id: "design-studio",
+    name: "Design Studio",
+    fullName: "Dropwing Design Studio",
+    category: "Creative & Branding",
+    description: "Logos, social media creatives, banners, visiting cards & all visual design.",
+    href: "/ventures/design-studio",
+    icon: <Paintbrush className="w-4 h-4" />,
+    color: "text-purple-400",
+    bg: "bg-purple-500/10",
+  },
+  {
+    id: "fenixa",
+    name: "Fenixa Solutions",
+    fullName: "Fenixa Solutions",
+    category: "Software & Technology",
+    description: "Web development, apps, product development, DevOps & cybersecurity.",
+    href: "/ventures/fenixa",
+    icon: <Layers className="w-4 h-4" />,
+    color: "text-blue-400",
+    bg: "bg-blue-500/10",
+  },
+  {
+    id: "persynix",
+    name: "Persynix",
+    fullName: "Persynix",
+    category: "AI & Automation",
+    description: "n8n, Make, Zapier automations. AI, machine learning & intelligent workflows.",
+    href: "/ventures/persynix",
+    icon: <Cpu className="w-4 h-4" />,
+    color: "text-emerald-400",
+    bg: "bg-emerald-500/10",
+  },
+  {
+    id: "grovia",
+    name: "Grovia",
+    fullName: "Grovia",
+    category: "Digital Marketing",
+    description: "Social media, Google Ads, SEO, video scripts & full marketing management.",
+    href: "/ventures/grovia",
+    icon: <TrendingUp className="w-4 h-4" />,
+    color: "text-orange-400",
+    bg: "bg-orange-500/10",
+  },
+];
+
 const Navbar = () => {
   const [scrolled, setScrolled] = useState(false);
   const location = useLocation();
-  const [activeService, setActiveService] = useState(services[0]);
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 20);
@@ -34,10 +79,9 @@ const Navbar = () => {
   }, []);
 
   const navLinks = [
-    { name: "What We Do", path: "/what-we-do" },
-    { name: "What We Think", path: "/what-we-think" },
+    { name: "Our Studios", path: "/what-we-do" },
     { name: "Who We Are", path: "/who-we-are" },
-    { name: "Contact Us", path: "/contact" },
+    { name: "Blog", path: "/what-we-think" },
   ];
 
   return (
@@ -45,145 +89,97 @@ const Navbar = () => {
       className={cn(
         "fixed top-0 left-0 right-0 z-50 h-[60px] flex items-center border-b transition-all duration-300",
         scrolled
-          ? "bg-background/80 backdrop-blur-md border-white/5"
-          : "bg-background/95 backdrop-blur-md border-transparent"
+          ? "bg-background/90 backdrop-blur-lg border-white/8"
+          : "bg-background/70 backdrop-blur-md border-transparent"
       )}
     >
       <div className="w-full max-w-[1600px] mx-auto px-6 md:px-12 lg:px-20 relative flex items-center justify-center">
-        {/* Logo Area - Mobile: Image */}
+
+        {/* Logo — mobile */}
         <div className="absolute left-6 md:left-12 lg:left-20 flex items-center lg:hidden">
-          <Link to="/" className="flex items-center gap-2 group">
-            <img
-              src={logoImage}
-              alt="Dropwing Groups"
-              width="32"
-              height="32"
-              className="h-8 w-auto object-contain opacity-90 group-hover:opacity-100 transition-opacity"
-            />
+          <Link to="/" className="flex items-center gap-2 group" aria-label="Dropwing Groups">
+            <img src={logoImage} alt="Dropwing Groups" width="32" height="32"
+              className="h-7 w-auto object-contain opacity-80 group-hover:opacity-100 transition-opacity" />
           </Link>
         </div>
 
-        {/* Logo Area - Desktop: Logo + Wordmark */}
+        {/* Logo — desktop */}
         <div className="absolute left-6 md:left-12 lg:left-20 hidden lg:flex items-center">
           <Link to="/" className="flex items-center gap-3 group" aria-label="Dropwing Groups Home">
-            <img
-              src={logoImage}
-              alt="Dropwing Groups"
-              width="28"
-              height="28"
-              className="h-7 w-auto object-contain opacity-80 group-hover:opacity-100 transition-opacity duration-200"
-            />
+            <img src={logoImage} alt="Dropwing Groups" width="28" height="28"
+              className="h-7 w-auto object-contain opacity-80 group-hover:opacity-100 transition-opacity duration-200" />
             <span className="text-[13px] font-bold tracking-[0.18em] uppercase text-foreground/80 group-hover:text-foreground transition-colors duration-200">
               Dropwing Groups
             </span>
           </Link>
         </div>
 
-        {/* Desktop Navigation - Institutional Style */}
+        {/* Desktop Nav */}
         <div className="hidden lg:block">
           <NavigationMenu>
             <NavigationMenuList className="gap-8">
 
-              {/* What We Do - Dropdown */}
+              {/* Studios dropdown */}
               <NavigationMenuItem>
-                <NavigationMenuTrigger
-                  className="bg-transparent text-[11px] font-bold tracking-[0.2em] uppercase text-muted-foreground hover:text-foreground focus:text-foreground data-[state=open]:text-foreground data-[active]:bg-transparent hover:bg-transparent focus:bg-transparent h-auto py-2 px-0 group/item relative"
-                >
-                  What We Do
+                <NavigationMenuTrigger className="bg-transparent text-[11px] font-bold tracking-[0.2em] uppercase text-muted-foreground hover:text-foreground focus:text-foreground data-[state=open]:text-foreground data-[active]:bg-transparent hover:bg-transparent focus:bg-transparent h-auto py-2 px-0 group/item relative">
+                  Our Studios
                   <span className={cn(
                     "absolute left-0 bottom-0 h-[1px] w-full bg-primary origin-right scale-x-0 transition-transform duration-300 ease-out group-hover/item:origin-left group-hover/item:scale-x-100",
-                    location.pathname.startsWith("/what-we-do") || location.pathname.startsWith("/ventures") ? "scale-x-100 origin-left" : ""
+                    location.pathname.startsWith("/ventures") ? "scale-x-100 origin-left" : ""
                   )} />
                 </NavigationMenuTrigger>
                 <NavigationMenuContent>
-                  <div className="grid w-[800px] xl:w-[900px] grid-cols-[250px_1fr_1fr] bg-background/95 backdrop-blur-3xl border border-white/10 overflow-hidden rounded-md h-auto p-0">
-
-                    {/* COL 1: THE CORE (Philosophy) */}
-                    <div className="bg-white/5 p-8 border-r border-white/5 flex flex-col justify-between relative overflow-hidden h-full min-h-[350px]">
-                      <div className="relative z-10">
-                        <h4 className="text-xs font-bold tracking-[0.2em] text-primary uppercase mb-6">The Core</h4>
-                        <span className="text-2xl font-bold text-white block mb-4">Dropwing Groups</span>
-                        <p className="text-muted-foreground text-sm leading-relaxed mb-8">
-                          Architecting the autonomous operating systems of the future. We bridge strategy and execution.
-                        </p>
-                        <Link
-                          to="/who-we-are"
-                          className="inline-flex items-center text-xs font-bold tracking-[0.15em] text-white uppercase group/link"
-                        >
-                          Who we are
-                          <span className="ml-2 group-hover/link:translate-x-1 transition-transform">→</span>
-                        </Link>
-                      </div>
-                      {/* Abstract Graphic */}
-                      <div className="absolute bottom-[-100px] right-[-100px] w-64 h-64 bg-primary/10 blur-[60px] rounded-full pointer-events-none"></div>
+                  <div className="w-[700px] bg-background/98 backdrop-blur-3xl border border-white/10 rounded-lg overflow-hidden p-0">
+                    {/* Header */}
+                    <div className="px-6 pt-5 pb-3 border-b border-white/5">
+                      <p className="text-[10px] font-bold tracking-[0.25em] text-muted-foreground uppercase">
+                        Four Studios · One Group
+                      </p>
                     </div>
-
-                    {/* COL 2: CAPABILITIES (What we deliver) */}
-                    <div className="p-6">
-                      <h4 className="text-[10px] font-bold tracking-[0.2em] text-muted-foreground uppercase mb-6 pl-3">Capabilities</h4>
-                      <ul className="grid gap-2">
-                        <li>
-                          <NavigationMenuLink asChild>
-                            <a href="/capabilities/digital-infrastructure" className="group flex flex-col p-3 hover:bg-white/5 rounded-md transition-colors">
-                              <span className="text-sm font-bold text-white group-hover:text-primary transition-colors">Digital Infrastructure</span>
-                              <span className="text-[11px] text-muted-foreground mt-1">High-performance sovereign cloud & compute.</span>
-                            </a>
-                          </NavigationMenuLink>
-                        </li>
-                        <li>
-                          <NavigationMenuLink asChild>
-                            <a href="/capabilities/synthetic-intelligence" className="group flex flex-col p-3 hover:bg-white/5 rounded-md transition-colors">
-                              <span className="text-sm font-bold text-white group-hover:text-primary transition-colors">Synthetic Intelligence</span>
-                              <span className="text-[11px] text-muted-foreground mt-1">Agentic workflows and cognitive architectures.</span>
-                            </a>
-                          </NavigationMenuLink>
-                        </li>
-                        <li>
-                          <NavigationMenuLink asChild>
-                            <a href="/capabilities/brand-sovereignty" className="group flex flex-col p-3 hover:bg-white/5 rounded-md transition-colors">
-                              <span className="text-sm font-bold text-white group-hover:text-primary transition-colors">Brand Sovereignty</span>
-                              <span className="text-[11px] text-muted-foreground mt-1">Strategic aesthetics and identity systems.</span>
-                            </a>
-                          </NavigationMenuLink>
-                        </li>
-                      </ul>
+                    {/* Studios grid */}
+                    <div className="grid grid-cols-2 gap-px bg-white/5 p-px">
+                      {studios.map((studio) => (
+                        <NavigationMenuLink key={studio.id} asChild>
+                          <Link
+                            to={studio.href}
+                            className="group flex gap-3 p-5 bg-background hover:bg-white/5 transition-colors duration-200"
+                          >
+                            <span className={cn("inline-flex items-center justify-center w-8 h-8 rounded-md flex-shrink-0 mt-0.5", studio.bg, studio.color)}>
+                              {studio.icon}
+                            </span>
+                            <div>
+                              <div className="flex items-center gap-2 mb-0.5">
+                                <span className={cn("text-sm font-bold group-hover:underline", studio.color)}>{studio.name}</span>
+                                <span className="text-[9px] font-mono text-muted-foreground uppercase tracking-wider">{studio.category}</span>
+                              </div>
+                              <p className="text-[11px] text-muted-foreground leading-relaxed">{studio.description}</p>
+                            </div>
+                          </Link>
+                        </NavigationMenuLink>
+                      ))}
                     </div>
-
-                    {/* COL 3: VENTURES (Who delivers it) */}
-                    <div className="p-6 bg-white/2 border-l border-white/5">
-                      <h4 className="text-[10px] font-bold tracking-[0.2em] text-muted-foreground uppercase mb-6 pl-3">Ventures</h4>
-                      <ul className="grid gap-1">
-                        {services.filter(s => s.id !== 'dropwing').map((venture) => (
-                          <li key={venture.id}>
-                            <NavigationMenuLink asChild>
-                              <a href={venture.href} className="group flex items-center justify-between p-3 hover:bg-white/5 rounded-md transition-colors">
-                                <div className="flex flex-col">
-                                  <span className="text-sm font-bold text-white">{venture.title}</span>
-                                  <span className="text-[10px] text-muted-foreground uppercase tracking-wider mt-0.5">{venture.category}</span>
-                                </div>
-                                <span className="text-primary opacity-0 -translate-x-2 group-hover:opacity-100 group-hover:translate-x-0 transition-all duration-300">→</span>
-                              </a>
-                            </NavigationMenuLink>
-                          </li>
-                        ))}
-                      </ul>
+                    {/* Footer link */}
+                    <div className="px-5 py-3 border-t border-white/5 flex items-center justify-between">
+                      <Link to="/who-we-are" className="text-[10px] font-bold tracking-[0.15em] text-muted-foreground hover:text-white uppercase transition-colors">
+                        About Dropwing Groups →
+                      </Link>
+                      <Link to="/contact" className="text-[10px] font-bold tracking-[0.15em] text-primary hover:text-primary/80 uppercase transition-colors">
+                        Start a Project →
+                      </Link>
                     </div>
-
                   </div>
                 </NavigationMenuContent>
               </NavigationMenuItem>
 
-              {/* Other Links - Standard with Violet Line Hover */}
-              {navLinks.filter(link => link.name !== "What We Do" && link.name !== "Contact Us").map((link) => (
+              {/* Other nav links */}
+              {navLinks.filter(l => l.name !== "Our Studios").map((link) => (
                 <NavigationMenuItem key={link.path}>
                   <NavigationMenuLink asChild>
                     <Link
                       to={link.path}
                       className={cn(
                         "relative text-[11px] font-bold tracking-[0.2em] uppercase transition-colors duration-200 block py-2 group/item",
-                        location.pathname === link.path
-                          ? "text-foreground"
-                          : "text-muted-foreground hover:text-foreground"
+                        location.pathname === link.path ? "text-foreground" : "text-muted-foreground hover:text-foreground"
                       )}
                     >
                       {link.name}
@@ -195,22 +191,22 @@ const Navbar = () => {
                   </NavigationMenuLink>
                 </NavigationMenuItem>
               ))}
+
             </NavigationMenuList>
           </NavigationMenu>
         </div>
 
-        {/* Right Side - Contact & Mobile Toggle */}
+        {/* Right — Contact CTA + Mobile toggle */}
         <div className="absolute right-6 md:right-12 lg:right-20 flex items-center gap-4">
-          {/* Desktop Contact CTA */}
           <div className="hidden lg:block">
             <Link to="/contact">
-              <Button variant="outline" className="h-9 px-6 text-[10px] font-bold tracking-[0.2em] uppercase border-white/10 hover:bg-white/5 hover:text-primary transition-colors">
-                Contact
+              <Button variant="outline" className="h-9 px-6 text-[10px] font-bold tracking-[0.2em] uppercase border-white/10 hover:bg-white/5 hover:border-primary/40 hover:text-primary transition-all">
+                Contact Us
               </Button>
             </Link>
           </div>
 
-          {/* Mobile Menu Toggle */}
+          {/* Mobile Menu */}
           <div className="lg:hidden">
             <Sheet>
               <SheetTrigger asChild>
@@ -219,77 +215,68 @@ const Navbar = () => {
                   <span className="sr-only">Toggle menu</span>
                 </Button>
               </SheetTrigger>
-              <SheetContent side="right" className="w-[300px] border-l border-white/10 bg-background/95 backdrop-blur-xl p-0">
+              <SheetContent side="right" className="w-[300px] border-l border-white/10 bg-background/98 backdrop-blur-xl p-0">
                 <div className="flex flex-col h-full pt-10 px-6 gap-6 overflow-y-auto pb-10">
-                  <div className="flex flex-col gap-4">
-                    {/* Standard Links (except "What We Do") */}
-                    {navLinks.filter(l => l.name !== "What We Do").map((link, index) => (
-                      <Link
-                        key={link.path}
-                        to={link.path}
-                        className="group flex items-center gap-4 py-2 border-b border-white/5"
-                      >
-                        <span className="text-xs font-mono text-muted-foreground/50">0{index + 1}</span>
-                        <span className={cn(
-                          "text-lg font-light tracking-widest uppercase transition-all duration-300",
-                          location.pathname === link.path
-                            ? "text-foreground pl-2"
-                            : "text-muted-foreground group-hover:text-foreground group-hover:pl-2"
-                        )}>
-                          {link.name}
-                        </span>
-                      </Link>
-                    ))}
 
-                    {/* Enhanced "What We Do" Accordion */}
-                    <Accordion type="single" collapsible className="w-full border-b border-white/5">
-                      <AccordionItem value="what-we-do" className="border-none">
-                        <AccordionTrigger className="hover:no-underline py-4">
-                          <div className="flex items-center gap-4">
-                            <span className="text-xs font-mono text-muted-foreground/50">04</span>
-                            <span className="text-lg font-light tracking-widest uppercase text-foreground">What We Do</span>
-                          </div>
-                        </AccordionTrigger>
-                        <AccordionContent>
-                          <div className="pl-8 flex flex-col gap-6 pt-2 pb-6">
-
-                            {/* Mobile Capabilities */}
-                            <div>
-                              <h4 className="text-[10px] font-bold tracking-[0.2em] text-primary uppercase mb-3">Capabilities</h4>
-                              <div className="flex flex-col gap-3 border-l border-white/10 pl-4">
-                                <Link to="/capabilities/digital-infrastructure" className="text-sm text-muted-foreground hover:text-white transition-colors">
-                                  Digital Infrastructure
-                                </Link>
-                                <Link to="/capabilities/synthetic-intelligence" className="text-sm text-muted-foreground hover:text-white transition-colors">
-                                  Synthetic Intelligence
-                                </Link>
-                                <Link to="/capabilities/brand-sovereignty" className="text-sm text-muted-foreground hover:text-white transition-colors">
-                                  Brand Sovereignty
-                                </Link>
-                              </div>
-                            </div>
-
-                            {/* Mobile Ventures */}
-                            <div>
-                              <h4 className="text-[10px] font-bold tracking-[0.2em] text-primary uppercase mb-3">Ventures</h4>
-                              <div className="flex flex-col gap-3 border-l border-white/10 pl-4">
-                                {services.filter(s => s.id !== 'dropwing').map((venture) => (
-                                  <Link key={venture.id} to={venture.href} className="text-sm text-muted-foreground hover:text-white transition-colors block">
-                                    {venture.title}
-                                  </Link>
-                                ))}
-                              </div>
-                            </div>
-
-                          </div>
-                        </AccordionContent>
-                      </AccordionItem>
-                    </Accordion>
+                  {/* Brand */}
+                  <div className="flex items-center gap-3 pb-4 border-b border-white/5">
+                    <img src={logoImage} alt="Dropwing Groups" className="h-6 w-auto brightness-0 invert opacity-70" />
+                    <span className="text-sm font-bold tracking-widest uppercase text-foreground/70">Dropwing Groups</span>
                   </div>
 
-                  <div className="mt-auto">
+                  {/* Studios accordion */}
+                  <Accordion type="single" collapsible className="w-full">
+                    <AccordionItem value="studios" className="border-none">
+                      <AccordionTrigger className="hover:no-underline py-3">
+                        <div className="flex items-center gap-3">
+                          <span className="text-xs font-mono text-muted-foreground/50">01</span>
+                          <span className="text-base font-bold tracking-widest uppercase text-foreground">Our Studios</span>
+                        </div>
+                      </AccordionTrigger>
+                      <AccordionContent>
+                        <div className="pl-8 flex flex-col gap-3 pt-2 pb-4">
+                          {studios.map((studio) => (
+                            <Link
+                              key={studio.id}
+                              to={studio.href}
+                              className="flex items-center gap-2.5 py-1"
+                            >
+                              <span className={cn("flex-shrink-0", studio.color)}>{studio.icon}</span>
+                              <div>
+                                <span className={cn("text-sm font-bold block", studio.color)}>{studio.name}</span>
+                                <span className="text-[10px] text-muted-foreground uppercase tracking-wider">{studio.category}</span>
+                              </div>
+                            </Link>
+                          ))}
+                        </div>
+                      </AccordionContent>
+                    </AccordionItem>
+                  </Accordion>
+
+                  {/* Other links */}
+                  {[
+                    { name: "Who We Are", path: "/who-we-are", num: "02" },
+                    { name: "Blog", path: "/what-we-think", num: "03" },
+                    { name: "Contact Us", path: "/contact", num: "04" },
+                  ].map((link) => (
+                    <Link
+                      key={link.path}
+                      to={link.path}
+                      className="group flex items-center gap-4 py-2 border-b border-white/5"
+                    >
+                      <span className="text-xs font-mono text-muted-foreground/50">{link.num}</span>
+                      <span className={cn(
+                        "text-base font-bold tracking-widest uppercase transition-all duration-300",
+                        location.pathname === link.path ? "text-foreground" : "text-muted-foreground group-hover:text-foreground"
+                      )}>
+                        {link.name}
+                      </span>
+                    </Link>
+                  ))}
+
+                  <div className="mt-auto pt-4 border-t border-white/5">
                     <p className="text-[10px] text-muted-foreground/50 uppercase tracking-widest">
-                      Dropwing Groups &copy; 2026
+                      Dropwing Groups © {new Date().getFullYear()}
                     </p>
                   </div>
                 </div>
@@ -301,82 +288,5 @@ const Navbar = () => {
     </nav>
   );
 };
-
-const services = [
-  {
-    id: "dropwing",
-    category: "Strategic Foundation",
-    title: "Dropwing Groups",
-    description: "Building institutional grade operating models for the autonomous capabilities of tomorrow.",
-    href: "/",
-    visual: "bg-gradient-to-br from-primary/20 to-primary/5"
-  },
-  {
-    id: "webforge",
-    category: "Digital Infrastructure",
-    title: "WebForge",
-    description: "High-performance digital foundations and scalable engineering systems.",
-    href: "/ventures/webforge",
-    visual: "bg-blue-500/10"
-  },
-  {
-    id: "design-studio",
-    category: "Brand Sovereignty",
-    title: "Design Studio",
-    description: "Strategic aesthetics and immersive brand experiences.",
-    href: "/ventures/design-studio",
-    visual: "bg-purple-500/10"
-  },
-  {
-    id: "persynix",
-    category: "Synthetic Intelligence",
-    title: "PerSyniX",
-    description: "Autonomous agentic workflows and synthetic cognitive architectures.",
-    href: "/ventures/persynix",
-    visual: "bg-emerald-500/10"
-  },
-  {
-    id: "grovia",
-    category: "Agricultural Intelligence",
-    title: "Grovia",
-    description: "Next-generation sustainable systems and precision agriculture.",
-    href: "/ventures/grovia",
-    visual: "bg-green-500/10"
-  },
-  {
-    id: "elevix",
-    category: "Vertical Mobility",
-    title: "Elevix Pro",
-    description: "Advanced airspace management and urban air mobility infrastructure.",
-    href: "/ventures/elevix-pro",
-    visual: "bg-sky-500/10"
-  },
-];
-
-const ListItem = React.forwardRef<
-  React.ElementRef<"a">,
-  React.ComponentPropsWithoutRef<"a">
->(({ className, title, children, ...props }, ref) => {
-  return (
-    <li>
-      <NavigationMenuLink asChild>
-        <a
-          ref={ref}
-          className={cn(
-            "block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground",
-            className
-          )}
-          {...props}
-        >
-          <div className="text-sm font-medium leading-none text-foreground">{title}</div>
-          <p className="line-clamp-2 text-sm leading-snug text-muted-foreground">
-            {children}
-          </p>
-        </a>
-      </NavigationMenuLink>
-    </li>
-  );
-});
-ListItem.displayName = "ListItem";
 
 export default Navbar;

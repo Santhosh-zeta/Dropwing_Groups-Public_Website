@@ -1,346 +1,318 @@
-import React, { useRef, useMemo } from "react";
-import { motion, useScroll, useTransform, useAnimationFrame } from "framer-motion";
+import React, { useRef } from "react";
+import { motion, useAnimationFrame } from "framer-motion";
 import Navbar from "@/components/Navbar";
-import { ArrowRight, BarChart3, Target, Megaphone, Zap, Layers, Network } from "lucide-react";
 import VentureEcosystem from "@/components/VentureEcosystem";
+import { ArrowRight, CheckCircle2, Share2, Search, MousePointerClick, Video, Mail, BarChart2 } from "lucide-react";
 
-// --- The Turbine Field Component ---
-const TurbineField = () => {
-    const canvasRef = useRef<HTMLCanvasElement>(null);
-    const speed = 0.5; // Slow lateral drift
+// Animated wave canvas
+const WaveCanvas = () => {
+  const canvasRef = useRef<HTMLCanvasElement>(null);
 
-    useAnimationFrame((time) => {
-        const canvas = canvasRef.current;
-        if (!canvas) return;
-        const ctx = canvas.getContext("2d");
-        if (!ctx) return;
+  useAnimationFrame((time) => {
+    const canvas = canvasRef.current;
+    if (!canvas) return;
+    const ctx = canvas.getContext("2d");
+    if (!ctx) return;
+    if (canvas.width !== canvas.clientWidth || canvas.height !== canvas.clientHeight) {
+      canvas.width = canvas.clientWidth;
+      canvas.height = canvas.clientHeight;
+    }
+    const w = canvas.width;
+    const h = canvas.height;
+    ctx.clearRect(0, 0, w, h);
+    const t = time * 0.0006;
+    const waves = 3;
+    for (let wave = 0; wave < waves; wave++) {
+      ctx.beginPath();
+      const amp = 25 + wave * 12;
+      const freq = 0.003 + wave * 0.001;
+      const offset = (wave / waves) * h * 0.4 + h * 0.3;
+      const speed = t * (0.5 + wave * 0.2);
+      for (let x = 0; x <= w; x += 2) {
+        const y = offset + Math.sin(x * freq + speed) * amp + Math.sin(x * freq * 2.3 + speed * 1.4) * (amp * 0.4);
+        if (x === 0) ctx.moveTo(x, y);
+        else ctx.lineTo(x, y);
+      }
+      ctx.strokeStyle = `rgba(249, 115, 22, ${0.05 - wave * 0.01})`;
+      ctx.lineWidth = 1.5;
+      ctx.stroke();
+    }
+  });
 
-        // Resize
-        if (canvas.width !== canvas.clientWidth || canvas.height !== canvas.clientHeight) {
-            canvas.width = canvas.clientWidth;
-            canvas.height = canvas.clientHeight;
-        }
-
-        const width = canvas.width;
-        const height = canvas.height;
-
-        ctx.fillStyle = "#0a0a0a";
-        ctx.clearRect(0, 0, width, height);
-
-        // Drift Lines
-        const lineCount = 40;
-        const spacing = height / lineCount;
-        const timeOffset = time * speed;
-
-        ctx.strokeStyle = "rgba(255, 255, 255, 0.05)";
-        ctx.lineWidth = 1;
-
-        for (let i = 0; i < lineCount; i++) {
-            const y = i * spacing;
-            const xOffset = (timeOffset + i * 50) % width;
-
-            // Draw discrete dashes moving right
-            ctx.beginPath();
-            ctx.moveTo(xOffset, y);
-            ctx.lineTo(xOffset + 100, y); // Long dashes
-            ctx.stroke();
-
-            // Second set of dashes for density
-            const xOffset2 = (timeOffset + i * 50 + width / 2) % width;
-            ctx.beginPath();
-            ctx.moveTo(xOffset2, y);
-            ctx.lineTo(xOffset2 + 100, y);
-            ctx.stroke();
-        }
-
-        // Subconscious forward pressure gradient
-        const gradient = ctx.createLinearGradient(0, 0, width, 0);
-        gradient.addColorStop(0, "rgba(0,0,0,0.8)");
-        gradient.addColorStop(0.5, "rgba(0,0,0,0)");
-        gradient.addColorStop(1, "rgba(0,0,0,0.8)");
-        ctx.fillStyle = gradient;
-        ctx.fillRect(0, 0, width, height);
-    });
-
-    return <canvas ref={canvasRef} className="absolute inset-0 w-full h-full opacity-60 pointer-events-none" />;
+  return <canvas ref={canvasRef} className="absolute inset-0 w-full h-full pointer-events-none opacity-80" />;
 };
+
+const services = [
+  {
+    icon: <Share2 className="w-6 h-6" />,
+    title: "Social Media Management",
+    desc: "Full social media management across Instagram, Facebook, LinkedIn, Twitter/X, and more. We handle content creation, scheduling, community management, and monthly reporting.",
+    includes: ["Content calendar", "Post creation & design", "Scheduling & publishing", "Monthly analytics report"],
+  },
+  {
+    icon: <MousePointerClick className="w-6 h-6" />,
+    title: "Google Ads & PPC",
+    desc: "Google Search, Display, Shopping, and YouTube ads that bring the right people to your business. We manage strategy, copy, creatives, bidding, and optimization.",
+    includes: ["Google Search ads", "Display & remarketing", "Shopping campaigns", "Performance reporting"],
+  },
+  {
+    icon: <Share2 className="w-6 h-6" />,
+    title: "Meta & Social Ads",
+    desc: "Facebook and Instagram ad campaigns that reach your ideal audience with targeted messaging. From awareness to conversion — we manage the full funnel.",
+    includes: ["Facebook & Instagram ads", "Audience targeting", "Ad creative design", "A/B testing"],
+  },
+  {
+    icon: <Search className="w-6 h-6" />,
+    title: "SEO & Content Strategy",
+    desc: "Get found on Google. We improve your organic rankings through technical SEO, keyword strategy, content creation, and link building — all focused on driving qualified traffic.",
+    includes: ["Technical SEO audit", "Keyword research", "On-page optimization", "Content creation"],
+  },
+  {
+    icon: <Video className="w-6 h-6" />,
+    title: "Video Script Writing",
+    desc: "Engaging scripts for YouTube videos, Instagram Reels, product demos, ads, and explainer videos. Written to sound natural, communicate clearly, and drive action.",
+    includes: ["YouTube scripts", "Reel & Short scripts", "Ad scripts", "Explainer videos"],
+  },
+  {
+    icon: <Mail className="w-6 h-6" />,
+    title: "Email Marketing & Lead Generation",
+    desc: "Email campaigns, newsletters, and automated sequences that nurture your leads and keep your customers engaged. We handle strategy, copywriting, design, and delivery.",
+    includes: ["Email campaigns", "Automated sequences", "Newsletter design", "List management"],
+  },
+];
 
 const Grovia = () => {
-    const containerRef = useRef(null);
-    const { scrollYProgress } = useScroll({
-        target: containerRef,
-        offset: ["start start", "end end"]
-    });
+  return (
+    <div className="min-h-screen bg-[#0a0702] text-gray-300 font-sans overflow-x-hidden">
+      <Navbar />
 
-    return (
-        <div ref={containerRef} className="min-h-screen bg-[#050505] text-gray-300 font-sans selection:bg-orange-900/30 selection:text-orange-50 overflow-x-hidden">
-            <Navbar />
-
-            {/* 1. HERO — MOMENTUM WITHOUT NOISE */}
-            <section className="relative h-screen flex items-center justify-center overflow-hidden border-b border-white/5">
-                <TurbineField />
-
-                <div className="container mx-auto px-6 relative z-10">
-                    <motion.div
-                        initial={{ opacity: 0 }}
-                        animate={{ opacity: 1 }}
-                        transition={{ duration: 1.5 }}
-                        className="max-w-5xl"
-                    >
-                        <div className="flex items-center gap-3 mb-8">
-                            <div className="h-px w-12 bg-orange-600" />
-                            <span className="text-xs font-mono text-orange-600 uppercase tracking-widest">
-                                Growth Systems Engineering
-                            </span>
-                        </div>
-
-                        <h1 className="text-6xl md:text-8xl font-bold tracking-tighter text-white mb-8">
-                            Grovia
-                        </h1>
-                        <p className="text-2xl md:text-3xl text-gray-400 font-light leading-snug max-w-2xl">
-                            Engineering momentum for serious organizations.
-                            Marketing systems designed for durability, not spikes.
-                        </p>
-                    </motion.div>
-                </div>
-            </section>
-
-            {/* 2. MARKETING TRUTH */}
-            <section className="py-32 relative z-10 bg-[#050505] border-b border-white/5">
-                <div className="container mx-auto px-6">
-                    <div className="space-y-32">
-                        <TruthStatement text="Attention without structure decays." delay={0} />
-                        <TruthStatement text="Campaigns spike. Systems compound." delay={0.1} />
-                        <TruthStatement text="Metrics without context mislead." delay={0.2} />
-                        <div className="pt-20 border-t border-white/10">
-                            <h2 className="text-4xl md:text-6xl font-bold text-white">
-                                Growth is not awareness. <br />
-                                <span className="text-orange-600">Growth is repeatability.</span>
-                            </h2>
-                        </div>
-                    </div>
-                </div>
-            </section>
-
-            {/* 3. GROWTH DOMAINS */}
-            <section className="py-32 relative border-b border-white/5">
-                <div className="container mx-auto px-6">
-                    <div className="mb-16">
-                        <span className="text-xs font-mono text-gray-500 uppercase tracking-widest block mb-4">
-                            Control Levers
-                        </span>
-                        <h2 className="text-3xl font-bold text-white">Controlled Growth Domains</h2>
-                    </div>
-
-                    <div className="space-y-4">
-                        <DomainBand
-                            title="Market Positioning"
-                            desc="Defining the narrative coordinates that make competition irrelevant."
-                            icon={<Target />}
-                        />
-                        <DomainBand
-                            title="Demand Systems"
-                            desc="Integrated inbound/outbound engines that operate independently of ad spend."
-                            icon={<Zap />}
-                        />
-                        <DomainBand
-                            title="Performance Intelligence"
-                            desc="Attribution modeling and signal analysis to validate capital allocation."
-                            icon={<BarChart3 />}
-                        />
-                        <DomainBand
-                            title="Content Infrastructure"
-                            desc="Publishing systems that build long-term IP assets, not disposable posts."
-                            icon={<Layers />}
-                        />
-                        <DomainBand
-                            title="Brand Momentum"
-                            desc="The precise application of pressure to shift market perception over time."
-                            icon={<Megaphone />}
-                        />
-                    </div>
-                </div>
-            </section>
-
-            {/* 4. SYSTEMS NOT CAMPAIGNS */}
-            <section className="py-32 bg-white/[0.02] border-b border-white/5">
-                <div className="container mx-auto px-6 max-w-4xl">
-                    <div className="flex items-baseline justify-between mb-20">
-                        <h2 className="text-3xl font-bold text-white">Systems, Not Campaigns</h2>
-                        <span className="font-mono text-xs text-gray-600 uppercase">Methodology v4.0</span>
-                    </div>
-
-                    <div className="space-y-0 divide-y divide-white/10 border-y border-white/10">
-                        <Principle
-                            title="Compounding First"
-                            text="We prioritize initiatives that build permanent equity over those that generate temporary noise. Access is rented; leverage is owned."
-                        />
-                        <Principle
-                            title="Signal Over Volume"
-                            text="One precise message to the right decision-maker outweighs thousands of impressions on an indifferent audience."
-                        />
-                        <Principle
-                            title="Distribution Is Architecture"
-                            text="Channels are not buckets to be filled. They are pathways to be engineered for specific velocity and friction."
-                        />
-                    </div>
-                </div>
-            </section>
-
-            {/* 5. RELATIONSHIP TO PERSYNIX */}
-            <IntelligenceLink />
-
-            {/* 6. OPERATING MODEL (BOUNDARIES) */}
-            <section className="py-32 bg-[#080808] border-b border-white/5">
-                <div className="container mx-auto px-6 flex flex-col md:flex-row gap-20">
-                    <div className="md:w-1/2">
-                        <h2 className="text-3xl font-bold text-white mb-8">Boundaries of Discipline</h2>
-                        <p className="text-xl text-gray-400 mb-8 leading-relaxed">
-                            We do not chase trends. We do not manufacture hype.
-                            We build engines that work when no one is watching.
-                        </p>
-                        <div className="border-l-2 border-orange-600 pl-6">
-                            <p className="text-white font-bold text-lg italic">
-                                "Noise is not growth. Discipline is."
-                            </p>
-                        </div>
-                    </div>
-                    <div className="md:w-1/2 grid grid-cols-2 gap-4 text-sm font-mono text-gray-500">
-                        <div className="p-6 border border-white/5 bg-black/40">
-                            <span className="block mb-2 text-red-500 line-through">Viral Spikes</span>
-                            Sustainable Velocities
-                        </div>
-                        <div className="p-6 border border-white/5 bg-black/40">
-                            <span className="block mb-2 text-red-500 line-through">Vanity Metrics</span>
-                            Revenue Correlation
-                        </div>
-                        <div className="p-6 border border-white/5 bg-black/40">
-                            <span className="block mb-2 text-red-500 line-through">Platform Reliance</span>
-                            Owned Distribution
-                        </div>
-                        <div className="p-6 border border-white/5 bg-black/40">
-                            <span className="block mb-2 text-red-500 line-through">Ad-Hoc Content</span>
-                            Strategic IP
-                        </div>
-                    </div>
-                </div>
-            </section>
-
-            {/* 7. CONNECTION TO DROPWING */}
-            <section className="py-20 border-b border-white/5">
-                <div className="container mx-auto px-6 text-center">
-                    <h2 className="text-xs font-mono text-gray-600 uppercase tracking-widest mb-12">
-                        System Interlock
-                    </h2>
-                    <div className="flex flex-col gap-4 items-center opacity-80 font-mono text-sm tracking-widest">
-                        <div className="text-gray-700">DROPWING GROUPS [STRATEGY]</div>
-                        <div className="h-4 w-px bg-gray-800" />
-                        <div className="text-gray-700">WEBFORGE [EXECUTION]</div>
-                        <div className="h-4 w-px bg-gray-800" />
-                        <div className="text-gray-700">PERSYNIX [INTELLIGENCE]</div>
-                        <div className="h-4 w-px bg-orange-600" />
-                        <div className="text-white font-bold bg-orange-900/20 px-4 py-2 border border-orange-900/30">GROVIA [GROWTH]</div>
-                    </div>
-                </div>
-            </section>
-
-            {/* Venture Ecosystem cross-links */}
-            <VentureEcosystem currentVenture="Grovia" />
-
-            {/* 8. THE GATE */}
-            <section className="py-40 bg-black flex items-center justify-center">
-                <a href="mailto:growth@dropwinggroups.com" className="group text-center">
-                    <p className="text-xs font-mono text-gray-600 uppercase tracking-widest mb-4 group-hover:text-orange-600 transition-colors">
-                        Strategic Access
-                    </p>
-                    <h2 className="text-3xl md:text-5xl font-light text-white group-hover:text-white transition-colors border-b border-transparent group-hover:border-orange-600/30 pb-2">
-                        Discuss Growth Architecture
-                    </h2>
-                </a>
-            </section>
+      {/* HERO */}
+      <section className="relative h-screen flex items-center justify-center overflow-hidden border-b border-white/5">
+        <WaveCanvas />
+        <div className="absolute inset-0 pointer-events-none">
+          <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-orange-600/8 rounded-full blur-[150px]" />
         </div>
-    );
-};
 
-// --- Subcomponents ---
+        <div className="container mx-auto px-6 relative z-10 max-w-[1200px]">
+          <div className="max-w-3xl">
+            <motion.div
+              initial={{ opacity: 0, y: 16 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6 }}
+              className="flex items-center gap-3 mb-8"
+            >
+              <div className="w-2 h-2 bg-orange-400 rounded-full animate-pulse" />
+              <span className="text-xs font-mono text-orange-400 uppercase tracking-widest">
+                Grovia · Digital Marketing
+              </span>
+            </motion.div>
 
-const TruthStatement = ({ text }: { text: string; delay: number }) => (
-    <div className="text-3xl md:text-5xl font-light text-gray-500 hover:text-white transition-colors duration-700 cursor-default">
-        {text}
-    </div>
-);
-
-const DomainBand = ({ title, desc, icon }: { title: string; desc: string; icon: React.ReactNode }) => (
-    <div className="group flex items-center gap-8 py-8 px-6 bg-[#0a0a0a] border border-white/5 hover:border-orange-600/30 transition-all duration-500">
-        <div className="text-gray-600 group-hover:text-orange-500 transition-colors">
-            {icon}
-        </div>
-        <div>
-            <h3 className="text-xl font-bold text-white mb-1 group-hover:translate-x-2 transition-transform duration-500">{title}</h3>
-            <p className="text-sm text-gray-500 font-mono group-hover:text-gray-400 transition-colors">
-                {desc}
-            </p>
-        </div>
-    </div>
-);
-
-const Principle = ({ title, text }: { title: string; text: string }) => (
-    <div className="grid grid-cols-1 md:grid-cols-4 gap-8 py-12 group hover:bg-white/[0.02] transition-colors">
-        <h3 className="font-mono text-sm text-orange-600 uppercase tracking-widest pt-1">{title}</h3>
-        <p className="col-span-3 text-lg text-gray-400 leading-relaxed group-hover:text-gray-200 transition-colors">
-            {text}
-        </p>
-    </div>
-);
-
-const IntelligenceLink = () => {
-    return (
-        <section className="py-32 border-b border-white/5 overflow-hidden relative">
-            {/* Background Mesh */}
-            <div className="absolute inset-0 bg-grid-white/[0.02] pointer-events-none" />
-
-            <div className="container mx-auto px-6 grid grid-cols-1 md:grid-cols-2 gap-20 items-center">
-                <div>
-                    <span className="text-xs font-mono text-gray-500 uppercase tracking-widest block mb-4">
-                        Data Integration
-                    </span>
-                    <h2 className="text-4xl font-bold text-white mb-6">Growth Informed by <br /> Intelligence.</h2>
-                    <p className="text-lg text-gray-400 leading-relaxed mb-8">
-                        Grovia does not guess. We ingest signal from PerSyniX intelligence pipelines to direct growth pressure exactly where the market is softest.
-                    </p>
-                    <div className="inline-flex items-center gap-2 text-sm font-mono text-orange-400">
-                        <Network className="w-4 h-4" />
-                        Live Signal Integration
-                    </div>
-                </div>
-
-                <div className="bg-black border border-white/10 p-8 font-mono text-xs relative">
-                    <div className="absolute top-0 right-0 p-2 text-gray-600">SIGNAL_LOG</div>
-                    <div className="space-y-4 text-gray-500">
-                        <div className="flex gap-4">
-                            <span className="text-emerald-500">[PERSYNIX]</span>
-                            <span>Market sentiment drift detected in Sector 4.</span>
-                        </div>
-                        <div className="flex gap-4">
-                            <span className="text-emerald-500">[PERSYNIX]</span>
-                            <span>Competitor ad spend operational efficiency &lt; 40%.</span>
-                        </div>
-                        <div className="flex gap-4 opacity-50">
-                            <span className="text-gray-600">--- PROCESSING ---</span>
-                        </div>
-                        <div className="flex gap-4 text-white">
-                            <span className="text-orange-500">[GROVIA]</span>
-                            <span>Deploying counter-narrative assets.</span>
-                        </div>
-                        <div className="flex gap-4 text-white">
-                            <span className="text-orange-500">[GROVIA]</span>
-                            <span>Reallocating demand budget to high-yield channels.</span>
-                        </div>
-                    </div>
-                </div>
+            <div className="overflow-hidden mb-4">
+              <motion.h1
+                initial={{ y: "100%", opacity: 0 }}
+                animate={{ y: 0, opacity: 1 }}
+                transition={{ duration: 1, ease: [0.16, 1, 0.3, 1], delay: 0.1 }}
+                className="text-5xl md:text-7xl xl:text-8xl font-bold tracking-tighter text-white leading-[0.9]"
+              >
+                Marketing that
+              </motion.h1>
             </div>
-        </section>
-    );
+            <div className="overflow-hidden mb-10">
+              <motion.h1
+                initial={{ y: "100%", opacity: 0 }}
+                animate={{ y: 0, opacity: 1 }}
+                transition={{ duration: 1, ease: [0.16, 1, 0.3, 1], delay: 0.2 }}
+                className="text-5xl md:text-7xl xl:text-8xl font-bold tracking-tighter text-transparent [-webkit-text-stroke:1px_rgba(249,115,22,0.7)] leading-[0.9]"
+              >
+                actually grows.
+              </motion.h1>
+            </div>
+
+            <motion.p
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.8, delay: 0.5 }}
+              className="text-xl md:text-2xl text-gray-400 font-light leading-relaxed max-w-2xl border-l-2 border-orange-900/50 pl-6 mb-12"
+            >
+              Social media, Google Ads, SEO, video scripts, and email marketing — we handle your entire digital marketing operation so you can focus on running your business.
+            </motion.p>
+
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.7, delay: 0.7 }}
+              className="flex flex-col sm:flex-row gap-4"
+            >
+              <a href="mailto:marketing@dropwinggroups.com" className="group inline-flex items-center gap-3 px-8 py-4 bg-orange-600 text-white font-bold text-sm tracking-[0.15em] uppercase hover:bg-orange-500 transition-colors rounded-sm">
+                Grow My Business
+                <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+              </a>
+            </motion.div>
+          </div>
+        </div>
+      </section>
+
+      {/* SERVICES */}
+      <section className="py-24 md:py-32">
+        <div className="max-w-[1200px] mx-auto px-6 md:px-12">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.7 }}
+            className="mb-16"
+          >
+            <span className="text-xs font-mono text-orange-400 uppercase tracking-widest">What We Do</span>
+            <h2 className="text-4xl md:text-5xl font-bold text-white tracking-tighter mt-4 max-w-2xl">
+              Everything you need to reach and win your customers.
+            </h2>
+          </motion.div>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+            {services.map((service, i) => (
+              <motion.div
+                key={service.title}
+                initial={{ opacity: 0, y: 24 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.5, delay: i * 0.08 }}
+                className="group p-6 bg-white/[0.03] border border-white/8 hover:border-orange-500/30 rounded-lg transition-all duration-300 hover:bg-orange-500/5"
+              >
+                <div className="flex items-center gap-3 mb-4">
+                  <span className="text-orange-400">{service.icon}</span>
+                  <h3 className="text-white font-bold">{service.title}</h3>
+                </div>
+                <p className="text-gray-400 text-sm leading-relaxed mb-5">{service.desc}</p>
+                <ul className="space-y-1.5">
+                  {service.includes.map(item => (
+                    <li key={item} className="flex items-center gap-2 text-xs text-gray-500">
+                      <span className="w-1 h-1 rounded-full bg-orange-500/60 flex-shrink-0" />
+                      {item}
+                    </li>
+                  ))}
+                </ul>
+              </motion.div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* WHY GROVIA */}
+      <section className="py-24 md:py-32 border-t border-white/5 bg-white/[0.01]">
+        <div className="max-w-[1200px] mx-auto px-6 md:px-12">
+          <div className="grid md:grid-cols-2 gap-12 md:gap-24 items-center">
+            <motion.div
+              initial={{ opacity: 0, x: -20 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.7 }}
+            >
+              <span className="text-xs font-mono text-orange-400 uppercase tracking-widest">Our Approach</span>
+              <h2 className="text-4xl md:text-5xl font-bold text-white tracking-tighter mt-4 mb-6 leading-tight">
+                Marketing that makes your phone ring.
+              </h2>
+              <p className="text-gray-400 leading-relaxed mb-6">
+                Most marketing agencies promise reach. We promise results. Every campaign we run is built around one question: what does this have to achieve for your business?
+              </p>
+              <p className="text-gray-300 leading-relaxed">
+                Whether you want more foot traffic, more online sales, more leads, or more brand awareness — we build the strategy and execute it with complete transparency.
+              </p>
+            </motion.div>
+            <motion.div
+              initial={{ opacity: 0, x: 20 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.7, delay: 0.1 }}
+              className="space-y-3"
+            >
+              {[
+                "Full social media management — content, posting, and engagement",
+                "Google and Meta ads that target your ideal customers",
+                "SEO that builds long-term organic growth",
+                "Video scripts that viewers actually watch to the end",
+                "Email campaigns with real open rates and conversions",
+                "Monthly reports that show exactly what's working and what's not",
+              ].map((item) => (
+                <div key={item} className="flex items-start gap-3 text-gray-300">
+                  <CheckCircle2 className="w-4 h-4 text-orange-400 flex-shrink-0 mt-0.5" />
+                  <span className="text-sm">{item}</span>
+                </div>
+              ))}
+            </motion.div>
+          </div>
+        </div>
+      </section>
+
+      {/* WHO WE SERVE */}
+      <section className="py-24 md:py-32 border-t border-white/5">
+        <div className="max-w-[1200px] mx-auto px-6 md:px-12 text-center">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.7 }}
+            className="mb-16"
+          >
+            <span className="text-xs font-mono text-orange-400 uppercase tracking-widest">Who We Help</span>
+            <h2 className="text-4xl md:text-5xl font-bold text-white tracking-tighter mt-4">
+              Any business that wants to grow.
+            </h2>
+          </motion.div>
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+            {[
+              { label: "Local Businesses", desc: "Restaurants, salons, retail, clinics — reach more people in your area." },
+              { label: "E-commerce Brands", desc: "Drive sales with targeted ads and SEO that converts browsers to buyers." },
+              { label: "Startups & SaaS", desc: "Build brand awareness and generate qualified leads from day one." },
+              { label: "Established Companies", desc: "Scale your reach, modernize your marketing, and stay competitive." },
+            ].map((item, i) => (
+              <motion.div
+                key={item.label}
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.5, delay: i * 0.08 }}
+                className="p-6 bg-white/[0.03] border border-white/8 rounded-lg text-left"
+              >
+                <h4 className="text-white font-bold text-sm mb-2">{item.label}</h4>
+                <p className="text-gray-500 text-xs leading-relaxed">{item.desc}</p>
+              </motion.div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* CTA */}
+      <section className="py-32 border-t border-white/5 relative overflow-hidden">
+        <div className="absolute inset-0 pointer-events-none">
+          <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[500px] h-[500px] bg-orange-600/8 rounded-full blur-[120px]" />
+        </div>
+        <div className="relative z-10 max-w-[1200px] mx-auto px-6 md:px-12 text-center">
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.8 }}
+          >
+            <h2 className="text-4xl md:text-6xl font-bold text-white tracking-tighter mb-6">
+              Ready to grow?
+            </h2>
+            <p className="text-gray-400 max-w-lg mx-auto text-lg leading-relaxed mb-10">
+              Tell us about your business and your goals. We'll build a marketing plan that actually makes sense for you.
+            </p>
+            <a
+              href="mailto:marketing@dropwinggroups.com"
+              className="group inline-flex items-center gap-3 px-10 py-5 bg-orange-600 text-white font-bold text-sm tracking-[0.15em] uppercase hover:bg-orange-500 transition-colors rounded-sm"
+            >
+              Start Growing
+              <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+            </a>
+          </motion.div>
+        </div>
+      </section>
+
+      <VentureEcosystem currentVenture="Grovia" />
+    </div>
+  );
 };
 
 export default Grovia;

@@ -9,21 +9,27 @@ import MainLayout from "./components/MainLayout";
 import Index from "./pages/Index";
 
 import WhatWeDo from "./pages/WhatWeDo";
-import Capabilities from "./pages/Capabilities";
 import WhatWeThink from "./pages/WhatWeThink";
 import WhoWeAre from "./pages/WhoWeAre";
 import Contact from "./pages/Contact";
 
 import NotFound from "./pages/NotFound";
 import InsightArticle from "./pages/InsightArticle";
+
+// Studios
+import DesignStudio from "./pages/DesignStudio";
+import Fenixa from "./pages/Fenixa";
+import PerSyniX from "./pages/PerSyniX";
+import Grovia from "./pages/Grovia";
+
+// Legacy / redirected pages (kept for backward compatibility)
+import WebForge from "./pages/WebForge";
+import ElevixPro from "./pages/ElevixPro";
+import Capabilities from "./pages/Capabilities";
 import DigitalInfrastructure from "./pages/DigitalInfrastructure";
 import SyntheticIntelligence from "./pages/SyntheticIntelligence";
 import BrandSovereignty from "./pages/BrandSovereignty";
-import WebForge from "./pages/WebForge";
-import DesignStudio from "./pages/DesignStudio";
-import ElevixPro from "./pages/ElevixPro";
-import PerSyniX from "./pages/PerSyniX";
-import Grovia from "./pages/Grovia";
+
 import PrivacyPolicy from "./pages/PrivacyPolicy";
 import TermsOfService from "./pages/TermsOfService";
 import Accessibility from "./pages/Accessibility";
@@ -39,32 +45,40 @@ const AnimatedRoutes = () => {
 
   return (
     <Routes location={location} key={location.pathname}>
-      {/* Standard Pages wrapped in MainLayout */}
       <Route element={<MainLayout />}>
+        {/* Core pages */}
         <Route path="/" element={<Index />} />
         <Route path="/what-we-do" element={<WhatWeDo />} />
+        <Route path="/what-we-think" element={<WhatWeThink />} />
+        <Route path="/who-we-are" element={<WhoWeAre />} />
+        <Route path="/contact" element={<Contact />} />
+        <Route path="/philosophy" element={<Philosophy />} />
+        <Route path="/careers" element={<Careers />} />
+
+        {/* Studios — V2 */}
+        <Route path="/ventures/design-studio" element={<DesignStudio />} />
+        <Route path="/ventures/fenixa" element={<Fenixa />} />
+        <Route path="/ventures/persynix" element={<PerSyniX />} />
+        <Route path="/ventures/grovia" element={<Grovia />} />
+
+        {/* Legacy routes — kept for backward compatibility */}
+        <Route path="/ventures/webforge" element={<WebForge />} />
+        <Route path="/ventures/elevix-pro" element={<ElevixPro />} />
         <Route path="/capabilities" element={<Capabilities />} />
         <Route path="/capabilities/digital-infrastructure" element={<DigitalInfrastructure />} />
         <Route path="/capabilities/synthetic-intelligence" element={<SyntheticIntelligence />} />
         <Route path="/capabilities/brand-sovereignty" element={<BrandSovereignty />} />
-        <Route path="/ventures/webforge" element={<WebForge />} />
-        <Route path="/ventures/design-studio" element={<DesignStudio />} />
-        <Route path="/ventures/elevix-pro" element={<ElevixPro />} />
-        <Route path="/ventures/persynix" element={<PerSyniX />} />
-        <Route path="/ventures/grovia" element={<Grovia />} />
-        <Route path="/philosophy" element={<Philosophy />} />
-        <Route path="/what-we-think" element={<WhatWeThink />} />
-        <Route path="/who-we-are" element={<WhoWeAre />} />
-        <Route path="/contact" element={<Contact />} />
+
+        {/* Legal */}
         <Route path="/privacy" element={<PrivacyPolicy />} />
         <Route path="/terms" element={<TermsOfService />} />
         <Route path="/accessibility" element={<Accessibility />} />
         <Route path="/security" element={<Security />} />
-        <Route path="/careers" element={<Careers />} />
+
         <Route path="*" element={<NotFound />} />
       </Route>
 
-      {/* Pages with Custom Layouts (No persistent Nav/Footer) */}
+      {/* Insight articles — custom layout */}
       <Route path="/insights/:slug" element={
         <AnimatePresence mode="wait">
           <PageTransition key={location.pathname} className="min-h-screen">
@@ -75,8 +89,6 @@ const AnimatedRoutes = () => {
     </Routes>
   );
 };
-
-
 
 const App = () => (
   <QueryClientProvider client={queryClient}>

@@ -1,263 +1,316 @@
-import React, { useEffect, useRef } from 'react';
-import { motion, useScroll, useTransform, useSpring } from 'framer-motion';
-import MainLayout from '@/components/MainLayout';
-import { cn } from '@/lib/utils';
-import { ArrowRight } from 'lucide-react';
+import React, { useRef } from 'react';
+import { motion, useAnimationFrame } from 'framer-motion';
+import Navbar from "@/components/Navbar";
 import VentureEcosystem from '@/components/VentureEcosystem';
+import { ArrowRight, CheckCircle2, Palette, Type, Image, CreditCard, Megaphone, Layout } from 'lucide-react';
+
+// Animated particle canvas
+const ParticleField = () => {
+  const canvasRef = useRef<HTMLCanvasElement>(null);
+  const particles = useRef<{ x: number; y: number; size: number; speed: number; alpha: number }[]>([]);
+
+  useAnimationFrame((time) => {
+    const canvas = canvasRef.current;
+    if (!canvas) return;
+    const ctx = canvas.getContext('2d');
+    if (!ctx) return;
+    if (canvas.width !== canvas.clientWidth || canvas.height !== canvas.clientHeight) {
+      canvas.width = canvas.clientWidth;
+      canvas.height = canvas.clientHeight;
+      // Initialize particles
+      particles.current = Array.from({ length: 60 }, () => ({
+        x: Math.random() * canvas.width,
+        y: Math.random() * canvas.height,
+        size: Math.random() * 2 + 0.5,
+        speed: Math.random() * 0.3 + 0.1,
+        alpha: Math.random() * 0.4 + 0.1,
+      }));
+    }
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    particles.current.forEach((p) => {
+      p.y -= p.speed;
+      if (p.y < -10) { p.y = canvas.height + 10; p.x = Math.random() * canvas.width; }
+      ctx.beginPath();
+      ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
+      ctx.fillStyle = `rgba(168, 85, 247, ${p.alpha})`;
+      ctx.fill();
+    });
+  });
+
+  return <canvas ref={canvasRef} className="absolute inset-0 w-full h-full pointer-events-none" />;
+};
+
+const services = [
+  {
+    icon: <Palette className="w-6 h-6" />,
+    title: "Logo & Brand Identity",
+    desc: "A logo that people remember. We design complete brand identities — logo, color palette, typography, and usage guidelines — that make your business look professional and consistent everywhere.",
+    examples: ["Logo design", "Brand guidelines", "Color system", "Typography"],
+  },
+  {
+    icon: <Image className="w-6 h-6" />,
+    title: "Social Media Creatives",
+    desc: "Scroll-stopping posts, stories, reels covers, and ad creatives for Instagram, Facebook, LinkedIn, and more. Designed to your brand and ready to post.",
+    examples: ["Instagram posts", "Story templates", "Facebook ad creatives", "LinkedIn banners"],
+  },
+  {
+    icon: <Megaphone className="w-6 h-6" />,
+    title: "Banner & Ad Creatives",
+    desc: "Digital and print banners, Google Display ads, hoarding designs, and promotional materials that get attention and communicate your message clearly.",
+    examples: ["Google Display ads", "Hoarding designs", "Event banners", "Promotional posters"],
+  },
+  {
+    icon: <CreditCard className="w-6 h-6" />,
+    title: "Business Card & Print Design",
+    desc: "Professional business cards, visiting cards, letterheads, envelopes, and all print collateral that makes your brand look sharp in the physical world.",
+    examples: ["Business cards", "Letterheads", "Envelopes", "ID cards"],
+  },
+  {
+    icon: <Layout className="w-6 h-6" />,
+    title: "Marketing Collateral",
+    desc: "Brochures, flyers, catalogues, pitch decks, and presentations that tell your story and sell your services — beautifully designed and print-ready.",
+    examples: ["Brochures", "Flyers", "Catalogues", "Pitch decks"],
+  },
+  {
+    icon: <Type className="w-6 h-6" />,
+    title: "Brand Refresh & Redesign",
+    desc: "If your current brand no longer represents who you are, we'll modernize it. We audit your existing identity and redesign it to match where your business is going.",
+    examples: ["Brand audit", "Logo redesign", "Identity modernization", "Brand consistency"],
+  },
+];
 
 const DesignStudio = () => {
-    const containerRef = useRef<HTMLDivElement>(null);
-    const { scrollYProgress } = useScroll({
-        target: containerRef,
-        offset: ["start start", "end end"]
-    });
-    const gridOpacity = useTransform(scrollYProgress, [0, 1], [0.05, 0.15]);
+  return (
+    <div className="min-h-screen bg-[#08060f] text-gray-300 font-sans overflow-x-hidden">
+      <Navbar />
 
-    return (
-        <div ref={containerRef} className="min-h-screen bg-background text-foreground font-sans selection:bg-primary/20">
-            {/* Background Grid */}
-            <div className="fixed inset-0 z-0 pointer-events-none">
-                <motion.div
-                    style={{ opacity: gridOpacity }}
-                    className="absolute inset-0 bg-[linear-gradient(to_right,#808080_1px,transparent_1px),linear-gradient(to_bottom,#808080_1px,transparent_1px)] bg-[size:24px_24px]"
-                />
-            </div>
-
-            <div className="relative z-10">
-                {/* SECTION 1 — HERO */}
-                <section className="h-screen flex flex-col justify-center px-6 md:px-12 lg:px-24 max-w-screen-2xl mx-auto">
-                    <div className="max-w-4xl">
-                        <motion.h1
-                            initial={{ opacity: 0, y: 20 }}
-                            animate={{ opacity: 1, y: 0 }}
-                            transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
-                            className="text-6xl md:text-8xl font-bold tracking-tighter mb-6"
-                        >
-                            Design as Infrastructure
-                        </motion.h1>
-                        <motion.p
-                            initial={{ opacity: 0 }}
-                            animate={{ opacity: 1 }}
-                            transition={{ duration: 0.8, delay: 0.2, ease: [0.16, 1, 0.3, 1] }}
-                            className="text-xl md:text-2xl text-muted-foreground font-mono"
-                        >
-                            Dropwing Design Studio<br />
-                            Design systems for institutions, not campaigns.
-                        </motion.p>
-                    </div>
-                    <motion.div
-                        initial={{ opacity: 0 }}
-                        animate={{ opacity: 1 }}
-                        transition={{ duration: 0.8, delay: 0.4 }}
-                        className="absolute bottom-12 left-6 md:left-12 lg:left-24 text-sm font-mono text-muted-foreground/60"
-                    >
-                        Identity, communication, and visual control for long-term organizations.
-                    </motion.div>
-                </section>
-
-                {/* SECTION 2 — WHAT DESIGN MEANS HERE */}
-                <section className="py-24 px-6 md:px-12 lg:px-24 max-w-screen-2xl mx-auto">
-                    <div className="grid grid-cols-1 gap-12">
-                        <div className="space-y-4">
-                            <h2 className="text-sm font-mono text-muted-foreground mb-8">Not Aesthetics. Control.</h2>
-                            {["Design is decision-making.", "Visuals enforce hierarchy.", "Consistency builds trust.", "Noise erodes authority."].map((text, i) => (
-                                <motion.div
-                                    key={i}
-                                    initial={{ opacity: 0.3 }}
-                                    whileInView={{ opacity: 1 }}
-                                    viewport={{ margin: "-20% 0px -20% 0px" }}
-                                    className="text-4xl md:text-6xl font-bold tracking-tight"
-                                >
-                                    {text}
-                                </motion.div>
-                            ))}
-                        </div>
-                    </div>
-                </section>
-
-                {/* SECTION 3 — DESIGN DOMAINS */}
-                <section className="py-24 px-6 md:px-12 lg:px-24 max-w-screen-2xl mx-auto">
-                    <h2 className="text-sm font-mono text-muted-foreground mb-16">What the Studio Owns</h2>
-                    <div className="grid grid-cols-1 border-t border-border">
-                        {[
-                            { title: "Brand Identity Systems", desc: "So the organization looks the same even when people change." },
-                            { title: "Communication & Messaging Architecture", desc: "Verbal consistency across all institutional layers." },
-                            { title: "Visual Governance (Templates, Controls)", desc: "Enforcing hierarchy through unbreaking rules." },
-                            { title: "Campaign Systems (Not campaigns)", desc: "Structures that allow others to execute campaigns." },
-                            { title: "Long-Horizon Brand Stewardship", desc: "Protecting the asset from entropy over decades." }
-                        ].map((item, i) => (
-                            <motion.div
-                                key={i}
-                                initial="initial"
-                                whileHover="hover"
-                                className="group border-b border-border py-8 flex flex-col md:flex-row md:items-baseline relative overflow-hidden"
-                            >
-                                <motion.div
-                                    variants={{ initial: { opacity: 0, height: 0 }, hover: { opacity: 1, height: '100%' } }}
-                                    className="absolute left-0 top-0 w-1 bg-primary"
-                                />
-                                <h3 className="text-2xl md:text-3xl font-bold md:w-1/2 group-hover:translate-x-4 transition-transform duration-300">
-                                    {item.title}
-                                </h3>
-                                <p className="text-muted-foreground mt-2 md:mt-0 font-mono text-sm md:w-1/2 group-hover:text-foreground transition-colors duration-300">
-                                    {item.desc}
-                                </p>
-                            </motion.div>
-                        ))}
-                    </div>
-                </section>
-
-                {/* SECTION 4 — HOW DESIGN IS BUILT */}
-                <section className="py-24 px-6 md:px-12 lg:px-24 bg-muted/20">
-                    <div className="max-w-screen-2xl mx-auto">
-                        <h2 className="text-sm font-mono text-muted-foreground mb-16">Systems, Not Artifacts</h2>
-
-                        <div className="space-y-12">
-                            {[
-                                { title: "System First", outcome: "No asset is designed without its lifecycle defined." },
-                                { title: "No One-Offs", outcome: "Everything must be repeatable by someone else." },
-                                { title: "Governance Over Taste", outcome: "Decisions are documented, not argued." }
-                            ].map((principle, i) => (
-                                <div key={i} className="flex flex-col md:flex-row border-t border-dashed border-border pt-6 items-start md:items-center">
-                                    <span className="text-xs font-mono text-muted-foreground/50 mr-8">0{i + 1}</span>
-                                    <h3 className="text-xl font-bold w-full md:w-1/3 mb-2 md:mb-0">{principle.title}</h3>
-                                    <p className="font-mono text-muted-foreground text-sm w-full md:w-2/3">{principle.outcome}</p>
-                                </div>
-                            ))}
-                            <div className="border-t border-dashed border-border"></div>
-                        </div>
-                    </div>
-                </section>
-
-                {/* SECTION 5 — PROOF WITHOUT PORTFOLIO */}
-                <section className="py-24 px-6 md:px-12 lg:px-24 max-w-screen-2xl mx-auto">
-                    <h2 className="text-sm font-mono text-muted-foreground mb-16">Design That Holds</h2>
-                    <div className="grid grid-cols-1 md:grid-cols-2 gap-16">
-                        <div>
-                            <h3 className="text-3xl font-bold mb-6">No Dribbble. No Behance. No Mockups.</h3>
-                            <p className="text-muted-foreground font-mono">
-                                Our work isn't for likes. It's for longevity. <br />
-                                We build systems that survive without us.
-                            </p>
-                        </div>
-                        <div className="space-y-8 font-mono border-l-2 border-primary/20 pl-8">
-                            {[
-                                "Multi-year brand systems",
-                                "Institutional communications",
-                                "Cross-team design consistency",
-                                "Governance templates"
-                            ].map((item, i) => (
-                                <motion.div
-                                    key={i}
-                                    initial={{ opacity: 0, x: -10 }}
-                                    whileInView={{ opacity: 1, x: 0 }}
-                                    viewport={{ margin: "-10%" }}
-                                    transition={{ delay: i * 0.1 }}
-                                    className="text-lg"
-                                >
-                                    {item}
-                                </motion.div>
-                            ))}
-                        </div>
-                    </div>
-                </section>
-
-                {/* SECTION 6 — RELATIONSHIP MODEL */}
-                <section className="min-h-[80vh] flex flex-col justify-center py-24 px-6 md:px-12 lg:px-24 bg-foreground text-background">
-                    <div className="max-w-screen-xl mx-auto w-full">
-                        <h2 className="text-sm font-mono text-muted-foreground/80 mb-24">We Stay With the Brand</h2>
-
-                        <div className="space-y-24">
-                            <motion.div
-                                initial={{ opacity: 0.5 }}
-                                whileInView={{ opacity: 1, fontWeight: 700 }}
-                                viewport={{ margin: "-20% 0px -20% 0px" }}
-                                className="text-4xl md:text-6xl font-light transition-all duration-700"
-                            >
-                                Brands degrade without stewardship.
-                            </motion.div>
-                            <motion.div
-                                initial={{ opacity: 0.5 }}
-                                whileInView={{ opacity: 1, fontWeight: 700 }}
-                                viewport={{ margin: "-20% 0px -20% 0px" }}
-                                className="text-4xl md:text-6xl font-light transition-all duration-700"
-                            >
-                                Design is not done at launch.
-                            </motion.div>
-                            <motion.div
-                                initial={{ opacity: 0.5 }}
-                                whileInView={{ opacity: 1, fontWeight: 700 }}
-                                viewport={{ margin: "-20% 0px -20% 0px" }}
-                                className="text-4xl md:text-6xl font-light transition-all duration-700"
-                            >
-                                We remain custodians.
-                            </motion.div>
-                        </div>
-                    </div>
-                </section>
-
-                {/* SECTION 7 — CONNECTION TO DROPWING */}
-                <section className="py-24 px-6 md:px-12 lg:px-24 max-w-screen-2xl mx-auto">
-                    <h2 className="text-sm font-mono text-muted-foreground mb-16">Why Design Lives Inside Dropwing</h2>
-
-                    <div className="flex flex-col md:flex-row justify-between items-center gap-12 md:gap-24">
-                        <motion.div
-                            initial={{ x: -20, opacity: 0 }}
-                            whileInView={{ x: 0, opacity: 1 }}
-                            viewport={{ margin: "-20%" }}
-                            transition={{ duration: 0.8 }}
-                            className="w-full md:w-1/2 text-right md:pr-12 border-r border-border/50"
-                        >
-                            <h3 className="text-2xl font-bold mb-4">Strategy Intent</h3>
-                            <p className="text-muted-foreground font-mono">
-                                Design Studio aligns with strategy, tech, and execution.
-                                It does not operate alone.
-                            </p>
-                        </motion.div>
-
-                        <motion.div
-                            initial={{ x: 20, opacity: 0 }}
-                            whileInView={{ x: 0, opacity: 1 }}
-                            viewport={{ margin: "-20%" }}
-                            transition={{ duration: 0.8 }}
-                            className="w-full md:w-1/2 md:pl-12"
-                        >
-                            <h3 className="text-2xl font-bold mb-4">Visual Enforcement</h3>
-                            <p className="text-muted-foreground font-mono">
-                                Is part of the same governance system.
-                                There is no misalignment.
-                            </p>
-                        </motion.div>
-                    </div>
-
-                    <motion.div
-                        initial={{ opacity: 0, height: 0 }}
-                        whileInView={{ opacity: 1, height: 100 }}
-                        viewport={{ margin: "-10%" }}
-                        className="w-px bg-primary mx-auto mt-12 mb-24"
-                    />
-                </section>
-
-                {/* Venture Ecosystem cross-links */}
-                <VentureEcosystem currentVenture="Design Studio" />
-
-                {/* SECTION 8 — THE GATE */}
-                <section className="py-32 px-6 md:px-12 lg:px-24 max-w-screen-2xl mx-auto flex flex-col items-center text-center">
-                    <h2 className="text-sm font-mono text-muted-foreground mb-8">Discuss Design Stewardship</h2>
-
-                    <a href="/contact" className="group">
-                        <h1 className="text-5xl md:text-7xl font-bold tracking-tighter mb-8 group-hover:tracking-tight transition-all duration-500">
-                            Enter Responsibility
-                        </h1>
-                        <div className="flex items-center justify-center gap-4 text-muted-foreground font-mono group-hover:text-primary transition-colors">
-                            <span>They will protect my brand</span>
-                            <ArrowRight className="w-4 h-4 group-hover:translate-x-2 transition-transform" />
-                        </div>
-                    </a>
-                </section>
-            </div>
+      {/* HERO */}
+      <section className="relative h-screen flex items-center justify-center overflow-hidden border-b border-white/5">
+        <ParticleField />
+        <div className="absolute inset-0 pointer-events-none">
+          <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[700px] h-[700px] bg-purple-600/10 rounded-full blur-[160px]" />
         </div>
-    );
+
+        <div className="container mx-auto px-6 relative z-10 max-w-[1200px]">
+          <div className="max-w-3xl">
+            <motion.div
+              initial={{ opacity: 0, y: 16 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6 }}
+              className="flex items-center gap-3 mb-8"
+            >
+              <div className="w-2 h-2 bg-purple-400 rounded-full animate-pulse" />
+              <span className="text-xs font-mono text-purple-400 uppercase tracking-widest">
+                Dropwing Design Studio · Creative & Branding
+              </span>
+            </motion.div>
+
+            <div className="overflow-hidden mb-4">
+              <motion.h1
+                initial={{ y: "100%", opacity: 0 }}
+                animate={{ y: 0, opacity: 1 }}
+                transition={{ duration: 1, ease: [0.16, 1, 0.3, 1], delay: 0.1 }}
+                className="text-5xl md:text-7xl xl:text-8xl font-bold tracking-tighter text-white leading-[0.9]"
+              >
+                Visuals that make
+              </motion.h1>
+            </div>
+            <div className="overflow-hidden mb-10">
+              <motion.h1
+                initial={{ y: "100%", opacity: 0 }}
+                animate={{ y: 0, opacity: 1 }}
+                transition={{ duration: 1, ease: [0.16, 1, 0.3, 1], delay: 0.2 }}
+                className="text-5xl md:text-7xl xl:text-8xl font-bold tracking-tighter text-transparent [-webkit-text-stroke:1px_rgba(168,85,247,0.7)] leading-[0.9]"
+              >
+                people stop.
+              </motion.h1>
+            </div>
+
+            <motion.p
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.8, delay: 0.5 }}
+              className="text-xl md:text-2xl text-gray-400 font-light leading-relaxed max-w-2xl border-l-2 border-purple-900/50 pl-6 mb-12"
+            >
+              From your logo and brand identity to every social media post, banner, and business card — we design everything your business needs to look great and be remembered.
+            </motion.p>
+
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.7, delay: 0.7 }}
+              className="flex flex-col sm:flex-row gap-4"
+            >
+              <a href="mailto:design@dropwinggroups.com" className="group inline-flex items-center gap-3 px-8 py-4 bg-purple-600 text-white font-bold text-sm tracking-[0.15em] uppercase hover:bg-purple-500 transition-colors rounded-sm">
+                Start a Design Project
+                <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+              </a>
+            </motion.div>
+          </div>
+        </div>
+      </section>
+
+      {/* WHAT WE DESIGN */}
+      <section className="py-24 md:py-32">
+        <div className="max-w-[1200px] mx-auto px-6 md:px-12">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.7 }}
+            className="mb-16"
+          >
+            <span className="text-xs font-mono text-purple-400 uppercase tracking-widest">What We Design</span>
+            <h2 className="text-4xl md:text-5xl font-bold text-white tracking-tighter mt-4 max-w-2xl">
+              Every creative asset your brand needs.
+            </h2>
+          </motion.div>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+            {services.map((service, i) => (
+              <motion.div
+                key={service.title}
+                initial={{ opacity: 0, y: 24 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.5, delay: i * 0.08 }}
+                className="group p-6 bg-white/[0.03] border border-white/8 hover:border-purple-500/30 rounded-lg transition-all duration-300 hover:bg-purple-500/5"
+              >
+                <div className="flex items-center gap-3 mb-4">
+                  <span className="text-purple-400">{service.icon}</span>
+                  <h3 className="text-white font-bold">{service.title}</h3>
+                </div>
+                <p className="text-gray-400 text-sm leading-relaxed mb-5">{service.desc}</p>
+                <div className="flex flex-wrap gap-2">
+                  {service.examples.map(e => (
+                    <span key={e} className="px-2 py-0.5 text-[10px] font-mono text-purple-400/70 bg-purple-500/10 rounded border border-purple-500/10">{e}</span>
+                  ))}
+                </div>
+              </motion.div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* WHY DESIGN MATTERS */}
+      <section className="py-24 md:py-32 border-t border-white/5 bg-white/[0.01]">
+        <div className="max-w-[1200px] mx-auto px-6 md:px-12">
+          <div className="grid md:grid-cols-2 gap-12 md:gap-24 items-center">
+            <motion.div
+              initial={{ opacity: 0, x: -20 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.7 }}
+            >
+              <span className="text-xs font-mono text-purple-400 uppercase tracking-widest">Our Approach</span>
+              <h2 className="text-4xl md:text-5xl font-bold text-white tracking-tighter mt-4 mb-6 leading-tight">
+                Design that works — not just looks good.
+              </h2>
+              <p className="text-gray-400 leading-relaxed mb-6">
+                Great design isn't just about being pretty. It's about communicating clearly, building trust, and making your business stand out from every competitor in your market.
+              </p>
+              <p className="text-gray-300 leading-relaxed">
+                Every project we take starts with understanding your business, your audience, and your goals. Then we design with purpose — not just aesthetics.
+              </p>
+            </motion.div>
+            <motion.div
+              initial={{ opacity: 0, x: 20 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.7, delay: 0.1 }}
+              className="space-y-3"
+            >
+              {[
+                "Brand identity that people recognize instantly",
+                "Social media creatives that stop the scroll",
+                "Print materials that make you look credible",
+                "Consistent design across every touchpoint",
+                "Fast turnaround and unlimited revisions until you love it",
+                "Works for businesses of every size, from solopreneurs to enterprises",
+              ].map((item) => (
+                <div key={item} className="flex items-start gap-3 text-gray-300">
+                  <CheckCircle2 className="w-4 h-4 text-purple-400 flex-shrink-0 mt-0.5" />
+                  <span className="text-sm">{item}</span>
+                </div>
+              ))}
+            </motion.div>
+          </div>
+        </div>
+      </section>
+
+      {/* HOW WE WORK */}
+      <section className="py-24 md:py-32 border-t border-white/5">
+        <div className="max-w-[1200px] mx-auto px-6 md:px-12">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.7 }}
+            className="mb-16 text-center"
+          >
+            <span className="text-xs font-mono text-purple-400 uppercase tracking-widest">Our Process</span>
+            <h2 className="text-4xl md:text-5xl font-bold text-white tracking-tighter mt-4">
+              Simple. Fast. No guesswork.
+            </h2>
+          </motion.div>
+          <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
+            {[
+              { step: "01", title: "Brief", desc: "Tell us about your business, target audience, and design goals." },
+              { step: "02", title: "Concept", desc: "We create initial concepts based on your brief and industry." },
+              { step: "03", title: "Refine", desc: "You give feedback. We refine until it's exactly right." },
+              { step: "04", title: "Deliver", desc: "Final files delivered in all formats you need, ready to use." },
+            ].map((item, i) => (
+              <motion.div
+                key={item.step}
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.5, delay: i * 0.1 }}
+                className="text-center"
+              >
+                <div className="inline-flex items-center justify-center w-12 h-12 rounded-full border border-purple-500/30 bg-purple-500/10 text-purple-400 font-bold text-sm mb-4 mx-auto">
+                  {item.step}
+                </div>
+                <h3 className="text-white font-bold mb-2">{item.title}</h3>
+                <p className="text-gray-400 text-sm leading-relaxed">{item.desc}</p>
+              </motion.div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* CTA */}
+      <section className="py-32 border-t border-white/5 relative overflow-hidden">
+        <div className="absolute inset-0 pointer-events-none">
+          <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[500px] h-[500px] bg-purple-600/8 rounded-full blur-[120px]" />
+        </div>
+        <div className="relative z-10 max-w-[1200px] mx-auto px-6 md:px-12 text-center">
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.8 }}
+          >
+            <h2 className="text-4xl md:text-6xl font-bold text-white tracking-tighter mb-6">
+              Ready to elevate your brand?
+            </h2>
+            <p className="text-gray-400 max-w-lg mx-auto text-lg leading-relaxed mb-10">
+              Let's create something that makes your business look exactly as good as it is.
+            </p>
+            <a
+              href="mailto:design@dropwinggroups.com"
+              className="group inline-flex items-center gap-3 px-10 py-5 bg-purple-600 text-white font-bold text-sm tracking-[0.15em] uppercase hover:bg-purple-500 transition-colors rounded-sm"
+            >
+              Start Your Design Project
+              <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+            </a>
+          </motion.div>
+        </div>
+      </section>
+
+      <VentureEcosystem currentVenture="Dropwing Design Studio" />
+    </div>
+  );
 };
 
 export default DesignStudio;

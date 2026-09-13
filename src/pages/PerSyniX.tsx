@@ -1,327 +1,326 @@
-import React, { useRef, useMemo } from "react";
-import { motion, useScroll, useTransform, useAnimationFrame } from "framer-motion";
+import React, { useRef } from "react";
+import { motion, useAnimationFrame } from "framer-motion";
 import Navbar from "@/components/Navbar";
-import { Eye, ShieldCheck, Scale, FileText, Lock, AlertTriangle, ArrowRight, BrainCircuit } from "lucide-react";
 import VentureEcosystem from "@/components/VentureEcosystem";
+import { ArrowRight, CheckCircle2, GitMerge, Bot, BrainCircuit, Workflow, BarChart3, Zap } from "lucide-react";
 
-// --- The Radar Sweep Component ---
-const RadarField = () => {
-    const canvasRef = useRef<HTMLCanvasElement>(null);
-    const sweepSpeed = 0.0005; // Extremely slow sweep
+// Animated circuit / node canvas
+const CircuitCanvas = () => {
+  const canvasRef = useRef<HTMLCanvasElement>(null);
 
-    useAnimationFrame((time) => {
-        const canvas = canvasRef.current;
-        if (!canvas) return;
-        const ctx = canvas.getContext("2d");
-        if (!ctx) return;
+  useAnimationFrame((time) => {
+    const canvas = canvasRef.current;
+    if (!canvas) return;
+    const ctx = canvas.getContext("2d");
+    if (!ctx) return;
+    if (canvas.width !== canvas.clientWidth || canvas.height !== canvas.clientHeight) {
+      canvas.width = canvas.clientWidth;
+      canvas.height = canvas.clientHeight;
+    }
+    const w = canvas.width;
+    const h = canvas.height;
+    ctx.clearRect(0, 0, w, h);
 
-        // Resize
-        if (canvas.width !== canvas.clientWidth || canvas.height !== canvas.clientHeight) {
-            canvas.width = canvas.clientWidth;
-            canvas.height = canvas.clientHeight;
-        }
+    // Flowing data lines
+    const t = time * 0.0006;
+    const lines = 8;
+    for (let i = 0; i < lines; i++) {
+      const y = (h / lines) * i + (h / lines) * 0.5;
+      const progress = ((t + i * 0.12) % 1);
+      const x = progress * w;
+      const alpha = Math.sin(progress * Math.PI) * 0.15;
+      if (alpha < 0.01) continue;
+      ctx.beginPath();
+      ctx.arc(x, y + Math.sin(t * 2 + i) * 20, 3, 0, Math.PI * 2);
+      ctx.fillStyle = `rgba(16, 185, 129, ${alpha})`;
+      ctx.fill();
 
-        const width = canvas.width;
-        const height = canvas.height;
-        const centerX = width / 2;
-        const centerY = height / 2;
-        const maxRadius = Math.max(width, height) * 0.6;
+      // Trail
+      const grad = ctx.createLinearGradient(x - 80, 0, x, 0);
+      grad.addColorStop(0, "rgba(16, 185, 129, 0)");
+      grad.addColorStop(1, `rgba(16, 185, 129, ${alpha * 0.5})`);
+      ctx.beginPath();
+      ctx.moveTo(x - 80, y + Math.sin(t * 2 + i) * 20);
+      ctx.lineTo(x, y + Math.sin(t * 2 + i) * 20);
+      ctx.strokeStyle = grad;
+      ctx.lineWidth = 1;
+      ctx.stroke();
+    }
+  });
 
-        ctx.fillStyle = "#0a0a0a"; // Almost pure black
-        ctx.clearRect(0, 0, width, height);
-
-        // Circular Grid (Static)
-        ctx.strokeStyle = "rgba(16, 185, 129, 0.05)"; // Emerald-500, very faint
-        ctx.lineWidth = 1;
-
-        [0.2, 0.4, 0.6, 0.8, 1].forEach(r => {
-            ctx.beginPath();
-            ctx.arc(centerX, centerY, maxRadius * r, 0, Math.PI * 2);
-            ctx.stroke();
-        });
-
-        // Crosshairs
-        ctx.beginPath();
-        ctx.moveTo(centerX, centerY - maxRadius);
-        ctx.lineTo(centerX, centerY + maxRadius);
-        ctx.moveTo(centerX - maxRadius, centerY);
-        ctx.lineTo(centerX + maxRadius, centerY);
-        ctx.stroke();
-
-        // The Sweep
-        const angle = (time * sweepSpeed) % (Math.PI * 2);
-
-        ctx.save();
-        ctx.translate(centerX, centerY);
-        ctx.rotate(angle);
-
-        // Sweep Gradient
-        const gradient = ctx.createLinearGradient(0, 0, maxRadius, 0);
-        gradient.addColorStop(0, "rgba(16, 185, 129, 0)");
-        gradient.addColorStop(0.8, "rgba(16, 185, 129, 0.05)");
-        gradient.addColorStop(1, "rgba(16, 185, 129, 0.2)"); // Leading edge
-
-        ctx.fillStyle = gradient;
-        ctx.beginPath();
-        ctx.moveTo(0, 0);
-        ctx.arc(0, 0, maxRadius, 0, 0.2); // Small slice
-        ctx.lineTo(0, 0);
-        ctx.fill();
-
-        // Leading Line
-        ctx.beginPath();
-        ctx.moveTo(0, 0);
-        ctx.lineTo(maxRadius, 0);
-        ctx.strokeStyle = "rgba(16, 185, 129, 0.3)";
-        ctx.lineWidth = 1;
-        ctx.stroke();
-
-        ctx.restore();
-    });
-
-    return <canvas ref={canvasRef} className="absolute inset-0 w-full h-full opacity-60 pointer-events-none" />;
+  return <canvas ref={canvasRef} className="absolute inset-0 w-full h-full pointer-events-none opacity-70" />;
 };
+
+const services = [
+  {
+    icon: <GitMerge className="w-6 h-6" />,
+    title: "Workflow Automation",
+    desc: "We map your existing manual processes and automate them using n8n, Make (formerly Integromat), Zapier, and custom integrations. Connect your apps, eliminate repetitive tasks, and save hours every week.",
+    tools: ["n8n", "Make", "Zapier", "Custom APIs"],
+  },
+  {
+    icon: <BrainCircuit className="w-6 h-6" />,
+    title: "AI & Machine Learning",
+    desc: "We build and deploy AI models tailored to your specific business needs — from document processing and classification to predictive analytics and recommendation engines.",
+    tools: ["Python", "TensorFlow", "OpenAI API", "Custom ML"],
+  },
+  {
+    icon: <Bot className="w-6 h-6" />,
+    title: "Chatbots & AI Assistants",
+    desc: "Intelligent chatbots and AI assistants for your website, WhatsApp, Telegram, or internal tools. They handle inquiries, qualify leads, book appointments, and answer questions 24/7.",
+    tools: ["ChatGPT API", "Dialogflow", "WhatsApp API", "Web Chat"],
+  },
+  {
+    icon: <Workflow className="w-6 h-6" />,
+    title: "Business Process Automation",
+    desc: "From CRM updates and invoice generation to email sequences and report creation — we automate the backend processes that eat up your team's time and cause errors.",
+    tools: ["CRM automation", "ERP integration", "Document automation", "Notifications"],
+  },
+  {
+    icon: <BarChart3 className="w-6 h-6" />,
+    title: "Data Intelligence & Analytics",
+    desc: "Turn raw data into actionable insights. We build automated dashboards, data pipelines, and reporting systems that give you a clear picture of your business performance in real time.",
+    tools: ["Power BI", "Google Looker", "Python", "SQL"],
+  },
+  {
+    icon: <Zap className="w-6 h-6" />,
+    title: "AI Strategy & Consulting",
+    desc: "Not sure where to start with AI? We audit your business, identify the highest-impact automation opportunities, and build a clear roadmap for implementing AI in your operations.",
+    tools: ["AI audit", "ROI analysis", "Implementation roadmap", "Training"],
+  },
+];
 
 const PerSyniX = () => {
-    return (
-        <div className="min-h-screen bg-[#050505] text-gray-300 font-sans selection:bg-emerald-900/30 selection:text-emerald-50 overflow-x-hidden">
-            <Navbar />
+  return (
+    <div className="min-h-screen bg-[#050a08] text-gray-300 font-sans overflow-x-hidden">
+      <Navbar />
 
-            {/* 1. HERO — INTELLIGENCE WITHOUT ILLUSION */}
-            <section className="relative h-screen flex items-center justify-center overflow-hidden border-b border-white/5">
-                <RadarField />
-
-                <div className="container mx-auto px-6 relative z-10">
-                    <div className="max-w-4xl">
-                        <div className="flex items-center gap-3 mb-8">
-                            <div className="w-2 h-2 bg-emerald-500 rounded-full animate-pulse" />
-                            <span className="text-xs font-mono text-emerald-500 uppercase tracking-widest">
-                                System Status: Monitoring
-                            </span>
-                        </div>
-
-                        <h1 className="text-5xl md:text-7xl font-bold tracking-tighter text-white mb-8">
-                            Intelligence, <br />
-                            Without Illusion.
-                        </h1>
-                        <p className="text-xl md:text-2xl text-gray-400 font-light leading-relaxed max-w-2xl border-l-2 border-emerald-900/30 pl-6">
-                            PerSyniX applies machine intelligence to real-world systems.
-                            Designed for environments where errors compound and accountability is non-negotiable.
-                        </p>
-                    </div>
-                </div>
-            </section>
-
-            {/* 2. REALITY CHECK — THE TRUTHS */}
-            <section className="py-32 relative z-10 border-b border-white/5">
-                <div className="container mx-auto px-6 grid grid-cols-1 md:grid-cols-2 gap-16">
-                    <div>
-                        <h2 className="text-xs font-mono text-gray-500 uppercase tracking-widest mb-4">
-                            Operational Reality
-                        </h2>
-                        <h3 className="text-3xl font-bold text-white mb-6">
-                            Why Most AI Fails Institutions
-                        </h3>
-                        <p className="text-lg text-gray-400 leading-relaxed mb-8">
-                            Intelligence without governance is liability. The standard approach to AI deployment introduces unacceptable operational risk.
-                        </p>
-                    </div>
-
-                    <div className="space-y-6">
-                        <RealityItem text="Models hallucinate." />
-                        <RealityItem text="Data drifts." />
-                        <RealityItem text="Context decays." />
-                        <RealityItem text="Accountability disappears." />
-                    </div>
-                </div>
-            </section>
-
-            {/* 3. APPLIED DOMAINS */}
-            <section className="py-32 bg-white/[0.02] border-b border-white/5">
-                <div className="container mx-auto px-6">
-                    <div className="mb-16">
-                        <span className="text-xs font-mono text-gray-500 uppercase tracking-widest block mb-4">
-                            Decision Domains
-                        </span>
-                        <h2 className="text-3xl font-bold text-white">Applied Intelligence</h2>
-                    </div>
-
-                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-px bg-white/10">
-                        <DomainCard
-                            icon={<Scale className="w-6 h-6" />}
-                            title="Decision Support"
-                            desc="Augmenting executive judgment with high-fidelity probabilistic modeling."
-                        />
-                        <DomainCard
-                            icon={<AlertTriangle className="w-6 h-6" />}
-                            title="Risk & Predictive"
-                            desc="Early-warning systems for operational anomalies and market shifts."
-                        />
-                        <DomainCard
-                            icon={<BrainCircuit className="w-6 h-6" />}
-                            title="Intelligence Pipelines"
-                            desc="Converting unstructured data lakes into structured, actionable insight."
-                        />
-                        <DomainCard
-                            icon={<ShieldCheck className="w-6 h-6" />}
-                            title="Model Governance"
-                            desc="Full lifecycle management, auditability, and compliance enforcement."
-                        />
-                        <DomainCard
-                            icon={<Lock className="w-6 h-6" />}
-                            title="Private Deployment"
-                            desc="Air-gapped and on-premise LLM instances. Zero data egress."
-                        />
-                    </div>
-                </div>
-            </section>
-
-            {/* 4. ENGINEERING JUDGMENT — PRINCIPLES */}
-            <section className="py-32 border-b border-white/5">
-                <div className="container mx-auto px-6 max-w-4xl">
-                    <div className="text-center mb-20">
-                        <h2 className="text-3xl font-bold text-white mb-4">Engineering Judgment</h2>
-                        <p className="text-gray-500 font-mono text-sm">POLICY: ENG-AI-001</p>
-                    </div>
-
-                    <div className="space-y-12">
-                        <Principle
-                            title="No Black Boxes"
-                            text="Every model must be explainable. If we cannot trace the logic, we do not deploy the system."
-                        />
-                        <Principle
-                            title="Human-in-the-Loop by Default"
-                            text="Automation assists decisions; it does not inherit responsibility. The chain of command remains human."
-                        />
-                        <Principle
-                            title="Context as First-Class Input"
-                            text="Generic models fail specific tasks. We engineer context injects to ground intelligence in institutional reality."
-                        />
-                    </div>
-                </div>
-            </section>
-
-            {/* 5. GOVERNANCE & RISK */}
-            <section className="py-32 bg-[#080808] border-b border-white/5">
-                <div className="container mx-auto px-6 grid grid-cols-1 md:grid-cols-2 gap-20">
-                    <div className="border-l-4 border-emerald-900/50 pl-8">
-                        <h2 className="text-3xl font-bold text-white mb-6">AI That Survives Scrutiny</h2>
-                        <p className="text-lg text-gray-400 leading-relaxed mb-8">
-                            For government, finance, and critical infrastructure, "cool" is not a metric. Auditability is.
-                        </p>
-                        <ul className="space-y-3 font-mono text-sm text-gray-500">
-                            <li className="flex items-center gap-3">
-                                <span className="text-emerald-500">✓</span> Immutable Audit Trails
-                            </li>
-                            <li className="flex items-center gap-3">
-                                <span className="text-emerald-500">✓</span> Full Data Lineage
-                            </li>
-                            <li className="flex items-center gap-3">
-                                <span className="text-emerald-500">✓</span> Role-Based Access Control
-                            </li>
-                            <li className="flex items-center gap-3">
-                                <span className="text-emerald-500">✓</span> Decommissioning Protocols
-                            </li>
-                        </ul>
-                    </div>
-
-                    <div className="flex flex-col justify-center">
-                        <div className="p-8 border border-white/10 bg-white/[0.02]">
-                            <h3 className="text-xl font-bold text-white mb-4 flex items-center gap-3">
-                                <FileText className="w-5 h-5 text-emerald-500" />
-                                Regulatory Alignment
-                            </h3>
-                            <p className="text-gray-400 text-sm leading-relaxed">
-                                Our architectures are designed to anticipate and satisfy emerging global AI regulation frames (EU AI Act, NIST RMF).
-                                If it cannot be audited, it is not deployed.
-                            </p>
-                        </div>
-                    </div>
-                </div>
-            </section>
-
-            {/* 6. STRATEGIC LINK */}
-            <section className="py-32 border-b border-white/5">
-                <div className="container mx-auto px-6 text-center">
-                    <h2 className="text-sm font-mono text-gray-500 uppercase tracking-widest mb-12">
-                        Unified Operating Model
-                    </h2>
-
-                    <div className="flex flex-col md:flex-row items-center justify-center gap-8 opacity-80">
-                        <div className="text-gray-600 font-bold text-xl">Strategy (Dropwing)</div>
-                        <ArrowRight className="text-gray-700 hidden md:block" />
-                        <ArrowRight className="text-gray-700 md:hidden rotate-90" />
-                        <div className="text-gray-400 font-bold text-xl">Execution (WebForge)</div>
-                        <ArrowRight className="text-gray-700 hidden md:block" />
-                        <ArrowRight className="text-gray-700 md:hidden rotate-90" />
-                        <div className="text-white font-bold text-xl">Intelligence (PerSyniX)</div>
-                    </div>
-                    <p className="mt-8 text-gray-500 max-w-2xl mx-auto">
-                        Intelligence is not a silo. It is embedded directly into the execution fabric of the enterprise.
-                    </p>
-                </div>
-            </section>
-
-            {/* 7. BOUNDARIES */}
-            <section className="py-20 bg-emerald-900/10 border-b border-white/5 text-center">
-                <div className="container mx-auto px-6">
-                    <h2 className="text-2xl font-bold text-emerald-500 mb-6 font-mono">Boundaries Are Intelligence</h2>
-                    <div className="flex flex-wrap justify-center gap-4 text-sm font-mono text-gray-400">
-                        <span className="px-4 py-2 border border-white/10 bg-black/50 line-through decoration-red-500/50">Generic Chatbots</span>
-                        <span className="px-4 py-2 border border-white/10 bg-black/50 line-through decoration-red-500/50">"Magic" Demos</span>
-                        <span className="px-4 py-2 border border-white/10 bg-black/50 line-through decoration-red-500/50">Public Data Leaks</span>
-                        <span className="px-4 py-2 border border-white/10 bg-black/50 line-through decoration-red-500/50">Undefined Ownership</span>
-                    </div>
-                </div>
-            </section>
-
-            {/* Venture Ecosystem cross-links */}
-            <VentureEcosystem currentVenture="PerSyniX" />
-
-            {/* 8. THE GATE */}
-            <section className="py-40 bg-black flex items-center justify-center">
-                <a href="mailto:intelligence@dropwinggroups.com" className="group text-center">
-                    <p className="text-xs font-mono text-gray-600 uppercase tracking-widest mb-4 group-hover:text-emerald-500/70 transition-colors">
-                        Consultative Access
-                    </p>
-                    <h2 className="text-3xl md:text-5xl font-light text-white group-hover:text-white transition-colors border-b border-transparent group-hover:border-emerald-500/30 pb-2">
-                        Discuss Applied Intelligence
-                    </h2>
-                </a>
-            </section>
+      {/* HERO */}
+      <section className="relative h-screen flex items-center justify-center overflow-hidden border-b border-white/5">
+        <CircuitCanvas />
+        <div className="absolute inset-0 pointer-events-none">
+          <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-emerald-600/8 rounded-full blur-[150px]" />
         </div>
-    );
+
+        <div className="container mx-auto px-6 relative z-10 max-w-[1200px]">
+          <div className="max-w-3xl">
+            <motion.div
+              initial={{ opacity: 0, y: 16 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6 }}
+              className="flex items-center gap-3 mb-8"
+            >
+              <div className="w-2 h-2 bg-emerald-400 rounded-full animate-pulse" />
+              <span className="text-xs font-mono text-emerald-400 uppercase tracking-widest">
+                Persynix · AI & Automation
+              </span>
+            </motion.div>
+
+            <div className="overflow-hidden mb-4">
+              <motion.h1
+                initial={{ y: "100%", opacity: 0 }}
+                animate={{ y: 0, opacity: 1 }}
+                transition={{ duration: 1, ease: [0.16, 1, 0.3, 1], delay: 0.1 }}
+                className="text-5xl md:text-7xl xl:text-8xl font-bold tracking-tighter text-white leading-[0.9]"
+              >
+                Automate the
+              </motion.h1>
+            </div>
+            <div className="overflow-hidden mb-10">
+              <motion.h1
+                initial={{ y: "100%", opacity: 0 }}
+                animate={{ y: 0, opacity: 1 }}
+                transition={{ duration: 1, ease: [0.16, 1, 0.3, 1], delay: 0.2 }}
+                className="text-5xl md:text-7xl xl:text-8xl font-bold tracking-tighter text-transparent [-webkit-text-stroke:1px_rgba(16,185,129,0.7)] leading-[0.9]"
+              >
+                work you hate.
+              </motion.h1>
+            </div>
+
+            <motion.p
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.8, delay: 0.5 }}
+              className="text-xl md:text-2xl text-gray-400 font-light leading-relaxed max-w-2xl border-l-2 border-emerald-900/50 pl-6 mb-12"
+            >
+              We use n8n, Make, Zapier, and custom AI to eliminate manual work, connect your tools, and make your business run smarter — so your team can focus on what actually moves the needle.
+            </motion.p>
+
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.7, delay: 0.7 }}
+              className="flex flex-col sm:flex-row gap-4"
+            >
+              <a href="mailto:automation@dropwinggroups.com" className="group inline-flex items-center gap-3 px-8 py-4 bg-emerald-600 text-white font-bold text-sm tracking-[0.15em] uppercase hover:bg-emerald-500 transition-colors rounded-sm">
+                Automate My Business
+                <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+              </a>
+            </motion.div>
+          </div>
+        </div>
+      </section>
+
+      {/* SERVICES */}
+      <section className="py-24 md:py-32">
+        <div className="max-w-[1200px] mx-auto px-6 md:px-12">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.7 }}
+            className="mb-16"
+          >
+            <span className="text-xs font-mono text-emerald-400 uppercase tracking-widest">What We Build</span>
+            <h2 className="text-4xl md:text-5xl font-bold text-white tracking-tighter mt-4 max-w-2xl">
+              Automation and AI solutions for every part of your business.
+            </h2>
+          </motion.div>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+            {services.map((service, i) => (
+              <motion.div
+                key={service.title}
+                initial={{ opacity: 0, y: 24 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.5, delay: i * 0.08 }}
+                className="group p-6 bg-white/[0.03] border border-white/8 hover:border-emerald-500/30 rounded-lg transition-all duration-300 hover:bg-emerald-500/5"
+              >
+                <div className="flex items-center gap-3 mb-4">
+                  <span className="text-emerald-400">{service.icon}</span>
+                  <h3 className="text-white font-bold">{service.title}</h3>
+                </div>
+                <p className="text-gray-400 text-sm leading-relaxed mb-5">{service.desc}</p>
+                <div className="flex flex-wrap gap-2">
+                  {service.tools.map(t => (
+                    <span key={t} className="px-2 py-0.5 text-[10px] font-mono text-emerald-400/70 bg-emerald-500/10 rounded border border-emerald-500/10">{t}</span>
+                  ))}
+                </div>
+              </motion.div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* WHY AUTOMATE */}
+      <section className="py-24 md:py-32 border-t border-white/5 bg-white/[0.01]">
+        <div className="max-w-[1200px] mx-auto px-6 md:px-12">
+          <div className="grid md:grid-cols-2 gap-12 md:gap-24 items-center">
+            <motion.div
+              initial={{ opacity: 0, x: -20 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.7 }}
+            >
+              <span className="text-xs font-mono text-emerald-400 uppercase tracking-widest">The Impact</span>
+              <h2 className="text-4xl md:text-5xl font-bold text-white tracking-tighter mt-4 mb-6 leading-tight">
+                Your team does more. Your costs go down.
+              </h2>
+              <p className="text-gray-400 leading-relaxed mb-6">
+                The average business wastes 20–30% of its time on tasks that could be automated. That's time your team could spend on sales, product, and growth instead.
+              </p>
+              <p className="text-gray-300 leading-relaxed">
+                We identify those tasks, automate them correctly, and make sure the systems are reliable, monitored, and easy to manage going forward.
+              </p>
+            </motion.div>
+            <motion.div
+              initial={{ opacity: 0, x: 20 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.7, delay: 0.1 }}
+              className="space-y-3"
+            >
+              {[
+                "Connect all your apps without writing code",
+                "Automate lead capture, follow-up, and CRM updates",
+                "Build AI assistants that handle common inquiries",
+                "Generate reports and dashboards automatically",
+                "Trigger actions across systems based on events",
+                "Works with 1,000+ apps including WhatsApp, Gmail, Notion, Slack, and more",
+              ].map((item) => (
+                <div key={item} className="flex items-start gap-3 text-gray-300">
+                  <CheckCircle2 className="w-4 h-4 text-emerald-400 flex-shrink-0 mt-0.5" />
+                  <span className="text-sm">{item}</span>
+                </div>
+              ))}
+            </motion.div>
+          </div>
+        </div>
+      </section>
+
+      {/* HOW IT WORKS */}
+      <section className="py-24 md:py-32 border-t border-white/5">
+        <div className="max-w-[1200px] mx-auto px-6 md:px-12">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            className="mb-16 text-center"
+          >
+            <span className="text-xs font-mono text-emerald-400 uppercase tracking-widest">Our Process</span>
+            <h2 className="text-4xl md:text-5xl font-bold text-white tracking-tighter mt-4">
+              From audit to live automation.
+            </h2>
+          </motion.div>
+          <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
+            {[
+              { step: "01", title: "Audit", desc: "We analyze your current workflows and identify the biggest automation opportunities." },
+              { step: "02", title: "Design", desc: "We map the automation flows and present a clear plan before building anything." },
+              { step: "03", title: "Build", desc: "We build, test, and refine the automations until they work perfectly." },
+              { step: "04", title: "Launch & Support", desc: "We go live, monitor performance, and support you as your needs grow." },
+            ].map((item, i) => (
+              <motion.div
+                key={item.step}
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.5, delay: i * 0.1 }}
+                className="text-center"
+              >
+                <div className="inline-flex items-center justify-center w-12 h-12 rounded-full border border-emerald-500/30 bg-emerald-500/10 text-emerald-400 font-bold text-sm mb-4 mx-auto">
+                  {item.step}
+                </div>
+                <h3 className="text-white font-bold mb-2">{item.title}</h3>
+                <p className="text-gray-400 text-sm leading-relaxed">{item.desc}</p>
+              </motion.div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* CTA */}
+      <section className="py-32 border-t border-white/5 relative overflow-hidden">
+        <div className="absolute inset-0 pointer-events-none">
+          <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[500px] h-[500px] bg-emerald-600/8 rounded-full blur-[120px]" />
+        </div>
+        <div className="relative z-10 max-w-[1200px] mx-auto px-6 md:px-12 text-center">
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.8 }}
+          >
+            <h2 className="text-4xl md:text-6xl font-bold text-white tracking-tighter mb-6">
+              Ready to work smarter?
+            </h2>
+            <p className="text-gray-400 max-w-lg mx-auto text-lg leading-relaxed mb-10">
+              Tell us what you're doing manually today. We'll show you how to automate it.
+            </p>
+            <a
+              href="mailto:automation@dropwinggroups.com"
+              className="group inline-flex items-center gap-3 px-10 py-5 bg-emerald-600 text-white font-bold text-sm tracking-[0.15em] uppercase hover:bg-emerald-500 transition-colors rounded-sm"
+            >
+              Get in Touch
+              <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+            </a>
+          </motion.div>
+        </div>
+      </section>
+
+      <VentureEcosystem currentVenture="Persynix" />
+    </div>
+  );
 };
-
-// --- Subcomponents ---
-
-const RealityItem = ({ text }: { text: string }) => (
-    <div className="flex items-center gap-4 border-l border-white/10 pl-4 py-2">
-        <div className="w-1.5 h-1.5 bg-red-500/70 rounded-full" />
-        <span className="text-xl text-gray-300 font-medium">{text}</span>
-    </div>
-);
-
-const DomainCard = ({ icon, title, desc }: { icon: React.ReactNode; title: string; desc: string }) => (
-    <div className="bg-[#080808] p-8 group hover:bg-white/[0.03] transition-colors duration-300">
-        <div className="text-gray-600 group-hover:text-emerald-500 transition-colors mb-6">
-            {icon}
-        </div>
-        <h3 className="text-lg font-bold text-white mb-3 group-hover:text-emerald-50 transition-colors">{title}</h3>
-        <p className="text-sm text-gray-500 font-mono leading-relaxed group-hover:text-gray-400 transition-colors">
-            {desc}
-        </p>
-    </div>
-);
-
-const Principle = ({ title, text }: { title: string; text: string }) => (
-    <div className="group">
-        <h3 className="text-xl font-bold text-white mb-2 group-hover:text-emerald-400 transition-colors">{title}</h3>
-        <p className="text-gray-400 leading-relaxed max-w-3xl">
-            {text}
-        </p>
-        <div className="h-px bg-white/10 mt-6 max-w-xs group-hover:bg-emerald-500/30 transition-colors" />
-    </div>
-);
 
 export default PerSyniX;
