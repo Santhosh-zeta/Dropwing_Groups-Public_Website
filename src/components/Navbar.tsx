@@ -199,11 +199,11 @@ const Navbar = () => {
         {/* Right — Contact CTA + Mobile toggle */}
         <div className="absolute right-6 md:right-12 lg:right-20 flex items-center gap-4">
           <div className="hidden lg:block">
-            <Link to="/contact">
+            <a href="mailto:dropwinggroups@gmail.com">
               <Button variant="outline" className="h-9 px-6 text-[10px] font-bold tracking-[0.2em] uppercase border-white/10 hover:bg-white/5 hover:border-primary/40 hover:text-primary transition-all">
                 Contact Us
               </Button>
-            </Link>
+            </a>
           </div>
 
           {/* Mobile Menu */}
@@ -257,7 +257,7 @@ const Navbar = () => {
                   {[
                     { name: "Who We Are", path: "/who-we-are", num: "02" },
                     { name: "Blog", path: "/what-we-think", num: "03" },
-                    { name: "Contact Us", path: "/contact", num: "04" },
+                    { name: "Start a Project", path: "/contact", num: "04" },
                   ].map((link) => (
                     <Link
                       key={link.path}
@@ -273,6 +273,16 @@ const Navbar = () => {
                       </span>
                     </Link>
                   ))}
+
+                  <a 
+                    href="mailto:dropwinggroups@gmail.com"
+                    className="group flex items-center gap-4 py-2 border-b border-white/5"
+                  >
+                    <span className="text-xs font-mono text-muted-foreground/50">05</span>
+                    <span className="text-base font-bold tracking-widest uppercase text-muted-foreground group-hover:text-foreground transition-all duration-300">
+                      Contact Us
+                    </span>
+                  </a>
 
                   <div className="mt-auto pt-4 border-t border-white/5">
                     <p className="text-[10px] text-muted-foreground/50 uppercase tracking-widest">
