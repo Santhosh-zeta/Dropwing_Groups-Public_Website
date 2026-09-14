@@ -79,7 +79,7 @@ const PrivacyPolicy = () => {
                         <li>Correction of inaccurate data</li>
                         <li>Deletion of data where legally permissible</li>
                     </ul>
-                    <p className="text-muted-foreground pt-4">Requests may be submitted to: privacy@dropwinggroups.com</p>
+                    <p className="text-muted-foreground pt-4">Requests may be submitted to: dropwinggroups@gmail.com</p>
                 </section>
 
                 <section className="space-y-6">

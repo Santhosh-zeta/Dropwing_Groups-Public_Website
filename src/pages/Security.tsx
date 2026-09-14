@@ -37,7 +37,7 @@ const Security = () => {
                     </p>
                     <p className="text-muted-foreground pt-2">Please report issues to:</p>
                     <div className="pt-2">
-                        <a href="mailto:security@dropwinggroups.com" className="font-mono text-primary hover:underline">security@dropwinggroups.com</a>
+                        <a href="mailto:dropwinggroups@gmail.com" className="font-mono text-primary hover:underline">dropwinggroups@gmail.com</a>
                     </div>
                     <p className="text-muted-foreground pt-4">
                         Do not publicly disclose vulnerabilities before providing us reasonable time to investigate and respond.
