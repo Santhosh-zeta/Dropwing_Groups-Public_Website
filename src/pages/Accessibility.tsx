@@ -43,7 +43,7 @@ const Accessibility = () => {
                         If you encounter accessibility barriers or require assistance, please contact us at:
                     </p>
                     <div className="pt-2">
-                        <a href="mailto:accessibility@dropwinggroups.com" className="font-mono text-primary hover:underline">accessibility@dropwinggroups.com</a>
+                        <a href="mailto:dropwinggroups@gmail.com" className="font-mono text-primary hover:underline">dropwinggroups@gmail.com</a>
                     </div>
                     <p className="text-muted-foreground pt-4">
                         We take accessibility feedback seriously and will make reasonable efforts to address concerns.

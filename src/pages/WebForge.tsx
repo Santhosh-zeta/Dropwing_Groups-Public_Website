@@ -233,7 +233,7 @@ const WebForge = () => {
 
             {/* 7. THE GATE — DECISION */}
             <section className="py-40 bg-black flex items-center justify-center border-t border-white/5">
-                <a href="mailto:engineering@dropwinggroups.com" className="group text-center">
+                <a href="mailto:dropwinggroups@gmail.com" className="group text-center">
                     <p className="text-xs font-mono text-gray-600 uppercase tracking-widest mb-4 group-hover:text-gray-400 transition-colors">
                         Engineering Access
                     </p>

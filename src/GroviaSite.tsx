@@ -1584,7 +1584,7 @@ export default function GroviaSite() {
             }}
           >
             <a
-              href="mailto:marketing@dropwinggroups.com"
+              href="mailto:dropwinggroups@gmail.com"
               style={{
                 display: 'inline-flex',
                 alignItems: 'center',
@@ -1646,10 +1646,10 @@ export default function GroviaSite() {
           >
             Or reach us at{' '}
             <a
-              href="mailto:marketing@dropwinggroups.com"
+              href="mailto:dropwinggroups@gmail.com"
               style={{ color: 'rgba(255,255,255,0.8)', textDecoration: 'underline' }}
             >
-              marketing@dropwinggroups.com
+              dropwinggroups@gmail.com
             </a>
           </motion.p>
         </motion.div>
@@ -1793,12 +1793,12 @@ export default function GroviaSite() {
               <li style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
                 <Mail size={15} style={{ color: 'rgba(249,115,22,0.6)', flexShrink: 0 }} strokeWidth={1.75} />
                 <a
-                  href="mailto:marketing@dropwinggroups.com"
+                  href="mailto:dropwinggroups@gmail.com"
                   style={{ fontSize: '0.875rem', color: 'rgba(250,249,247,0.5)', textDecoration: 'none', transition: 'color 0.2s' }}
                   onMouseEnter={(e) => { (e.currentTarget as HTMLAnchorElement).style.color = '#f97316'; }}
                   onMouseLeave={(e) => { (e.currentTarget as HTMLAnchorElement).style.color = 'rgba(250,249,247,0.5)'; }}
                 >
-                  marketing@dropwinggroups.com
+                  dropwinggroups@gmail.com
                 </a>
               </li>
               <li style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>

@@ -280,7 +280,7 @@ const PerSyniX = () => {
 
             {/* 8. THE GATE */}
             <section className="py-40 bg-black flex items-center justify-center">
-                <a href="mailto:intelligence@dropwinggroups.com" className="group text-center">
+                <a href="mailto:dropwinggroups@gmail.com" className="group text-center">
                     <p className="text-xs font-mono text-gray-600 uppercase tracking-widest mb-4 group-hover:text-emerald-500/70 transition-colors">
                         Consultative Access
                     </p>
