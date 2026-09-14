@@ -1298,7 +1298,7 @@ function CTASection() {
             }}
           >
             <a
-              href="mailto:hello@fenixa.in"
+              href="mailto:dropwinggroups@gmail.com"
               style={{
                 fontFamily: F.body,
                 fontWeight: 600,
@@ -1317,7 +1317,7 @@ function CTASection() {
               onMouseLeave={(e) => { (e.currentTarget as HTMLElement).style.background = C.accent; }}
             >
               <Mail size={15} />
-              hello@fenixa.in
+              dropwinggroups@gmail.com
             </a>
             <a
               href="https://wa.me/919363900110"
@@ -1364,7 +1364,7 @@ function CTASection() {
             }}
           >
             {[
-              { Icon: Mail,    label: 'hello@fenixa.in' },
+              { Icon: Mail,    label: 'dropwinggroups@gmail.com' },
               { Icon: Phone,   label: '+91 93639 00110' },
               { Icon: MapPin,  label: 'Chennai, India' },
             ].map(({ Icon, label }) => (
@@ -1499,7 +1499,7 @@ function Footer() {
           </div>
           <div style={{ display: 'flex', flexDirection: 'column', gap: 12 }}>
             {[
-              { Icon: Mail,    text: 'hello@fenixa.in',     href: 'mailto:hello@fenixa.in' },
+              { Icon: Mail,    text: 'dropwinggroups@gmail.com',     href: 'mailto:dropwinggroups@gmail.com' },
               { Icon: Phone,   text: '+91 93639 00110',      href: 'https://wa.me/919363900110' },
               { Icon: MapPin,  text: 'Chennai, Tamil Nadu, India', href: undefined },
             ].map(({ Icon, text, href }) => (
