@@ -163,7 +163,7 @@ const Philosophy = () => {
 
             {/* 5. THE GATE */}
             <section className="py-40 bg-black flex items-center justify-center border-t border-white/10">
-                <a href="mailto:alignment@dropwinggroups.com" className="group text-center">
+                <a href="mailto:dropwinggroups@gmail.com" className="group text-center">
                     <p className="text-xs font-mono text-gray-600 uppercase tracking-widest mb-4 group-hover:text-white transition-colors">
                         Partnership Threshold
                     </p>
