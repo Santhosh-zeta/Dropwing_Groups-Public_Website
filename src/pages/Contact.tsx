@@ -113,33 +113,28 @@ const CameraRig = ({ scrollYProgress, isSuccess }: { scrollYProgress: any, isSuc
 const CustomInput = ({ label, type = "text", id, value, onChange }: any) => {
     const [isFocused, setIsFocused] = useState(false);
     return (
-        <div className="relative w-full mb-10 pt-6">
+        <div className="relative w-full mb-6">
             <motion.label
                 htmlFor={id}
                 initial={false}
                 animate={{
-                    y: (isFocused || value) ? -28 : 8,
-                    scale: (isFocused || value) ? 0.8 : 1,
-                    color: (isFocused || value) ? "#7C3AED" : "#A1A1AA"
+                    y: (isFocused || value) ? -10 : 16,
+                    scale: (isFocused || value) ? 0.85 : 1,
+                    color: (isFocused || value) ? "#a78bfa" : "#71717a"
                 }}
-                transition={{ duration: 0.25, ease: [0.22, 1, 0.36, 1] }}
-                className="absolute left-0 top-6 text-muted-foreground origin-left pointer-events-none uppercase tracking-widest text-xs font-semibold"
+                transition={{ duration: 0.2 }}
+                className="absolute left-4 top-0 pointer-events-none origin-left uppercase tracking-wider text-xs font-semibold z-10"
             >
                 {label}
             </motion.label>
-            <input
-                type={type} id={id} value={value} onChange={onChange}
-                onFocus={() => setIsFocused(true)} onBlur={() => setIsFocused(false)}
-                className="w-full bg-transparent border-b border-[#3f3f46] pb-3 text-white focus:outline-none focus:ring-0 transition-colors duration-250"
-                style={{ backgroundColor: isFocused ? "rgba(124, 58, 237, 0.03)" : "transparent" }}
-                required
-            />
-            <motion.div
-                className="absolute bottom-0 left-0 w-full h-[1px] bg-[#7C3AED]"
-                initial={{ scaleX: 0 }} animate={{ scaleX: isFocused ? 1 : 0 }}
-                transition={{ duration: 0.25, ease: [0.22, 1, 0.36, 1] }}
-                style={{ originX: 0.5 }}
-            />
+            <div className="relative">
+                <input
+                    type={type} id={id} value={value} onChange={onChange}
+                    onFocus={() => setIsFocused(true)} onBlur={() => setIsFocused(false)}
+                    className={`w-full bg-[#18181b]/60 backdrop-blur-md border rounded-xl px-4 pt-6 pb-2 text-white focus:outline-none focus:ring-0 transition-all duration-300 ${isFocused ? 'border-[#8b5cf6] shadow-[0_0_15px_rgba(139,92,246,0.3)]' : 'border-[#27272a] hover:border-[#3f3f46]'}`}
+                    required
+                />
+            </div>
         </div>
     );
 };
@@ -147,34 +142,29 @@ const CustomInput = ({ label, type = "text", id, value, onChange }: any) => {
 const CustomTextarea = ({ label, id, value, onChange }: any) => {
     const [isFocused, setIsFocused] = useState(false);
     return (
-        <div className="relative w-full mb-10 pt-6">
+        <div className="relative w-full mb-6">
             <motion.label
                 htmlFor={id}
                 initial={false}
                 animate={{
-                    y: (isFocused || value) ? -28 : 8,
-                    scale: (isFocused || value) ? 0.8 : 1,
-                    color: (isFocused || value) ? "#7C3AED" : "#A1A1AA"
+                    y: (isFocused || value) ? -10 : 16,
+                    scale: (isFocused || value) ? 0.85 : 1,
+                    color: (isFocused || value) ? "#a78bfa" : "#71717a"
                 }}
-                transition={{ duration: 0.25, ease: [0.22, 1, 0.36, 1] }}
-                className="absolute left-0 top-6 text-muted-foreground origin-left pointer-events-none uppercase tracking-widest text-xs font-semibold"
+                transition={{ duration: 0.2 }}
+                className="absolute left-4 top-0 pointer-events-none origin-left uppercase tracking-wider text-xs font-semibold z-10"
             >
                 {label}
             </motion.label>
-            <textarea
-                id={id} value={value} onChange={onChange}
-                onFocus={() => setIsFocused(true)} onBlur={() => setIsFocused(false)}
-                rows={4}
-                className="w-full bg-transparent border-b border-[#3f3f46] pb-3 text-white focus:outline-none focus:ring-0 resize-none transition-colors duration-250"
-                style={{ backgroundColor: isFocused ? "rgba(124, 58, 237, 0.03)" : "transparent" }}
-                required
-            />
-            <motion.div
-                className="absolute bottom-[4px] left-0 w-full h-[1px] bg-[#7C3AED]"
-                initial={{ scaleX: 0 }} animate={{ scaleX: isFocused ? 1 : 0 }}
-                transition={{ duration: 0.25, ease: [0.22, 1, 0.36, 1] }}
-                style={{ originX: 0.5 }}
-            />
+            <div className="relative">
+                <textarea
+                    id={id} value={value} onChange={onChange}
+                    onFocus={() => setIsFocused(true)} onBlur={() => setIsFocused(false)}
+                    rows={4}
+                    className={`w-full bg-[#18181b]/60 backdrop-blur-md border rounded-xl px-4 pt-6 pb-2 text-white focus:outline-none focus:ring-0 resize-none transition-all duration-300 ${isFocused ? 'border-[#8b5cf6] shadow-[0_0_15px_rgba(139,92,246,0.3)]' : 'border-[#27272a] hover:border-[#3f3f46]'}`}
+                    required
+                />
+            </div>
         </div>
     );
 };
@@ -194,56 +184,46 @@ const CustomDropdown = ({ label, options, value, onChange }: any) => {
     }, []);
 
     return (
-        <div className="relative w-full mb-10 pt-6" ref={containerRef}>
+        <div className="relative w-full mb-6" ref={containerRef}>
             <motion.label
                 initial={false}
                 animate={{
-                    y: (isOpen || value) ? -28 : 8,
-                    scale: (isOpen || value) ? 0.8 : 1,
-                    color: (isOpen || value) ? "#7C3AED" : "#A1A1AA"
+                    y: (isOpen || value) ? -10 : 16,
+                    scale: (isOpen || value) ? 0.85 : 1,
+                    color: (isOpen || value) ? "#a78bfa" : "#71717a"
                 }}
-                transition={{ duration: 0.25, ease: [0.22, 1, 0.36, 1] }}
-                className="absolute left-0 top-6 text-muted-foreground origin-left pointer-events-none uppercase tracking-widest text-xs font-semibold"
+                transition={{ duration: 0.2 }}
+                className="absolute left-4 top-0 pointer-events-none origin-left uppercase tracking-wider text-xs font-semibold z-10"
             >
                 {label}
             </motion.label>
 
             <div
-                className="w-full border-b border-[#3f3f46] pb-3 text-white cursor-pointer relative transition-colors duration-250"
+                className={`w-full bg-[#18181b]/60 backdrop-blur-md border rounded-xl px-4 pt-6 pb-2 text-white cursor-pointer relative transition-all duration-300 ${isOpen ? 'border-[#8b5cf6] shadow-[0_0_15px_rgba(139,92,246,0.3)]' : 'border-[#27272a] hover:border-[#3f3f46]'}`}
                 onClick={() => setIsOpen(!isOpen)}
-                style={{ backgroundColor: isOpen ? "rgba(124, 58, 237, 0.03)" : "transparent" }}
             >
-                <div className="min-h-[24px]">{value || ""}</div>
-                <div className="absolute right-0 top-1/2 -translate-y-1/2 pointer-events-none text-muted-foreground transition-transform" style={{ transform: `translateY(-50%) rotate(${isOpen ? 180 : 0}deg)` }}>
+                <div className="min-h-[24px] text-sm">{value || ""}</div>
+                <div className="absolute right-4 top-1/2 -translate-y-1/2 pointer-events-none text-zinc-400 transition-transform" style={{ transform: `translateY(-50%) rotate(${isOpen ? 180 : 0}deg)` }}>
                     <svg width="12" height="8" viewBox="0 0 12 8" fill="none" xmlns="http://www.w3.org/2000/svg">
                         <path d="M1 1.5L6 6.5L11 1.5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
                     </svg>
                 </div>
             </div>
 
-            <motion.div
-                className="absolute bottom-0 left-0 w-full h-[1px] bg-[#7C3AED]"
-                initial={{ scaleX: 0 }} animate={{ scaleX: isOpen ? 1 : 0 }}
-                transition={{ duration: 0.25, ease: [0.22, 1, 0.36, 1] }}
-                style={{ originX: 0.5 }}
-            />
-
             <AnimatePresence>
                 {isOpen && (
                     <motion.div
-                        initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -10, transition: { duration: 0.15 } }}
-                        className="absolute left-0 top-full mt-2 w-full z-50 rounded-md backdrop-blur-md bg-[#0E0F12]/90 border border-[#3f3f46]/50 shadow-[0_8px_32px_rgba(0,0,0,0.5)] overflow-hidden"
+                        initial={{ opacity: 0, y: 10, scale: 0.98 }} animate={{ opacity: 1, y: 0, scale: 1 }} exit={{ opacity: 0, y: -10, scale: 0.98, transition: { duration: 0.15 } }}
+                        className="absolute left-0 top-full mt-2 w-full z-50 rounded-xl backdrop-blur-xl bg-[#18181b]/95 border border-[#27272a] shadow-2xl overflow-hidden py-2"
                     >
                         {options.map((opt: string, i: number) => (
                             <motion.div
                                 key={opt}
-                                initial={{ opacity: 0, x: -10 }} animate={{ opacity: 1, x: 0 }} transition={{ delay: i * 0.05, duration: 0.2, ease: "easeOut" }}
+                                initial={{ opacity: 0, x: -10 }} animate={{ opacity: 1, x: 0 }} transition={{ delay: i * 0.03, duration: 0.2 }}
                                 onClick={() => { onChange(opt); setIsOpen(false); }}
-                                className="px-5 py-4 cursor-pointer text-[#A1A1AA] hover:text-white relative group transition-colors duration-200"
+                                className="px-5 py-3 cursor-pointer text-zinc-400 hover:text-white hover:bg-[#8b5cf6]/10 relative group transition-colors duration-200"
                             >
                                 <span className="relative z-10 text-sm font-medium tracking-wide">{opt}</span>
-                                <div className="absolute left-0 top-0 bottom-0 w-1 bg-[#7C3AED] scale-y-0 group-hover:scale-y-100 transition-transform origin-center duration-200 ease-out" />
-                                <div className="absolute inset-0 bg-[#7C3AED]/0 group-hover:bg-[#7C3AED]/5 transition-colors duration-200" />
                             </motion.div>
                         ))}
                     </motion.div>
@@ -256,32 +236,27 @@ const CustomDropdown = ({ label, options, value, onChange }: any) => {
 const SubmitButton = ({ isProcessing, isSuccess }: { isProcessing: boolean, isSuccess: boolean }) => {
     return (
         <motion.button
-            whileHover={!isProcessing && !isSuccess ? { scale: 1.01, backgroundColor: "rgba(255, 255, 255, 0.02)" } : {}}
+            whileHover={!isProcessing && !isSuccess ? { scale: 1.02 } : {}}
             whileTap={!isProcessing && !isSuccess ? { scale: 0.98 } : {}}
             type="submit"
             disabled={isProcessing || isSuccess}
-            className="group relative w-full md:w-auto px-12 py-4 bg-transparent border border-[#3f3f46] text-white font-semibold uppercase tracking-[0.15em] overflow-hidden transition-all duration-300 text-sm rounded-md shadow-2xl"
+            className="relative w-full px-8 py-4 rounded-xl font-bold uppercase tracking-[0.2em] overflow-hidden transition-all duration-500 text-sm shadow-[0_0_20px_rgba(139,92,246,0.2)] hover:shadow-[0_0_30px_rgba(139,92,246,0.5)] border border-[#8b5cf6]/50 bg-gradient-to-r from-[#8b5cf6]/20 to-[#6d28d9]/20 backdrop-blur-md"
         >
-            {/* Edge Glow */}
-            <div className={`absolute inset-0 shadow-[0_0_15px_rgba(124,58,237,0)] group-hover:shadow-[0_0_20px_rgba(124,58,237,0.3)] transition-shadow duration-500 rounded-md ${isProcessing ? 'opacity-0' : 'opacity-100'}`} />
-
-            {/* Border Light effect via tailwind gradient pseudo element pattern */}
-            <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none rounded-md overflow-hidden">
-                <div className="absolute inset-0 bg-gradient-to-r from-transparent via-[#7C3AED] to-transparent w-[200%] -translate-x-full animate-[slide-right_2s_linear_infinite]" />
-            </div>
-
+            <div className="absolute inset-0 bg-gradient-to-r from-[#8b5cf6] to-[#6d28d9] opacity-0 hover:opacity-20 transition-opacity duration-500" />
+            
             <div className="relative z-10 flex items-center justify-center min-h-[24px]">
                 {isProcessing ? (
-                    <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="flex items-center gap-3 text-[#A1A1AA]">
-                        <div className="w-4 h-4 rounded-full border-[2px] border-t-[#7C3AED] border-r-[#7C3AED] border-b-transparent border-l-transparent animate-spin" />
-                        PROCESSING ALIGNMENT...
+                    <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="flex items-center gap-3 text-white">
+                        <div className="w-5 h-5 rounded-full border-[2px] border-t-white border-r-white border-b-transparent border-l-transparent animate-spin" />
+                        PROCESSING...
                     </motion.div>
                 ) : isSuccess ? (
-                    <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="text-[#7C3AED]">
-                        ALIGNMENT RECEIVED
+                    <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="text-white flex items-center gap-2">
+                        <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 13l4 4L19 7"></path></svg>
+                        RECEIVED
                     </motion.div>
                 ) : (
-                    "INITIATE ENGAGEMENT"
+                    <span className="text-white drop-shadow-[0_2px_4px_rgba(0,0,0,0.5)]">INITIATE ENGAGEMENT</span>
                 )}
             </div>
         </motion.button>
@@ -308,13 +283,36 @@ export default function Contact1() {
         return () => window.removeEventListener('resize', checkMobile);
     }, []);
 
-    const handleSubmit = (e: React.FormEvent) => {
+    const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
         setFormState("processing");
-        setTimeout(() => {
-            setFormState("success");
-            window.scrollTo({ top: 0, behavior: 'smooth' });
-        }, 2000);
+
+        try {
+            const response = await fetch('/send_email.php', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(formData)
+            });
+
+            const data = await response.json();
+
+            if (response.ok) {
+                setFormState("success");
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+                // Reset form data after success
+                setTimeout(() => {
+                    setFormData({ name: "", org: "", email: "", scope: "", objective: "" });
+                    setFormState("idle");
+                }, 4000); // Reset after 4 seconds of showing success message
+            } else {
+                alert(data.error || 'Failed to initiate engagement. Please try again.');
+                setFormState("idle");
+            }
+        } catch (error) {
+            console.error('Email error:', error);
+            alert('A system error occurred. Please try again later.');
+            setFormState("idle");
+        }
     };
 
     const heroOpacity = useTransform(scrollYProgress, [0, 0.15], [1, 0]);

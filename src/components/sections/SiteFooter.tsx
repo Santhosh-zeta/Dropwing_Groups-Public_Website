@@ -131,13 +131,13 @@ const SiteFooter = () => {
           {/* Company links */}
           <GridCell to="/who-we-are" label="Who We Are" sub="Company" />
           <GridCell to="/what-we-think" label="Blog" sub="Insights" />
-          <GridCell to="/contact" label="Contact Us" sub="Connect" />
+          <GridCell to="mailto:dropwinggroups@gmail.com" label="Contact Us" sub="Connect" />
 
           {/* Social */}
           <div className="col-span-2 p-6 md:p-8 border-b border-r border-white/5 hover:bg-white/5 transition-colors duration-300 flex flex-col justify-between min-h-[120px] md:min-h-[140px] group">
             <span className="text-[10px] font-bold text-gray-700 uppercase tracking-widest group-hover:text-white/40 transition-colors">Connect With Us</span>
             <div className="flex flex-wrap gap-3 opacity-60 group-hover:opacity-100 transition-opacity duration-300">
-              <SocialIcon href="mailto:hello@dropwinggroups.com" label="Email" icon={<Mail className="w-4 h-4" />} />
+              <SocialIcon href="mailto:dropwinggroups@gmail.com" label="Email" icon={<Mail className="w-4 h-4" />} />
               <SocialIcon href="https://wa.me/919363900110" label="WhatsApp" icon={<WhatsappIcon className="w-4 h-4" />} />
               <SocialIcon href="https://linkedin.com/company/dropwinggroups" label="LinkedIn" icon={<Linkedin className="w-4 h-4" />} />
               <SocialIcon href="https://instagram.com/dropwinggroups" label="Instagram" icon={<Instagram className="w-4 h-4" />} />
@@ -171,15 +171,21 @@ const SiteFooter = () => {
   );
 };
 
-const GridCell = ({ to, label, sub }: { to: string; label: string; sub: string }) => (
-  <Link to={to} className="block p-6 md:p-8 border-b border-r border-white/5 hover:bg-white/5 transition-colors duration-300 group min-h-[100px] md:min-h-[120px] flex flex-col justify-between">
-    <span className="text-[9px] md:text-[10px] font-bold text-gray-700 uppercase tracking-widest group-hover:text-white/40 transition-colors">{sub}</span>
-    <h3 className="text-sm md:text-base text-gray-300 font-semibold group-hover:text-white transition-colors flex items-center gap-2">
-      {label}
-      <ArrowUpRight className="w-3 h-3 md:w-4 md:h-4 opacity-0 group-hover:opacity-100 transition-all duration-300 text-primary" />
-    </h3>
-  </Link>
-);
+const GridCell = ({ to, label, sub }: { to: string; label: string; sub: string }) => {
+  const isExternal = to.startsWith('http') || to.startsWith('mailto:');
+  const Component = isExternal ? 'a' : Link;
+  const props = isExternal ? { href: to } : { to };
+  
+  return (
+    <Component {...(props as any)} className="block p-6 md:p-8 border-b border-r border-white/5 hover:bg-white/5 transition-colors duration-300 group min-h-[100px] md:min-h-[120px] flex flex-col justify-between">
+      <span className="text-[9px] md:text-[10px] font-bold text-gray-700 uppercase tracking-widest group-hover:text-white/40 transition-colors">{sub}</span>
+      <h3 className="text-sm md:text-base text-gray-300 font-semibold group-hover:text-white transition-colors flex items-center gap-2">
+        {label}
+        <ArrowUpRight className="w-3 h-3 md:w-4 md:h-4 opacity-0 group-hover:opacity-100 transition-all duration-300 text-primary" />
+      </h3>
+    </Component>
+  );
+};
 
 const SocialIcon = ({ icon, href, label }: { icon: React.ReactNode; href?: string; label: string }) => (
   <a
