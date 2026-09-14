@@ -294,7 +294,7 @@ function Navbar() {
               {id === 'ai' ? 'AI' : id.charAt(0).toUpperCase() + id.slice(1)}
             </a>
           ))}
-          <a href="mailto:automation@dropwinggroups.com" className="btn-primary" style={{ padding: '9px 20px', fontSize: 13 }}>
+          <a href="mailto:dropwinggroups@gmail.com" className="btn-primary" style={{ padding: '9px 20px', fontSize: 13 }}>
             Get Started
           </a>
         </div>
@@ -320,7 +320,7 @@ function Navbar() {
               {id === 'ai' ? 'AI' : id.charAt(0).toUpperCase() + id.slice(1)}
             </a>
           ))}
-          <a href="mailto:automation@dropwinggroups.com"
+          <a href="mailto:dropwinggroups@gmail.com"
             style={{ display: 'inline-block', marginTop: 20, padding: '11px 26px', background: '#10b981', color: '#050a08', borderRadius: 6, fontWeight: 700, textDecoration: 'none', fontFamily: "'Syne', sans-serif" }}
           >
             Get Started
@@ -408,7 +408,7 @@ function Hero() {
           transition={{ duration: 0.5, delay: 0.52 }}
           style={{ display: 'flex', gap: 16, flexWrap: 'wrap' }}
         >
-          <a href="mailto:automation@dropwinggroups.com" className="btn-primary">
+          <a href="mailto:dropwinggroups@gmail.com" className="btn-primary">
             Automate My Business <ArrowRight size={16} />
           </a>
           <a href="#automation" className="btn-secondary">
@@ -643,7 +643,7 @@ function WhoShouldAutomate() {
             <p style={{ color: '#7aad98', fontSize: 15, lineHeight: 1.65, marginTop: 20, marginBottom: 36 }}>
               Most businesses don't realise how much time they lose to work that should already be automated. The signs are everywhere.
             </p>
-            <a href="mailto:automation@dropwinggroups.com" className="btn-primary">
+            <a href="mailto:dropwinggroups@gmail.com" className="btn-primary">
               Book a Free Audit <ArrowRight size={16} />
             </a>
           </motion.div>
@@ -702,7 +702,7 @@ function CTASection() {
             Book a free 30-minute automation audit — we'll show you exactly what can be automated and what it's worth to your bottom line.
           </motion.p>
           <motion.div variants={fadeUp} style={{ display: 'flex', gap: 16, justifyContent: 'center', flexWrap: 'wrap' }}>
-            <a href="mailto:automation@dropwinggroups.com" className="btn-primary" style={{ fontSize: 15, padding: '15px 32px' }}>
+            <a href="mailto:dropwinggroups@gmail.com" className="btn-primary" style={{ fontSize: 15, padding: '15px 32px' }}>
               Email Us <ArrowRight size={16} />
             </a>
             <a
@@ -716,7 +716,7 @@ function CTASection() {
             </a>
           </motion.div>
           <motion.p variants={fadeUp} style={{ color: '#3d6b56', fontSize: 13, marginTop: 28 }}>
-            automation@dropwinggroups.com · +91 93639 00110
+            dropwinggroups@gmail.com · +91 93639 00110
           </motion.p>
         </motion.div>
       </W>
@@ -746,7 +746,7 @@ function Footer() {
               Business automation using n8n, Make, Zapier, and custom AI. We eliminate manual work so your team can focus on what matters.
             </p>
             <div style={{ color: '#3d6b56', fontSize: 13 }}>
-              automation@dropwinggroups.com
+              dropwinggroups@gmail.com
             </div>
           </div>
 
@@ -765,7 +765,7 @@ function Footer() {
             <div style={{ fontFamily: "'Syne', sans-serif", fontWeight: 700, fontSize: 12, letterSpacing: '0.1em', textTransform: 'uppercase', color: '#3d6b56', marginBottom: 20 }}>
               Contact
             </div>
-            <a href="mailto:automation@dropwinggroups.com" className="footer-link">Email Us</a>
+            <a href="mailto:dropwinggroups@gmail.com" className="footer-link">Email Us</a>
             <a href="https://wa.me/919363900110" target="_blank" rel="noopener noreferrer" className="footer-link">WhatsApp</a>
             <a href="https://dropwinggroups.com" target="_blank" rel="noopener noreferrer" className="footer-link">Dropwing Groups</a>
           </div>
