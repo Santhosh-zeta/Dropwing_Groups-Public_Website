@@ -1,226 +1,58 @@
-import { motion } from "framer-motion";
+import { motion, useReducedMotion } from "framer-motion";
+import { ArrowRight } from "lucide-react";
 import { Link } from "react-router-dom";
-import HeroBackgroundV2 from "./HeroBackgroundV2";
 import HeroBackground from "./HeroBackground";
+import HeroBackgroundV2 from "./HeroBackgroundV2";
 import logoImage from "@/assets/DG_Logo_Dark (1).png";
 
+const capabilities = ["Digital infrastructure", "Synthetic intelligence", "Brand systems"];
+
 const Hero = () => {
+  const reduceMotion = useReducedMotion();
+  const rise = reduceMotion ? {} : { initial: { opacity: 0, y: 18 }, animate: { opacity: 1, y: 0 } };
+
   return (
-    <section className="relative flex min-h-screen items-center justify-center overflow-hidden bg-structural text-structural-foreground">
+    <section className="relative isolate min-h-[760px] overflow-hidden bg-structural text-structural-foreground lg:min-h-screen">
+      <div className="absolute inset-0 lg:hidden"><HeroBackground /></div>
+      <div className="absolute inset-0 hidden lg:block"><HeroBackgroundV2 /></div>
+      <div className="absolute inset-0 bg-[linear-gradient(90deg,rgba(5,7,11,.92)_0%,rgba(5,7,11,.62)_50%,rgba(5,7,11,.2)_100%)]" />
 
-      {/* MOBILE BACKGROUND (Original) */}
-      <div className="absolute inset-0 block lg:hidden">
-        <HeroBackground />
-      </div>
-
-      {/* DESKTOP BACKGROUND (Singularity) */}
-      <div className="absolute inset-0 hidden lg:block">
-        <HeroBackgroundV2 />
-      </div>
-
-      <div className="relative z-10 w-full max-w-[1600px] px-6 md:px-12 lg:px-20 pt-20 h-screen flex items-center">
-
-        {/* =========================================
-                   MOBILE CONTENT (Original Centered Layout)
-                   ========================================= */}
-        <div className="w-full h-full flex items-center lg:hidden">
-          <div className="flex flex-col items-start justify-center w-full">
-
-            {/* Label / Overline */}
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.8, delay: 0.5 }}
-              className="mb-8 flex items-center gap-4"
-            >
-              <span className="h-[1px] w-12 bg-primary/60"></span>
-              <span className="text-xs font-bold tracking-[0.3em] text-primary/80 uppercase">
-                Operational Sovereignty
-              </span>
-            </motion.div>
-
-            {/* Massive Kinetic Typography */}
-            <h1 className="relative font-bold leading-[0.9] tracking-tighter text-white">
-              <div className="overflow-hidden">
-                <motion.div
-                  initial={{ y: "100%" }}
-                  animate={{ y: 0 }}
-                  transition={{ duration: 1, ease: [0.16, 1, 0.3, 1], delay: 0.2 }}
-                  className="text-[12vw] md:text-[8vw] xl:text-[7vw] text-transparent [-webkit-text-stroke:1px_rgba(255,255,255,0.8)]"
-                >
-                  EXECUTION
-                </motion.div>
-              </div>
-
-              <div className="overflow-hidden">
-                <motion.div
-                  initial={{ y: "100%" }}
-                  animate={{ y: 0 }}
-                  transition={{ duration: 1, ease: [0.16, 1, 0.3, 1], delay: 0.35 }}
-                  className="flex items-center gap-4 text-[12vw] md:text-[8vw] xl:text-[7vw] text-white"
-                >
-                  <span>IS</span>
-                  <span className="h-[2px] w-[1em] bg-primary block mt-4"></span>
-                </motion.div>
-              </div>
-
-              <div className="overflow-hidden">
-                <motion.div
-                  initial={{ y: "100%" }}
-                  animate={{ y: 0 }}
-                  transition={{ duration: 1, ease: [0.16, 1, 0.3, 1], delay: 0.5 }}
-                  className="text-[12vw] md:text-[8vw] xl:text-[7vw] text-white"
-                >
-                  OWNERSHIP
-                </motion.div>
-              </div>
+      <div className="site-container relative z-10 flex min-h-[760px] items-center pt-24 lg:min-h-screen">
+        <div className="grid w-full items-center gap-12 lg:grid-cols-[minmax(0,1.05fr)_minmax(360px,.95fr)]">
+          <div className="max-w-4xl">
+            <motion.p {...rise} transition={{ duration: .6 }} className="eyebrow mb-7 flex items-center gap-3">
+              <span className="h-px w-9 bg-primary" /> Operational sovereignty
+            </motion.p>
+            <h1 className="max-w-3xl text-[clamp(3.25rem,8vw,7.25rem)] font-bold leading-[.87] tracking-[-.075em] text-white">
+              <motion.span {...rise} transition={{ duration: .7, delay: .08 }} className="block text-white/45 [-webkit-text-stroke:1px_rgba(255,255,255,.62)]">Execution</motion.span>
+              <motion.span {...rise} transition={{ duration: .7, delay: .16 }} className="block">is ownership.</motion.span>
             </h1>
-
-            {/* Subtext and CTA */}
-            <motion.div
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              transition={{ duration: 1, delay: 1 }}
-              className="mt-12 max-w-xl"
-            >
-              <p className="text-lg md:text-xl leading-relaxed text-gray-300 mb-10 bg-black/20 backdrop-blur-sm p-6 border-l-2 border-primary/40">
-                The era of advisory is over. Dropwing Groups builds, runs, and governs
-                institutional grade operating models. We don't just recommend the path.
-                <span className="text-white font-semibold"> We walk it with you.</span>
-              </p>
-
-              <Link
-                to="/contact"
-                className="group relative inline-flex items-center gap-4 px-8 py-4 bg-primary/10 border border-primary/40 backdrop-blur-sm hover:bg-primary/20 hover:border-primary transition-all duration-300"
-              >
-                <span className="text-sm font-bold tracking-[0.2em] text-white uppercase">
-                  Initiate Engagement
-                </span>
-                <span className="text-primary group-hover:translate-x-1 transition-transform text-lg">→</span>
+            <motion.p {...rise} transition={{ duration: .7, delay: .25 }} className="mt-8 max-w-2xl border-l-2 border-primary/70 pl-5 text-lg leading-relaxed text-white/75 md:text-xl">
+              We build, operate, and scale the systems organizations depend on—from core infrastructure and governed intelligence to the brand systems that keep growth coherent.
+            </motion.p>
+            <motion.div {...rise} transition={{ duration: .7, delay: .35 }} className="mt-9 flex flex-col gap-3 sm:flex-row">
+              <Link to="/contact" className="inline-flex min-h-12 items-center justify-center gap-3 bg-primary px-6 py-3 text-xs font-bold uppercase tracking-[.16em] text-primary-foreground transition-colors hover:bg-primary/85">
+                Discuss your challenge <ArrowRight className="size-4" />
+              </Link>
+              <Link to="/what-we-do" className="inline-flex min-h-12 items-center justify-center gap-3 border border-white/20 bg-black/15 px-6 py-3 text-xs font-bold uppercase tracking-[.16em] text-white transition-colors hover:border-white/50 hover:bg-white/10">
+                Explore what we do
               </Link>
             </motion.div>
-          </div>
-        </div>
-
-
-        {/* =========================================
-                   DESKTOP CONTENT (Split Singularity Layout)
-                   ========================================= */}
-        <div className="hidden lg:grid grid-cols-2 gap-12 w-full h-full">
-
-          {/* Left Column: Text Content */}
-          <div className="flex flex-col justify-center items-start text-left order-1">
-
-            {/* Label / Overline */}
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.8, delay: 0.5 }}
-              className="mb-8 flex items-center gap-4"
-            >
-              <span className="h-[1px] w-12 bg-primary/60"></span>
-              <span className="text-xs font-bold tracking-[0.3em] text-primary/80 uppercase">
-                Operational Sovereignty
-              </span>
-            </motion.div>
-
-            {/* Massive Kinetic Typography */}
-            <h1 className="relative font-bold leading-[0.9] tracking-tighter text-white flex flex-col items-start mb-10">
-              <div className="overflow-hidden">
-                <motion.div
-                  initial={{ y: "100%" }}
-                  animate={{ y: 0 }}
-                  transition={{ duration: 1, ease: [0.16, 1, 0.3, 1], delay: 0.2 }}
-                  className="text-[12vw] md:text-[8vw] xl:text-[6vw] text-transparent [-webkit-text-stroke:1px_rgba(255,255,255,0.8)]"
-                >
-                  EXECUTION
-                </motion.div>
-              </div>
-
-              <div className="overflow-hidden">
-                <motion.div
-                  initial={{ y: "100%" }}
-                  animate={{ y: 0 }}
-                  transition={{ duration: 1, ease: [0.16, 1, 0.3, 1], delay: 0.35 }}
-                  className="flex items-center gap-4 text-[12vw] md:text-[8vw] xl:text-[6vw] text-white"
-                >
-                  <span>IS</span>
-                  <span className="h-[2px] w-[1em] bg-primary block mt-4"></span>
-                </motion.div>
-              </div>
-
-              <div className="overflow-hidden">
-                <motion.div
-                  initial={{ y: "100%" }}
-                  animate={{ y: 0 }}
-                  transition={{ duration: 1, ease: [0.16, 1, 0.3, 1], delay: 0.5 }}
-                  className="text-[12vw] md:text-[8vw] xl:text-[6vw] text-white"
-                >
-                  OWNERSHIP
-                </motion.div>
-              </div>
-            </h1>
-
-            {/* Subtext and CTA */}
-            <motion.div
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              transition={{ duration: 1, delay: 1 }}
-              className="max-w-xl"
-            >
-              <p className="text-lg md:text-xl leading-relaxed text-gray-300 mb-10 bg-black/20 backdrop-blur-sm p-6 border-l-2 border-primary/40 text-left">
-                The era of advisory is over. Dropwing Groups builds, runs, and governs
-                institutional grade operating models. We don't just recommend the path.
-                <span className="text-white font-semibold"> We walk it with you.</span>
-              </p>
-
-              <Link
-                to="/contact"
-                className="group relative inline-flex items-center gap-4 px-8 py-4 bg-primary/10 border border-primary/40 backdrop-blur-sm hover:bg-primary/20 hover:border-primary transition-all duration-300"
-              >
-                <span className="text-sm font-bold tracking-[0.2em] text-white uppercase">
-                  Initiate Engagement
-                </span>
-                <span className="text-primary group-hover:translate-x-1 transition-transform text-lg">→</span>
-              </Link>
-            </motion.div>
+            <ul className="mt-8 grid border-y border-white/10 lg:hidden">
+              {capabilities.map((capability, index) => <li key={capability} className="flex items-center gap-3 border-b border-white/10 py-3 last:border-b-0 text-xs font-semibold uppercase tracking-[.12em] text-white/75"><span className="font-mono text-primary">0{index + 1}</span>{capability}</li>)}
+            </ul>
           </div>
 
-          {/* Right Column: Visual Space (Logo in Singularity) */}
-          <div className="relative flex justify-center items-center order-2 h-auto">
-            {/* Logo positioned to match the Singularity center */}
-            <motion.div
-              initial={{ opacity: 0, scale: 0.8 }}
-              animate={{ opacity: 1, scale: 1 }}
-              transition={{ duration: 1, delay: 0.5 }}
-              className="relative z-20"
-            >
-              <div className="relative left-[27px] bottom-[5px] p-12 rounded-full">
-                {/* Glow behind logo */}
-                <div className="absolute inset-0 bg-primary/10 blur-[60px] rounded-full animate-pulse-slow"></div>
-
-                <img
-                  src={logoImage}
-                  alt="Dropwing Groups"
-                  className="relative h-48 md:h-64 w-auto object-contain drop-shadow-[0_0_20px_rgba(255,255,255,0.2)]"
-                />
-              </div>
-            </motion.div>
-          </div>
-
+          <motion.aside {...rise} transition={{ duration: .8, delay: .35 }} className="hidden justify-self-end border border-white/10 bg-black/25 p-6 backdrop-blur-sm lg:block">
+            <img src={logoImage} alt="Dropwing Groups" className="mb-10 h-16 w-auto opacity-90" />
+            <p className="mb-5 text-[10px] font-bold uppercase tracking-[.22em] text-white/45">What we build</p>
+            <ul className="space-y-4">
+              {capabilities.map((capability, index) => <li key={capability} className="flex items-center gap-4 border-t border-white/10 pt-4 text-sm text-white/80"><span className="font-mono text-xs text-primary">0{index + 1}</span>{capability}</li>)}
+            </ul>
+            <p className="mt-10 max-w-xs text-sm leading-relaxed text-white/50">One accountable operating partner across the systems that matter.</p>
+          </motion.aside>
         </div>
       </div>
-
-      {/* Scroll indicator (Shared) */}
-      <motion.div
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ delay: 2, duration: 1 }}
-        className="absolute bottom-12 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2"
-      >
-        <span className="text-[10px] tracking-[0.2em] text-gray-500 uppercase">Scroll</span>
-        <div className="w-[1px] h-12 bg-gradient-to-b from-primary to-transparent"></div>
-      </motion.div>
     </section>
   );
 };

@@ -12,6 +12,14 @@ const HeroBackground = () => {
         const ctx = canvas.getContext('2d', { alpha: false });
         if (!ctx) return;
 
+        if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+            canvas.width = container.offsetWidth;
+            canvas.height = container.offsetHeight;
+            ctx.fillStyle = '#000000';
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
+            return;
+        }
+
         let width = container.offsetWidth;
         let height = container.offsetHeight;
         let animationFrameId: number;

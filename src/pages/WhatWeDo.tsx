@@ -1,4 +1,3 @@
-import { motion } from "framer-motion";
 import { Link } from "react-router-dom";
 import { Server, BrainCircuit, Paintbrush, ArrowUpRight, ArrowRight } from "lucide-react";
 
@@ -62,11 +61,7 @@ const WhatWeDo = () => {
                 <div className="absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-background pointer-events-none" />
 
                 <div className="mx-auto max-w-[1400px] px-6 md:px-12 lg:px-20 relative z-10">
-                    <motion.div
-                        initial={{ opacity: 0, y: 20 }}
-                        animate={{ opacity: 1, y: 0 }}
-                        transition={{ duration: 0.7 }}
-                    >
+                    <div>
                         <div className="flex items-center gap-3 mb-6">
                             <div className="h-px w-8 bg-primary" />
                             <span className="text-xs font-mono text-primary uppercase tracking-widest">Operational Model</span>
@@ -98,7 +93,7 @@ const WhatWeDo = () => {
                                 <ArrowUpRight className="w-4 h-4" />
                             </Link>
                         </div>
-                    </motion.div>
+                    </div>
                 </div>
             </section>
 
@@ -110,14 +105,8 @@ const WhatWeDo = () => {
                 </div>
 
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-                    {capabilities.map((cap, i) => (
-                        <motion.div
-                            key={cap.id}
-                            initial={{ opacity: 0, y: 20 }}
-                            whileInView={{ opacity: 1, y: 0 }}
-                            viewport={{ once: true, amount: 0.2 }}
-                            transition={{ duration: 0.5, delay: i * 0.1 }}
-                        >
+                    {capabilities.map((cap) => (
+                        <div key={cap.id}>
                             <Link
                                 to={cap.link}
                                 className={`group block h-full border ${cap.border} bg-gradient-to-b ${cap.color} to-background/0 p-8 hover:border-primary/40 transition-all duration-300 relative overflow-hidden rounded-sm`}
@@ -144,7 +133,7 @@ const WhatWeDo = () => {
                                     Deep Dive <ArrowUpRight className="w-3.5 h-3.5" />
                                 </div>
                             </Link>
-                        </motion.div>
+                        </div>
                     ))}
                 </div>
             </section>
@@ -163,14 +152,8 @@ const WhatWeDo = () => {
                     </div>
 
                     <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-4">
-                        {ventures.map((v, i) => (
-                            <motion.div
-                                key={v.name}
-                                initial={{ opacity: 0, y: 16 }}
-                                whileInView={{ opacity: 1, y: 0 }}
-                                viewport={{ once: true }}
-                                transition={{ delay: i * 0.07 }}
-                            >
+                        {ventures.map((v) => (
+                            <div key={v.name}>
                                 <Link
                                     to={v.href}
                                     className="group flex flex-col justify-between h-full p-6 border border-border/40 bg-background hover:border-primary/40 hover:bg-muted/10 transition-all duration-300 rounded-sm"
@@ -184,7 +167,7 @@ const WhatWeDo = () => {
                                         Explore <ArrowUpRight className="w-3 h-3" />
                                     </div>
                                 </Link>
-                            </motion.div>
+                            </div>
                         ))}
                     </div>
                 </div>
@@ -193,12 +176,7 @@ const WhatWeDo = () => {
             {/* CTA Gate */}
             <section className="border-t border-border/40 py-32 text-center">
                 <div className="mx-auto max-w-2xl px-6">
-                    <motion.div
-                        initial={{ opacity: 0, y: 20 }}
-                        whileInView={{ opacity: 1, y: 0 }}
-                        viewport={{ once: true }}
-                        transition={{ duration: 0.6 }}
-                    >
+                    <div>
                         <div className="flex items-center justify-center gap-3 mb-8">
                             <div className="h-px w-12 bg-primary/40" />
                             <span className="text-[10px] font-mono text-muted-foreground uppercase tracking-widest">Next Step</span>
@@ -217,7 +195,7 @@ const WhatWeDo = () => {
                             Initiate Engagement
                             <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
                         </Link>
-                    </motion.div>
+                    </div>
                 </div>
             </section>
         </main>

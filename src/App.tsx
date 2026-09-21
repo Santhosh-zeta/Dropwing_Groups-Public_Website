@@ -4,33 +4,33 @@ import { TooltipProvider } from "@/components/ui/tooltip";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter, Routes, Route, useLocation } from "react-router-dom";
 import { AnimatePresence } from "framer-motion";
+import { lazy, Suspense } from "react";
 import PageTransition from "./components/PageTransition";
 import MainLayout from "./components/MainLayout";
-import Index from "./pages/Index";
-
-import WhatWeDo from "./pages/WhatWeDo";
-import Capabilities from "./pages/Capabilities";
-import WhatWeThink from "./pages/WhatWeThink";
-import WhoWeAre from "./pages/WhoWeAre";
-import Contact from "./pages/Contact";
-
-import NotFound from "./pages/NotFound";
-import InsightArticle from "./pages/InsightArticle";
-import DigitalInfrastructure from "./pages/DigitalInfrastructure";
-import SyntheticIntelligence from "./pages/SyntheticIntelligence";
-import BrandSovereignty from "./pages/BrandSovereignty";
-import WebForge from "./pages/WebForge";
-import DesignStudio from "./pages/DesignStudio";
-import ElevixPro from "./pages/ElevixPro";
-import PerSyniX from "./pages/PerSyniX";
-import Grovia from "./pages/Grovia";
-import PrivacyPolicy from "./pages/PrivacyPolicy";
-import TermsOfService from "./pages/TermsOfService";
-import Accessibility from "./pages/Accessibility";
-import Security from "./pages/Security";
-import Philosophy from "./pages/Philosophy";
-import Careers from "./pages/Careers";
 import { HelmetProvider } from 'react-helmet-async';
+
+const Index = lazy(() => import("./pages/Index"));
+const WhatWeDo = lazy(() => import("./pages/WhatWeDo"));
+const Capabilities = lazy(() => import("./pages/Capabilities"));
+const WhatWeThink = lazy(() => import("./pages/WhatWeThink"));
+const WhoWeAre = lazy(() => import("./pages/WhoWeAre"));
+const Contact = lazy(() => import("./pages/Contact"));
+const NotFound = lazy(() => import("./pages/NotFound"));
+const InsightArticle = lazy(() => import("./pages/InsightArticle"));
+const DigitalInfrastructure = lazy(() => import("./pages/DigitalInfrastructure"));
+const SyntheticIntelligence = lazy(() => import("./pages/SyntheticIntelligence"));
+const BrandSovereignty = lazy(() => import("./pages/BrandSovereignty"));
+const WebForge = lazy(() => import("./pages/WebForge"));
+const DesignStudio = lazy(() => import("./pages/DesignStudio"));
+const ElevixPro = lazy(() => import("./pages/ElevixPro"));
+const PerSyniX = lazy(() => import("./pages/PerSyniX"));
+const Grovia = lazy(() => import("./pages/Grovia"));
+const PrivacyPolicy = lazy(() => import("./pages/PrivacyPolicy"));
+const TermsOfService = lazy(() => import("./pages/TermsOfService"));
+const Accessibility = lazy(() => import("./pages/Accessibility"));
+const Security = lazy(() => import("./pages/Security"));
+const Philosophy = lazy(() => import("./pages/Philosophy"));
+const Careers = lazy(() => import("./pages/Careers"));
 
 const queryClient = new QueryClient();
 
@@ -38,6 +38,7 @@ const AnimatedRoutes = () => {
   const location = useLocation();
 
   return (
+    <Suspense fallback={<main className="min-h-screen bg-background" aria-busy="true" aria-label="Loading page" />}>
     <Routes location={location} key={location.pathname}>
       {/* Standard Pages wrapped in MainLayout */}
       <Route element={<MainLayout />}>
@@ -73,6 +74,7 @@ const AnimatedRoutes = () => {
         </AnimatePresence>
       } />
     </Routes>
+    </Suspense>
   );
 };
 

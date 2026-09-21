@@ -1,5 +1,4 @@
 import { useState, useEffect, useRef } from "react";
-import { useSectionReveal } from "@/hooks/useSectionReveal";
 import insight1 from "@/assets/insight-1.jpg";
 import insight2 from "@/assets/insight-2.jpg";
 import insight3 from "@/assets/insight-3.jpg";
@@ -120,7 +119,6 @@ const InteractiveCard = ({ card }: { card: InsightCard }) => (
 );
 
 const FeaturedInsights = () => {
-  const { ref, isVisible } = useSectionReveal();
   const [currentIndex, setCurrentIndex] = useState(0);
   const [isAutoPlaying, setIsAutoPlaying] = useState(true);
   const touchStartX = useRef(0);
@@ -184,19 +182,15 @@ const FeaturedInsights = () => {
 
   return (
     <section className="section-divider bg-background">
-      <div
-        ref={ref}
-        className={`section-reveal mx-auto max-w-[1400px] px-6 py-20 md:px-12 md:py-24 lg:px-20 lg:py-28 ${isVisible ? "is-visible" : ""
-          }`}
-      >
+      <div className="site-container py-16 md:py-20 lg:py-24">
         {/* Section Header */}
         <div className="mb-10 flex flex-col md:flex-row md:items-end md:justify-between gap-6">
           <div>
             <p className="mb-3 text-[10px] font-medium tracking-[0.25em] text-muted-foreground uppercase">
-              Featured Insights
+              Research & operating perspectives
             </p>
             <h2 className="text-3xl font-bold tracking-tight text-foreground md:text-4xl">
-              Intelligence from the field.
+              How we think about systems, technology, and organizational capability.
             </h2>
           </div>
           <Link

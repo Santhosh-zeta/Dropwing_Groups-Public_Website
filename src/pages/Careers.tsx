@@ -1,6 +1,7 @@
 import { motion } from "framer-motion";
 import { Link } from "react-router-dom";
 import { ArrowRight, Briefcase, MapPin, Clock } from "lucide-react";
+import SEO from "@/components/SEO";
 
 const openRoles = [
     {
@@ -36,6 +37,7 @@ const openRoles = [
 const Careers = () => {
     return (
         <main className="min-h-screen bg-background">
+            <SEO title="Careers" description="Join Dropwing Groups to build, operate, and own systems that organizations depend on." />
             {/* Hero */}
             <section className="relative pt-36 pb-24 md:pt-44 md:pb-32 border-b border-border/40 overflow-hidden">
                 <div className="absolute inset-0 bg-[linear-gradient(to_right,#80808008_1px,transparent_1px),linear-gradient(to_bottom,#80808008_1px,transparent_1px)] bg-[size:64px_64px] pointer-events-none" />
@@ -122,7 +124,7 @@ const Careers = () => {
                                         <span className="flex items-center gap-1.5"><MapPin className="w-3 h-3" />{role.location}</span>
                                     </div>
                                     <Link
-                                        to="/contact"
+                                        to={`/contact?role=${encodeURIComponent(role.title)}`}
                                         className="inline-flex items-center gap-2 text-xs font-bold uppercase tracking-widest text-foreground border border-border/40 px-5 py-2.5 hover:bg-primary hover:text-primary-foreground hover:border-primary transition-all duration-300 group/btn"
                                     >
                                         Apply <ArrowRight className="w-3 h-3 group-hover/btn:translate-x-1 transition-transform" />
@@ -148,7 +150,7 @@ const Careers = () => {
                         </p>
                     </div>
                     <Link
-                        to="/contact"
+                        to="/contact?role=Open%20Application"
                         className="group shrink-0 inline-flex items-center gap-3 px-8 py-4 bg-primary text-primary-foreground text-sm font-bold tracking-widest uppercase hover:bg-primary/90 transition-colors"
                     >
                         Open Application

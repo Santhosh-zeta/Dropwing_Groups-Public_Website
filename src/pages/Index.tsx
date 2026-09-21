@@ -1,25 +1,20 @@
 import Hero from "@/components/Hero";
+import SEO from "@/components/SEO";
 import FeaturedInsights from "@/components/sections/FeaturedInsights";
-import PhilosophyStatement from "@/components/sections/PhilosophyStatement";
-import TheReality from "@/components/sections/TheReality";
-import OperatingModel from "@/components/sections/OperatingModel";
-import GovernanceScale from "@/components/sections/GovernanceScale";
-import EngagementSteps from "@/components/sections/EngagementSteps";
-import EngagementGate from "@/components/sections/EngagementGate";
+import { Ecosystem, OperatingModel, PeopleAndEngagement, ProblemsWeSolve, ProofStrip, WhatWeBuild } from "@/components/sections/HomeRedesign";
 
-const Index = () => {
-  return (
-    <main>
-      <Hero />
-      <FeaturedInsights />
-      <PhilosophyStatement />
-      <TheReality />
-      <OperatingModel />
-      <GovernanceScale />
-      <EngagementSteps />
-      <EngagementGate />
-    </main>
-  );
-};
+const Index = () => (
+  <main id="main-content">
+    <SEO title="Execution Is Ownership" description="Dropwing Groups builds, operates, and scales the infrastructure, governed intelligence, and brand systems organizations depend on." />
+    <Hero />
+    <ProofStrip />
+    <WhatWeBuild />
+    <ProblemsWeSolve />
+    <OperatingModel />
+    <Ecosystem />
+    <FeaturedInsights />
+    <PeopleAndEngagement />
+  </main>
+);
 
 export default Index;
